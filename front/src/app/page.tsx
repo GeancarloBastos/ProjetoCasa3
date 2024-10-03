@@ -14,14 +14,43 @@ export default function Page() {
 
 
   return (
-    <main>  
-    <div className=""> 
+    <main>
       <div className="">
-        <Carousel />  
-      </div>
+        <div className="">
+          <Carousel />
+        </div>
+        {/* Seção Sobre */}
+        <section id="about" className="bg-white py-16">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold mb-4">Sobre Nós</h2>
+            <p className="text-gray-700">Informações sobre a empresa, missão, visão, etc.</p>
+          </div>
+        </section>
+
+        {/* Seção de Serviços */}
+        <section id="services" className="bg-gray-100 py-16">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold mb-4">Nossos Serviços</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="bg-white p-6 shadow-md rounded-lg">
+                <h3 className="text-xl font-bold mb-2">Serviço 1</h3>
+                <p className="text-gray-700">Descrição do serviço 1.</p>
+              </div>
+              <div className="bg-white p-6 shadow-md rounded-lg">
+                <h3 className="text-xl font-bold mb-2">Serviço 2</h3>
+                <p className="text-gray-700">Descrição do serviço 2.</p>
+              </div>
+              <div className="bg-white p-6 shadow-md rounded-lg">
+                <h3 className="text-xl font-bold mb-2">Serviço 3</h3>
+                <p className="text-gray-700">Descrição do serviço 3.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <Avaliacoes />
         <FAQ />
-    </div>  
-  </main>  
+      </div>
+    </main>
   );
 }
