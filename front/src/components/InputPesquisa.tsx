@@ -15,7 +15,6 @@ export function InputPesquisa({ setMoveis }: InputPesquisaProps) {
   const { register, handleSubmit, reset } = useForm<Inputs>()
 
   async function enviaPesquisa(data: Inputs) {
-    //    alert(data.termo)
     if (data.termo.length < 2) {
       alert("Informe, no mínimo, 2 caracteres para a pesquisa")
       return

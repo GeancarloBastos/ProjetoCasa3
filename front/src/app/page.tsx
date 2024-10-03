@@ -19,15 +19,13 @@ export default function Page() {
         <div className="">
           <Carousel />
         </div>
-        {/* Seção Sobre */}
-        <section id="about" className="bg-white py-16">
+        <section id="about" className="bg-colorc3bege py-16">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold mb-4">Sobre Nós</h2>
             <p className="text-gray-700">Informações sobre a empresa, missão, visão, etc.</p>
           </div>
         </section>
 
-        {/* Seção de Serviços */}
         <section id="services" className="bg-gray-100 py-16">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold mb-4">Nossos Serviços</h2>

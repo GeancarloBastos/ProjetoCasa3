@@ -33,7 +33,7 @@ export default function Carousel() {
             <div className="absolute left-0 top-0 p-16 text-white z-10 max-w-lg">  
               <h2 className="text-4xl font-bold mb-4">Design build kitchen the family</h2>  
               <p className="mb-4">Kitchens should be designed around what's truly important: family, food, and life.</p>  
-              <button className="bg-white text-black py-2 px-4 rounded">Visit Show Room</button>  
+              <button className="bg-white text-black py-2 px-4 rounded font-semibold">VISITE NOSSO CATÁLOGO</button>  
             </div>  
           </SwiperSlide>  
         ))}  

@@ -20,19 +20,22 @@ export default function Catalogo() {
     getDados()
   }, []);
 
-  const listaMoveis = moveis.map( movel => (
-    <ItemMoveis data={movel} key={movel.id} /> 
+  const listaMoveis = moveis.map(movel => (
+    <ItemMoveis data={movel} key={movel.id} />
   ));
 
   return (
-    <div className="mx-auto max-w-screen-xl">  
-      <h1 className="mt-2 mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-5xl text-center">  
-        Bem-vindo à Casa 3 Ambiente Personalizados  
-      </h1>   
-      <InputPesquisa setMoveis={setMoveis} />  
-      <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">  
+    <div className="mx-auto max-w-screen-xl">
+      <h1 className="mt-10 mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-5xl text-center">
+        Bem-vindo à Casa 3 Ambiente Personalizados
+      </h1>
+      <div className="mt-10">
+        <InputPesquisa setMoveis={setMoveis} />
+      </div>
+      <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
         {listaMoveis}
-      </section>  
-    </div>  
+      </section>
+
+    </div>
   );
 }

@@ -13,10 +13,10 @@ export default function Footer() {
           </div>
         </div>
         <div className="flex space-x-6">
-          <a href="home" className="hover:text-gray-300">Home</a>
-          <a href="detalhes" className="hover:text-gray-300">Sobre</a>
-          <a href="catalogo" className="hover:text-gray-300">Serviços</a>
-          <a href="contato" className="hover:text-gray-300">Contato</a>
+          <a href="home" className="hover:text-colorc3verde hover:underline">Home</a>
+          <a href="detalhes" className="hover:text-colorc3verde hover:underline">Sobre</a>
+          <a href="catalogo" className="hover:text-colorc3verde hover:underline">Catálogo</a>
+          <a href="contato" className="hover:text-colorc3verde hover:underline">Contato</a>
         </div>
         <div className="flex space-x-4 mt-4 md:mt-0">
           {/* Instagram */}
