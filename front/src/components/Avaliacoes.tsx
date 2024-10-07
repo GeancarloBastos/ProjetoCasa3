@@ -38,6 +38,7 @@ export default function Avaliacoes() {
     <div className="max-w-2xl mx-auto py-8">  
       <h2 className="text-3xl font-bold mb-6 text-center">Avaliações dos Clientes</h2>  
       <Swiper  
+        className='avaliacoes-swiper'
         modules={[Navigation, Pagination]}  
         spaceBetween={30}  
         slidesPerView={1}  
