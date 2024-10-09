@@ -1,19 +1,21 @@
 import { PrismaClient } from "@prisma/client"
 import { Router } from "express"
-import supabase from '../supabaseClient';
-import authenticateUser from "../middlewares/verificaToken";
+import bcrypt from 'bcrypt'
+import jwt from "jsonwebtoken"
+// import supabase from '../supabaseClient';
+// import authenticateUser from "../middlewares/DESCONTINUADOverificaToken";
 
 const prisma = new PrismaClient()
 const router = Router()
 
-router.get("/", async (req, res) => {
-  try {
-    const clientes = await prisma.cliente.findMany()
-    res.status(200).json(clientes)
-  } catch (error) {
-    res.status(400).json(error)
-  }
-})
+// router.get("/", async (req, res) => {
+//   try {
+//     const clientes = await prisma.cliente.findMany()
+//     res.status(200).json(clientes)
+//   } catch (error) {
+//     res.status(400).json(error)
+//   }
+// })
 
 function validaSenha(senha: string) {
 
@@ -56,58 +58,6 @@ function validaSenha(senha: string) {
   return mensa
 }
 
-// Rota para registrar usuários
-router.post('/register', async (req, res) => {
-  const { email, password } = req.body;
-
-  if (!email || !password) {
-    return res.status(400).json({ error: 'Email e senha são obrigatórios!' });
-  }
-
-  const erros = validaSenha(password)
-  if (erros.length > 0) {
-    res.status(400).json({ erro: erros.join("; ") })
-    return
-  }
-
-  // Cria o usuário no Supabase
-  const { data, error } = await supabase.auth.signUp({
-    email,
-    password,
-  });
-
-  if (error) {
-    return res.status(500).json({ error: error.message });
-  }
-
-  res.status(200).json({
-    message: 'Usuário criado com sucesso!',
-    user: data.user,
-  });
-});
-
-
-router.post('/login', async (req, res) => {
-  const { email, password } = req.body;
-
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email,
-    password,
-  });
-
-  if (error) {
-    return res.status(400).json({ error: error.message });
-  }
-
-  res.status(200).json({
-    message: 'Login bem-sucedido!',
-    token: data.session.access_token,
-    refresh: data.session.refresh_token
-  });
-});
-
-
-
 
 router.get("/:id", async (req, res) => {
   const { id } = req.params
@@ -133,6 +83,37 @@ router.get("/:id", async (req, res) => {
   }
 })
 
+router.post("/", async (req, res) => {
+  const { nome, email, senha, telefone,  } = req.body
+
+  if (!nome || !email || !senha || !telefone) {
+    res.status(400).json({ erro: "Informe nome, email, senha e telefone" })
+    return
+  }
+
+  const erros = validaSenha(senha)
+
+  if (erros.length > 0) {
+    res.status(400).json({ erro: erros.join("; ") })
+    return
+  }
+
+  // 12 é o número de voltas (repetições) que o algoritmo faz
+  // para gerar o salt (sal/tempero)
+  const salt = bcrypt.genSaltSync(12)
+  // gera o hash da senha acrescida do salt
+  const hash = bcrypt.hashSync(senha, salt)
+
+  // para o campo senha, atribui o hash gerado
+  try {
+    const cliente = await prisma.cliente.create({
+      data: { nome, email, senha: hash, telefone }
+    })
+    res.status(201).json(cliente)
+  } catch (error) {
+    res.status(400).json(error)
+  }
+})
 
 
 
@@ -140,45 +121,57 @@ router.get("/:id", async (req, res) => {
 
 
 
-// router.post("/login", async (req, res) => {
-//   const { email, senha } = req.body
 
-//   // em termos de segurança, o recomendado é exibir uma mensagem padrão
-//   // a fim de evitar de dar "dicas" sobre o processo de login para hackers
-//   const mensaPadrao = "Login ou senha incorretos"
+router.post("/login", async (req, res) => {
+  const { email, senha } = req.body
 
-//   if (!email || !senha) {
-//     // res.status(400).json({ erro: "Informe e-mail e senha do usuário" })
-//     res.status(400).json({ erro: mensaPadrao })
-//     return
-//   }
 
-//   try {
-//     const cliente = await prisma.cliente.findUnique({
-//       where: { email }
-//     })
 
-//     if (cliente == null) {
-//       // res.status(400).json({ erro: "E-mail inválido" })
-//       res.status(400).json({ erro: mensaPadrao })
-//       return
-//     }
+  const mensaPadrao = "Login ou senha incorretos"
 
-//     // se o e-mail existe, faz-se a comparação dos hashs
-//     if (bcrypt.compareSync(senha, cliente.senha)) {
-//       res.status(200).json({
-//         id: cliente.id,
-//         nome: cliente.nome,
-//         email: cliente.email
-//       })
-//     } else {
-//       // res.status(400).json({ erro: "Senha incorreta" })
-//       res.status(400).json({ erro: mensaPadrao })
-//     }
-//   } catch (error) {
-//     res.status(400).json(error)
-//   }
-// })
+  if (!email || !senha) {
+    // res.status(400).json({ erro: "Informe e-mail e senha do usuário" })
+    res.status(400).json({ erro: mensaPadrao })
+    return
+  }
+
+  try {
+    const usuario = await prisma.cliente.findFirst({
+      where: { email }
+    })
+
+    if (usuario == null) {
+      // res.status(400).json({ erro: "E-mail inválido" })
+      res.status(400).json({ erro: mensaPadrao })
+      return
+    }
+
+    // se o e-mail existe, faz-se a comparação dos hashs
+    if (bcrypt.compareSync(senha, usuario.senha)) {
+      // se confere, gera e retorna o token
+      const token = jwt.sign({
+        userLogadoId: usuario.id,
+        userLogadoNome: usuario.nome,
+        userLogadoCargo: usuario.cargo
+      },
+        process.env.JWT_KEY as string,
+        { expiresIn: "1h" }
+      )
+
+      res.status(200).json({
+        id: usuario.id,
+        nome: usuario.nome,
+        email: usuario.email,
+        token
+      })
+
+    } else {
+      res.status(400).json({ erro: mensaPadrao })
+    }
+  } catch (error) {
+    res.status(400).json(error)
+  }
+})
 
 
 

@@ -1,13 +1,14 @@
 import { PrismaClient } from "@prisma/client"
 import { Router } from "express"
 import multer from 'multer';
-import { decode } from "base64-arraybuffer";
+// import { decode } from "base64-arraybuffer";
 
-// supabaseClient.js
-import supabase from '../supabaseClient'
+
+
 
 // middleware login verificar token
-import authenticateUser from "../middlewares/verificaToken";
+import { verificaAutenticacao } from "../middlewares/verificaAutenticacao";
+import { verificaCargo } from "../middlewares/verificaCargo";
 
 
 
@@ -97,16 +98,18 @@ const upload = multer({ storage });
 //     url: publicUrl.data.publicUrl,
 //   });
 // });
-router.post('/upload', authenticateUser, upload.single('file'), async (req, res) => {
+router.post('/upload', verificaAutenticacao, verificaCargo("ADMIN"), upload.single('file'), async (req, res) => {
   const file = req.file;
 
   if (!file) {
     return res.status(400).json({ error: 'Nenhum arquivo enviado' });
   }
 
-    if (!req.file) {
+  if (!req.file) {
       return res.status(400).json({ error: 'Nenhum arquivo enviado' });
-    }
+  }
+
+  
 
 
   // if (!token) {
@@ -114,6 +117,7 @@ router.post('/upload', authenticateUser, upload.single('file'), async (req, res)
   // }
 
   try {
+    const supabase = res.locals.supabase
 
     // Faz o upload do arquivo usando a sessão autenticada
     const { originalname, buffer } = req.file;

@@ -41,6 +41,8 @@ model Cliente {
   nome         String   @db.VarChar(60)
   email        String   @db.VarChar(60) @unique
   senha        String   @db.VarChar(60)   // senha deve ser varchar(60)
+  telefone     String   @db.VarChar(20)
+  cargo        Cargo    @default(COMUM)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt  
   @@map("clientes")
@@ -54,4 +56,9 @@ enum TipoMaterial {
  AROMAS
  MANTAS
  ESPELHOS
+}
+
+enum Cargo {
+  COMUM
+  ADMIN
 }
