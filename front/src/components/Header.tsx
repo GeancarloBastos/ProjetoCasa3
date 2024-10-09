@@ -8,7 +8,7 @@ export function Header() {
           <img src="./logoCFundo.png" className="h-28" alt="Logo" />
         </Link>
 
-        <div className="hidden md:flex flex-grow justify-center items-center space-x-16 font-merri text-2xl">
+        <div className="hidden md:flex flex-grow justify-center items-center md:space-x-5 space-x-16 font-merri text-2xl">
           <Link href="/" className="font-semibold text-colorc3offbranco hover:text-colorc3verde">
             Início
           </Link>

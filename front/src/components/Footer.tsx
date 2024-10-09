@@ -1,9 +1,9 @@
 export default function Footer() {
   return (
     <footer className="bg-colorc3 text-white py-8">
-      <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 flex flex-col md:flex-row md:flex-wrap justify-between items-center">
+      <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 flex flex-col md:flex-row md:flex-wrap justify-between items-center">
         <div className="mb-4 md:mb-0  text-center md:text-left flex flex-col items-center md:items-start">
-          <div className="flex items-center mb-0">
+          <div className="flex items-center mb-0 ">
             <img src="./logoCFundo.png" className="h-24 mr-4" alt="Logo"/>
             <div>
               <h2 className="text-2xl font-bold">Casa 3</h2>
@@ -12,13 +12,13 @@ export default function Footer() {
             </div>
           </div>
         </div>
-        <div className="flex space-x-6 mr-20 sm:flex items-center md:mr-0">
-          <a href="home" className="hover:text-colorc3verde hover:underline">Home</a>
+        <div className="flex space-x-6 mr-20 sm:flex items-center md:mr-0 md:me-0">
+          <a href="" className="hover:text-colorc3verde hover:underline">Home</a>
           <a href="detalhes" className="hover:text-colorc3verde hover:underline">Sobre</a>
           <a href="catalogo" className="hover:text-colorc3verde hover:underline">Catálogo</a>
           <a href="contato" className="hover:text-colorc3verde hover:underline">Contato</a>
         </div>
-        <div className="flex space-x-4 mt-4 md:mt-0 md:mr-0">
+        <div className="flex space-x-4 mt-4 md:mt-10 md:mr-0">
           {/* Instagram */}
           <a href="https://www.instagram.com/casa3.ambientespersonalizados/?hl=pt-br" className="hover:text-gray-300">
             <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -45,13 +45,13 @@ export default function Footer() {
             </svg>
           </a>
         </div>
-      </div>
       <div className="text-center text-gray-400 mt-4 md:text-right md:mr-4">  
         <p>&copy; 2024 Todos os direitos reservados CGL.</p>  
         <p>Geancarlo Bastos. (Front-end)</p>  
         <p>Leonardo Bonato. (Banco de dados)</p>  
         <p>Cauã Stocker Saraiva. (Back-end)</p>  
       </div>  
+      </div>
     </footer>
   );
 }
