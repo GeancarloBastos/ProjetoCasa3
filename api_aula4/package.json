@@ -11,15 +11,20 @@
   "license": "ISC",
   "devDependencies": {
     "@types/express": "^4.17.21",
+    "@types/multer": "^1.4.12",
     "@types/node": "^20.12.12",
+    "base64-arraybuffer": "^1.0.2",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.4.5"
   },
   "dependencies": {
     "@prisma/client": "^5.14.0",
+    "@supabase/supabase-js": "^2.45.4",
     "@types/cors": "^2.8.17",
+    "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
     "express": "^4.19.2",
+    "multer": "^1.4.5-lts.1",
     "prisma": "^5.14.0"
   }
 }
