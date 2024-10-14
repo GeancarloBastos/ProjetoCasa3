@@ -9,9 +9,30 @@ import { Header } from "@/components/Header";
 import SoliciteOrcamento from "@/components/SoliciteOrc";
 import Avaliacoes from "@/components/Avaliacoes";
 import FAQ from "@/components/Faq";
+import { useClienteStore } from "@/context/cliente";
+
 
 export default function Page() {
+  const {logaCliente} = useClienteStore()
 
+  useEffect(()=> {
+
+    async function getCliente(idCliente: string) {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_URL_API}/clientes/${idCliente}`)
+      if (response.status == 200) {
+        const dados = await response.json()
+        logaCliente(dados)
+      }
+    }
+
+    if (localStorage.getItem("client_key")) {
+      const clienteSalvo = localStorage.getItem("client_key") as string
+      getCliente(clienteSalvo)
+    }
+    
+
+    // getDados()
+  }, [])
 
   return (
     <main>
