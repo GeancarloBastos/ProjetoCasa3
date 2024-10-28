@@ -5,12 +5,12 @@ const prisma = new PrismaClient();
 const router = Router();
 
 router.post("/", async (req, res) => {
-  const { clienteId, itens } = req.body;
+  const { clienteId, itens, urlImagem } = req.body;
 
-  if (!clienteId || !itens) {
+  if (!clienteId || !itens || !urlImagem) {
     res
       .status(400)
-      .json({ erro: "Informe clienteId e os itens" });
+      .json({ erro: "Informe clienteId, os itens e o url da imagem" });
     return;
   }
 
@@ -24,6 +24,13 @@ router.post("/", async (req, res) => {
             data: {orcamentoId:orcamento.id, itemId}
         })
     }
+
+      await prisma.imagemOrcamento.create({
+        data: {
+          url: urlImagem,
+          orcamentoId: orcamento.id,
+        },
+      });
 
     res.status(201).json(orcamento);
   } catch (error) {

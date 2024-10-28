@@ -51,9 +51,9 @@ router.post(
 
       // Gera URL pré-assinado para upload
       const { data: urlAssinado, error: urlAssinadoError } =
-        await supabaseClient.storage
+        await supabase.storage
           .from("Fotos")
-          .createSignedUploadUrl(filePath); // URL válido por 60 segundos
+          .createSignedUploadUrl(filePath); // URL válido por 1 hora para upload de arquivos
 
       if (urlAssinadoError) {
         return res

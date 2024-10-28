@@ -57,6 +57,7 @@ model Orcamento {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt  
   itens        ItemOrcamento[]
+  imagens      ImagemOrcamento[]
   @@map("orcamentos")
 }
 
@@ -79,6 +80,14 @@ model ItemOrcamento {
   @@map("orcamento_itens")
 }
 
+model ImagemOrcamento {
+  id          Int       @id @default(autoincrement())
+  url         String    @db.VarChar(255) // Armazena o link da imagem gerado pelo Supabase
+  orcamento   Orcamento @relation(fields: [orcamentoId], references: [id])
+  orcamentoId Int       // Relacionamento com a tabela Orcamento
+  uploadedAt  DateTime  @default(now())
+  @@map("imagens_orcamentos")
+}
 
 enum TipoMaterial {
  MADEIRAS
