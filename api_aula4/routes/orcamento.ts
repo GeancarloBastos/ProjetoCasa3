@@ -1,8 +1,31 @@
 import { PrismaClient } from "@prisma/client";
 import { Router } from "express";
 
-const prisma = new PrismaClient();
+// const prisma = new PrismaClient();
+const prisma = new PrismaClient({
+  log: ["query", "info", "warn", "error"],
+});
 const router = Router();
+
+
+router.get("/:id", async (req, res) => {
+  const {id} = req.params
+  try {
+    const orcamentos = await prisma.orcamento.findMany({
+      include: {
+        itens: true,
+        imagens: true,
+      },
+      where: {
+        clienteId: id
+      }
+    });
+    res.status(200).json(orcamentos);
+  } catch (error) {
+    res.status(400).json(error);
+  }
+});
+
 
 router.post("/", async (req, res) => {
   const { clienteId, itens, urlImagem } = req.body;
@@ -37,5 +60,7 @@ router.post("/", async (req, res) => {
     res.status(400).json(error);
   }
 });
+
+
 
 export default router

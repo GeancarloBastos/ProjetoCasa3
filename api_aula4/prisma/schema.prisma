@@ -14,68 +14,70 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-model Marca {
-  id        Int      @id @default(autoincrement())
-  nome      String   @db.VarChar(30)
-  moveis    Movel[]
-  @@map("marcas")
-}
+// model Marca {
+//   id     Int     @id @default(autoincrement())
+//   nome   String  @db.VarChar(30)
+//   moveis Movel[]
+
+//   @@map("marcas")
+// }
 
 model Movel {
-  id          Int      @id @default(autoincrement())
-  nome        String   @db.VarChar(40)
-  preco       Decimal  @db.Decimal(10, 2)
-  foto        String
-  observacao  String?
-  destaque    Boolean  @default(true)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id           Int          @id @default(autoincrement())
+  descricao    String       @db.VarChar(40)
+  preco        Decimal      @db.Decimal(10, 2)
+  foto         String
+  cor          String
+  destaque     Boolean      @default(true)
+  // createdAt    DateTime     @default(now())
+  // updatedAt    DateTime     @updatedAt
   tipoMaterial TipoMaterial
-  marca       Marca    @relation(fields: [marcaId], references: [id])
-  marcaId     Int
+  // marca        Marca        @relation(fields: [marcaId], references: [id])
+  // marcaId      Int
   @@map("moveis")
 }
 
 model Cliente {
-  id           String   @id @db.VarChar(36) @default(uuid())
-  nome         String   @db.VarChar(60)
-  email        String   @db.VarChar(60) @unique
-  senha        String   @db.VarChar(60)   // senha deve ser varchar(60)
-  telefone     String   @db.VarChar(20)
-  cargo        Cargo    @default(COMUM)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt  
-  orcamentos   Orcamento[]
+  id         String      @id @default(uuid()) @db.VarChar(36)
+  nome       String      @db.VarChar(60)
+  email      String      @unique @db.VarChar(60)
+  senha      String      @db.VarChar(60) // senha deve ser varchar(60)
+  telefone   String      @db.VarChar(20)
+  cargo      Cargo       @default(COMUM)
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  orcamentos Orcamento[]
+
   @@map("clientes")
 }
 
 model Orcamento {
-  id           Int   @id @default(autoincrement())
-  cliente      Cliente    @relation(fields: [clienteId], references: [id])
-  clienteId    String
-  status       String   @db.VarChar(60) @default("PENDENTE") 
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt  
-  itens        ItemOrcamento[]
-  imagens      ImagemOrcamento[]
+  id        Int               @id @default(autoincrement())
+  cliente   Cliente           @relation(fields: [clienteId], references: [id])
+  clienteId String
+  status    String            @default("PENDENTE") @db.VarChar(60)
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
+  itens     ItemOrcamento[]
+  imagens   ImagemOrcamento[]
+
   @@map("orcamentos")
 }
 
-
 model Item {
-  id           Int   @id @default(autoincrement()) 
-  nome         String   @db.VarChar(60) 
+  id         Int             @id @default(autoincrement())
+  nome       String          @db.VarChar(60)
   orcamentos ItemOrcamento[]
+
   @@map("itens")
 }
 
-
 model ItemOrcamento {
-  id          Int   @id @default(autoincrement())
-  orcamento   Orcamento    @relation(fields: [orcamentoId], references: [id])
-  orcamentoId Int   
-  item        Item    @relation(fields: [itemId], references: [id])
-  itemId      Int   
+  id          Int       @id @default(autoincrement())
+  orcamento   Orcamento @relation(fields: [orcamentoId], references: [id])
+  orcamentoId Int
+  item        Item      @relation(fields: [itemId], references: [id])
+  itemId      Int
 
   @@map("orcamento_itens")
 }
@@ -84,19 +86,24 @@ model ImagemOrcamento {
   id          Int       @id @default(autoincrement())
   url         String    @db.VarChar(255) // Armazena o link da imagem gerado pelo Supabase
   orcamento   Orcamento @relation(fields: [orcamentoId], references: [id])
-  orcamentoId Int       // Relacionamento com a tabela Orcamento
+  orcamentoId Int // Relacionamento com a tabela Orcamento
   uploadedAt  DateTime  @default(now())
+
   @@map("imagens_orcamentos")
 }
 
 enum TipoMaterial {
- MADEIRAS
- PEDRAS
- ESTOFADOS
- AROMAS
- MANTAS
- ESPELHOS
+  MADEIRA
+  MDF
+  MDP
+  PEDRA
+  ESTOFADO
+  // AROMA
+  // MANTA
+  // ESPELHO
 }
+
+
 
 enum Cargo {
   COMUM
