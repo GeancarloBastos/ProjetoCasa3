@@ -14,6 +14,29 @@ const slides = [
   '/car4.jpeg',  
 ];  
 
+const slideContent = [  
+  {  
+    title: "Design de Cozinhas para Toda Família",  
+    subtitle: "Cozinhas projetadas para o que realmente importa: família, gastronomia e vivências memoráveis.",  
+    description: "Transforme sua cozinha em um espaço onde memórias são criadas e momentos especiais são compartilhados todos os dias. Nossa expertise em móveis planejados garante que cada centímetro seja aproveitado com estilo e funcionalidade. Trabalhamos com os melhores materiais do mercado, oferecendo soluções inteligentes de armazenamento, bancadas ergonômicas e layouts que facilitam o preparo das refeições. Seja para um café da manhã em família ou um jantar entre amigos, sua cozinha será o coração acolhedor do seu lar, combinando beleza, praticidade e durabilidade em cada detalhe."  
+  },  
+  {  
+    title: "Dormitórios Que Inspiram Conforto",  
+    subtitle: "Seu refúgio pessoal merece um design excepcional que transcende o comum.",  
+    description: "Criamos dormitórios que vão além da simples combinação de elegância e praticidade. Cada projeto é meticulosamente pensado para proporcionar o máximo de conforto e organização, com soluções personalizadas que otimizam seu espaço. Nossos móveis planejados incluem guarda-roupas com divisões inteligentes, cômodas funcionais e cabeceiras exclusivas. Utilizamos materiais premium e acabamentos sofisticados para criar um ambiente que promove o relaxamento e o bem-estar, transformando seu quarto em um verdadeiro santuário de tranquilidade e estilo."  
+  },  
+  {  
+    title: "Salas de Estar Extraordinárias",  
+    subtitle: "O coração do seu lar merece um projeto único que reflita sua essência.",  
+    description: "Desenvolvemos ambientes que são verdadeiras expressões da sua personalidade e estilo de vida. Nossos móveis planejados transformam sua sala em um espaço acolhedor e sofisticado, perfeito para receber amigos e família. Criamos soluções sob medida que maximizam o aproveitamento do espaço, com painéis de TV personalizados, estantes modulares e móveis multifuncionais. Cada elemento é cuidadosamente selecionado para criar uma harmonia visual única, combinando conforto, funcionalidade e design contemporâneo em um ambiente que convida à convivência e ao relaxamento."  
+  },  
+  {  
+    title: "Home Office Sob Medida",  
+    subtitle: "Espaços de trabalho que inspiram produtividade e bem-estar profissional.",  
+    description: "Seu escritório em casa merece ser muito mais que funcional e elegante. Projetamos ambientes que elevam sua experiência profissional, com soluções inteligentes de organização e design contemporâneo. Nossos projetos incluem mesas ergonômicas, sistemas de arquivamento eficientes e iluminação adequada para suas necessidades. Criamos um espaço que equilibra perfeitamente profissionalismo e conforto, com móveis planejados que otimizam cada centímetro disponível. Transformamos seu home office em um ambiente inspirador, onde a produtividade e o bem-estar caminham lado a lado."  
+  }  
+];
+
 export default function Carousel() {  
   return (  
     <div className="relative h-screen object-cover">  
@@ -28,16 +51,24 @@ export default function Carousel() {
       >  
         {slides.map((slide, index) => (  
           <SwiperSlide key={index} className="relative flex justify-center items-center">  
-            <img src={slide} alt={`Slide ${index}`} className="w-full h-full object-cover" />
-            <div className="absolute inset-y-0 left-0 w-1/3 bg-black opacity-70"></div> 
-            <div className="absolute left-0 top-0 p-16 text-white z-10 max-w-lg">  
-              <h2 className="text-4xl font-bold mb-4">Design build kitchen the family</h2>  
-              <p className="mb-4">Kitchens should be designed around truly important: family, food, and life.</p>  
-              <p>Discover a world where imagination meets craftsmanship. We specialize in creating bespoke furniture tailored to your unique taste and lifestyle. Transform your space with pieces that tell your story.</p>
-              <p>At Mr, we believe that furniture should be as unique as the people who use it. Our team works closely with you to design and build custom pieces that enhance your home’s beauty and functionality.</p>
-              <p>Why settle for ordinary when you can have extraordinary? Explore our range of customizable options and create furniture that matches your vision. From concept to creation, we bring your ideas to life.</p>
-              <br />
-              <button className="bg-white text-black py-2 px-4 rounded font-semibold">VISITE NOSSO CATÁLOGO</button>  
+            <img src={slide} alt={`Slide ${index + 1}`} className="w-full h-full object-cover" />  
+            <div className="absolute inset-y-0 left-0 w-1/3 bg-black opacity-70"></div>  
+            <div className="absolute left-0 top-0 p-16 text-white z-10 w-1/4">  
+              <h2 className="text-5xl font-bold mb-4">{slideContent[index].title}</h2>  
+              <p className="mb-4 text-lg font-semibold">{slideContent[index].subtitle}</p>  
+              <p className="mb-6 leading-relaxed">{slideContent[index].description}</p>  
+              <div className="space-y-4 mb-8">  
+                <p className="text-md">✓ Projetos 100% personalizados</p>  
+                <p className="text-md">✓ Material de alta qualidade</p>  
+                <p className="text-md">✓ Garantia estendida</p>  
+                <p className="text-md">✓ Montagem profissional</p>  
+                <p className="text-md">✓ Atendimento da melhor qualidade</p>  
+                <p className="text-md">✓ Seja você a nossa prioridade</p>  
+                <p className="text-md">✓ Loja física acessível</p>  
+              </div>  
+              <button className="bg-white text-black py-3 px-6 rounded font-semibold hover:bg-gray-100 transition duration-300">  
+                SOLICITAR ORÇAMENTO  
+              </button>  
             </div>  
           </SwiperSlide>  
         ))}  
