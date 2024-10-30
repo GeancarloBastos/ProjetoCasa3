@@ -26,9 +26,6 @@ export default function Catalogo() {
 
   return (
     <div className="mx-auto max-w-screen-xl">
-      <h1 className="mt-10 mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-5xl text-center">
-        Bem-vindo à Casa 3 Ambiente Personalizados
-      </h1>
       <div className="mt-10">
         <InputPesquisa setMoveis={setMoveis} />
       </div>
