@@ -1,6 +1,5 @@
 import { MovelI } from "@/utils/types/movel";
 import { useForm } from "react-hook-form";
-import Link from "next/link";
 import { useState } from "react";
 
 type Inputs = {
@@ -47,7 +46,6 @@ export function InputPesquisa({ setMoveis }: InputPesquisaProps) {
 
   const buscarProdutos = async (data: any) => {
     try {
-      // Montando a query string dinamicamente
       const params = new URLSearchParams();
       if (data.material) params.append("tipoMaterial", data.material);
       if (data.cor) params.append("cor", data.cor);
@@ -55,8 +53,6 @@ export function InputPesquisa({ setMoveis }: InputPesquisaProps) {
       if (data.precoMax) params.append("precoMax", data.precoMax);
       if (data.search) params.append("search", data.search);
 
-     
-      // const response = await axios.get(`/api/catalogo?${params.toString()}`);
       const response = await fetch(`${process.env.NEXT_PUBLIC_URL_API}/moveis?${params.toString()}`);
       const dados = await response.json();
       setMoveis(dados);
@@ -66,94 +62,105 @@ export function InputPesquisa({ setMoveis }: InputPesquisaProps) {
   };
 
   return (
-    <div className="flex max-w-5xl mx-auto mt-3">
-      <form onSubmit={handleSubmit(buscarProdutos)}>
-        {/* Dropdown de Categoria */}
-        <label htmlFor="material">Material:</label>
-        <select id="material" {...register("material")}>
-          <option value="">Selecione o material</option>
-          <option value="MDF">MDF</option>
-          <option value="MDP">MDP</option>
-          <option value="MADEIRA">MADEIRA</option>
-          {/* Adicione mais opções conforme necessário */}
-        </select>
-
-        {/* Dropdown de Cor */}
-        <label htmlFor="cor">Cor:</label>
-        <select id="cor" {...register("cor")}>
-          <option value="">Selecione a cor</option>
-          <option value="preto">Preto</option>
-          <option value="branco">Branco</option>
-          <option value="marrom">Marrom</option>
-          {/* Adicione mais opções conforme necessário */}
-        </select>
-
-        {/* Inputs de Preço e Barra de Pesquisa */}
-        <input
-          type="number"
-          placeholder="Preço Mínimo"
-          {...register("precoMin")}
-        />
-        <input
-          type="number"
-          placeholder="Preço Máximo"
-          {...register("precoMax")}
-        />
-        <input type="text" placeholder="Pesquisar..." {...register("search")} />
-
-        {/* Botão para enviar */}
-        <button type="submit">Buscar</button>
-      </form>
-
-      {/* <form className="flex-1" onSubmit={handleSubmit(buscarProdutos)}>
-        <label
-          htmlFor="default-search"
-          className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
-        >
-          Search
-        </label>
-        <div className="relative">
-          <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-            <svg
-              width="24"
-              height="24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M5 12l5 5L20 7"
-              />
-            </svg>
+    <div className="bg-gray-100 p-6 rounded-lg shadow-md max-w-5xl mx-auto mt-8">
+      <form onSubmit={handleSubmit(buscarProdutos)} className="space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div>
+            <label htmlFor="material" className="block text-sm font-medium text-gray-700 mb-1">Material:</label>
+            <select id="material" {...register("material")} className="w-full p-2 border border-gray-300 rounded-md">
+              <option value="">Selecione o material</option>
+              <option value="MDF">MDF</option>
+              <option value="MDP">MDP</option>
+              <option value="MADEIRA">MADEIRA</option>
+            </select>
           </div>
-          <input
-            type="search"
-            id="default-search"
-            className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-green-500 focus:border-green-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
-            placeholder="Qual os móveis você procura? (modelo, marca, ano ou preço máximo)"
-            required
-            {...register("termo")}
-          />
-          <button
-            type="submit"
-            className="text-white absolute end-2.5 bottom-2.5 bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
-          >
-            Buscar
-          </button>
-        </div>
-      </form>
 
-      <button
-        type="button"
-        className="ms-3 mt-2 focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-3 py-2.5 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-900"
-        onClick={mostraDestaques}
-      >
-        Limpa Filtros
-      </button>
-      */}
+          <div>
+            <label htmlFor="cor" className="block text-sm font-medium text-gray-700 mb-1">Cor:</label>
+            <select id="cor" {...register("cor")} className="w-full p-2 border border-gray-300 rounded-md">
+              <option value="">Selecione a cor</option>
+              <option value="preto">Preto</option>
+              <option value="branco">Branco</option>
+              <option value="marrom">Marrom</option>
+            </select>
+          </div>
+
+          <div>
+            <label htmlFor="precoMin" className="block text-sm font-medium text-gray-700 mb-1">Preço Mínimo:</label>
+            <div className="relative">
+              <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">
+                R$
+              </span>
+              <input
+                type="number"
+                id="precoMin"
+                step="0.01"
+                min="0"
+                placeholder="0,00"
+                {...register("precoMin")}
+                className="w-full pl-9 pr-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                onWheel={(e) => e.currentTarget.blur()} // Previne mudança de valor com scroll do mouse  
+                onChange={(e) => {
+                  // Formata o número para ter sempre 2 casas decimais  
+                  const value = e.target.value;
+                  if (value) {
+                    e.target.value = parseFloat(value).toFixed(2);
+                  }
+                }}
+              />
+            </div>
+            <span className="text-xs text-gray-500 mt-1">Digite o valor sem pontos ou vírgulas</span>
+          </div>
+
+          <div>
+            <label htmlFor="precoMax" className="block text-sm font-medium text-gray-700 mb-1">
+              Preço Máximo:
+            </label>
+            <div className="relative">
+              <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">
+                R$
+              </span>
+              <input
+                type="number"
+                id="precoMax"
+                step="0.01"
+                min="0"
+                placeholder="0,00"
+                {...register("precoMax")}
+                className="w-full pl-9 pr-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                onWheel={(e) => e.currentTarget.blur()} // Previne mudança de valor com scroll do mouse  
+                onChange={(e) => {
+                  // Formata o número para ter sempre 2 casas decimais  
+                  const value = e.target.value;
+                  if (value) {
+                    e.target.value = parseFloat(value).toFixed(2);
+                  }
+                }}
+              />
+            </div>
+            <span className="text-xs text-gray-500 mt-1">Digite o valor sem pontos ou vírgulas</span>
+          </div>
+        </div>
+
+          <div className="flex items-center space-x-4">
+            <input
+              type="text"
+              placeholder="Pesquisar..."
+              {...register("search")}
+              className="flex-grow p-2 border border-gray-300 rounded-md"
+            />
+            <button type="submit" className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition duration-300">
+              Buscar
+            </button>
+            <button
+              type="button"
+              onClick={mostraDestaques}
+              className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 transition duration-300"
+            >
+              Limpar Filtros
+            </button>
+          </div>
+      </form>
     </div>
   );
 }
