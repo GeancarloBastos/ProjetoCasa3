@@ -48,8 +48,8 @@ export default function Login() {
   }
 
   return (
-    <form className="max-w-sm mx-auto" onSubmit={handleSubmit(verificaLogin)}>
-      <h2 className="mt-20 mb-6 text-3xl font-bold text-center">
+    <form className="max-w-sm mx-auto mb-32" onSubmit={handleSubmit(verificaLogin)}>
+      <h2 className="mt-32 mb-6 text-3xl font-bold text-center">
         Login do Cliente
       </h2>
       <div className="mb-5">

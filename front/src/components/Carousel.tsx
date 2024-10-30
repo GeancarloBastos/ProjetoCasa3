@@ -54,7 +54,7 @@ export default function Carousel() {
             <img src={slide} alt={`Slide ${index + 1}`} className="w-full h-full object-cover" />  
             <div className="absolute inset-y-0 left-0 w-1/3 bg-black opacity-70"></div>  
             <div className="absolute left-0 top-0 p-16 text-white z-10 w-1/4">  
-              <h2 className="text-5xl font-bold mb-4">{slideContent[index].title}</h2>  
+              <h2 className="text-4xl font-bold mb-4">{slideContent[index].title}</h2>  
               <p className="mb-4 text-lg font-semibold">{slideContent[index].subtitle}</p>  
               <p className="mb-6 leading-relaxed">{slideContent[index].description}</p>  
               <div className="space-y-4 mb-8">  
