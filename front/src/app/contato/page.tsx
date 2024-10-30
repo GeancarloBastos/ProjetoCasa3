@@ -44,10 +44,9 @@ export default function Contato() {
         </div>
       </div>
 
-      {/* Informações de Contato */}
       <div className="container mx-auto px-4 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* Endereço */}
+
           <div className="bg-white p-8 rounded-lg shadow-lg text-center">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-colorc3 rounded-full mb-6">
               <MapPin className="w-8 h-8 text-white" />
@@ -62,7 +61,6 @@ export default function Contato() {
             </p>
           </div>
 
-          {/* Telefone */}
           <div className="bg-white p-8 rounded-lg shadow-lg text-center">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-colorc3 rounded-full mb-6">
               <Phone className="w-8 h-8 text-white" />
@@ -75,7 +73,6 @@ export default function Contato() {
             </p>
           </div>
 
-          {/* Email */}
           <div className="bg-white p-8 rounded-lg shadow-lg text-center">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-colorc3 rounded-full mb-6">
               <Mail className="w-8 h-8 text-white" />
@@ -88,7 +85,6 @@ export default function Contato() {
             </p>
           </div>
 
-          {/* Horário */}
           <div className="bg-white p-8 rounded-lg shadow-lg text-center">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-colorc3 rounded-full mb-6">
               <Clock className="w-8 h-8 text-white" />
@@ -104,7 +100,6 @@ export default function Contato() {
           </div>
         </div>
 
-        {/* Mapa */}
         <div className="bg-white p-8 rounded-lg shadow-lg">
           <h2 className="text-2xl font-bold mb-6">Nossa Localização</h2>
           <div className="aspect-video w-full bg-gray-200 rounded-lg overflow-hidden">
@@ -121,7 +116,6 @@ export default function Contato() {
           </div>
         </div>
 
-        {/* Redes Sociais */}
         <div className="text-center mt-16">
           <h2 className="text-2xl font-bold mb-6">Siga-nos nas Redes Sociais</h2>
           <div className="flex justify-center space-x-6">

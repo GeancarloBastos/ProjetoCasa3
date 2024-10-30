@@ -2,9 +2,7 @@ export default function Footer() {
   return (
     <footer className="bg-zinc-900 text-white py-16">
       <div className="container mx-auto px-6">
-        {/* Main Footer Content */}
         <div className="flex flex-col lg:flex-row justify-between items-center lg:items-start gap-12">
-          {/* Brand Section */}
           <div className="flex flex-col items-center lg:items-start max-w-sm">
             <div className="flex items-center gap-4 mb-6">
               <img
@@ -23,7 +21,6 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Navigation Links */}
           <nav className="flex flex-col items-center gap-6">
             <h3 className="text-lg font-semibold mb-2">Navegação</h3>
             <div className="flex flex-col items-center gap-4">
@@ -44,13 +41,10 @@ export default function Footer() {
             </div>
           </nav>
 
-          {/* Social and Team Section */}
           <div className="flex flex-col items-center lg:items-end gap-8">
-            {/* Social Media */}
             <div className="flex flex-col items-center lg:items-end gap-4">
               <h3 className="text-lg font-semibold">Conecte-se conosco</h3>
               <div className="flex gap-6">
-                {/* Social Icons with Hover Effects */}
                 <a
                   href="https://www.instagram.com/casa3.ambientespersonalizados/?hl=pt-br"
                   className="text-zinc-400 hover:text-white transform hover:scale-110 transition-all duration-200"
@@ -92,7 +86,6 @@ export default function Footer() {
               </div>
             </div>
 
-            {/* Team Credits */}
             <div className="text-right">
               <h3 className="text-lg font-semibold mb-4 text-center lg:text-right">Nossa Equipe</h3>
               <div className="text-zinc-400 text-sm space-y-2">
@@ -104,7 +97,6 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Copyright */}
         <div className="mt-16 pt-8 border-t border-white">
           <p className="text-zinc-300 text-sm text-center">
             &copy; {new Date().getFullYear()} CGL. Todos os direitos reservados.

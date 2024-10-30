@@ -34,3 +34,13 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+
+Commit dia 30/10/24 20:19 - 
+Criei um Page de Contato, já estilizada.
+Alterei espaçamento da tela de login e footer.
+Alterei detalhes de estilização da home page.
+Refiz todo o front da tela de Orçamento, para que fique melhor para a cliente.
+Alterei alguns detalhes do Carousel.
+-------------------------------------------------
+

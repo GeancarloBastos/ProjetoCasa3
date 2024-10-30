@@ -39,7 +39,6 @@ export default function Orcamento() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
 
-  // Dados estáticos
   const ambientes = [
     "Cozinha",
     "Quarto",
@@ -99,7 +98,6 @@ export default function Orcamento() {
     "Flexível"
   ];
 
-  // Handlers
   const handleImagePreview = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     if (files) {
@@ -180,7 +178,6 @@ export default function Orcamento() {
   return (
     <div className="max-w-4xl mx-auto py-8 px-4">
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
-        {/* Cabeçalho */}
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-gray-900">Solicitar Orçamento</h1>
           <p className="mt-2 text-gray-600">
@@ -188,7 +185,6 @@ export default function Orcamento() {
           </p>
         </div>
 
-        {/* Informações do Ambiente */}
         <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
           <h2 className="text-xl font-semibold mb-4">Informações do Ambiente</h2>
           
@@ -267,7 +263,6 @@ export default function Orcamento() {
           </div>
         </div>
 
-        {/* Detalhes do Projeto */}
         <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
           <h2 className="text-xl font-semibold mb-4">Detalhes do Projeto</h2>
           
@@ -356,12 +351,10 @@ export default function Orcamento() {
           </div>
         </div>
 
-        {/* Imagens e Observações */}
         <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
           <h2 className="text-xl font-semibold mb-4">Imagens e Observações</h2>
           
           <div className="space-y-6">
-            {/* Upload de Imagens de Referência */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Imagens de Referência
@@ -390,7 +383,6 @@ export default function Orcamento() {
                 </div>
               </div>
 
-              {/* Preview de Imagens */}
               {previewImages.length > 0 && (
                 <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4">
                   {previewImages.map((preview, index) => (
@@ -413,7 +405,6 @@ export default function Orcamento() {
               )}
             </div>
 
-            {/* Upload de Plantas */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Plantas ou Desenhos Técnicos
@@ -430,7 +421,6 @@ export default function Orcamento() {
               </p>
             </div>
 
-            {/* Observações */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Observações Adicionais
@@ -445,7 +435,6 @@ export default function Orcamento() {
           </div>
         </div>
 
-        {/* Orçamento e Prazo */}
         <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
           <h2 className="text-xl font-semibold mb-4">Orçamento e Prazo</h2>
           
@@ -482,7 +471,6 @@ export default function Orcamento() {
           </div>
         </div>
 
-        {/* Botão de Submitar */}
         <div className="flex justify-end">
           <button
             type="submit"
