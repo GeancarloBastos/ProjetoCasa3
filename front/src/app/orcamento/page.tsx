@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { Camera, X } from "lucide-react";
+import { useClienteStore } from "@/context/cliente"; 
 
 // Interfaces
 interface FormInputs {
@@ -14,7 +15,7 @@ interface FormInputs {
   altura: number;
   largura: number;
   profundidade: number;
-  
+
   // Detalhes do Projeto
   itens: string[];
   cores: string[];
@@ -22,12 +23,12 @@ interface FormInputs {
   iluminacao: boolean;
   gavetas: boolean;
   portas: boolean;
-  
+
   // Informações Adicionais
   observacoes: string;
-  referencias: FileList;
-  plantas: FileList;
-  
+  referencias: FileList | null;
+  plantas: FileList | null;
+
   // Orçamento
   faixaPreco: string;
   prazo: string;
@@ -36,7 +37,9 @@ interface FormInputs {
 export default function Orcamento() {
   const { register, handleSubmit, formState: { errors } } = useForm<FormInputs>();
   const [previewImages, setPreviewImages] = useState<string[]>([]);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false); 
+  const { cliente, deslogaCliente } = useClienteStore(); 
+ 
   const router = useRouter();
 
   const ambientes = [
@@ -50,16 +53,16 @@ export default function Orcamento() {
     "Área Gourmet",
   ];
 
-  const cores = [
-    "Branco",
-    "Preto",
-    "Madeira Clara",
-    "Madeira Escura",
-    "Cinza",
-    "Bege",
-    "Azul",
-    "Verde",
-  ];
+const cores = [
+  { id: 1, nome: "Branco" },
+  { id: 2, nome: "Preto" },
+  { id: 3, nome: "Madeira Clara" },
+  { id: 4, nome: "Madeira Escura" },
+  { id: 5, nome: "Cinza" },
+  { id: 6, nome: "Bege" },
+  { id: 7, nome: "Azul" },
+  { id: 8, nome: "Verde" },
+];
 
   const acabamentos = [
     "Fosco",
@@ -110,16 +113,36 @@ export default function Orcamento() {
     setPreviewImages(prev => prev.filter((_, i) => i !== index));
   };
 
-  const enviarArquivo = async (arquivo: File) => {
+  const enviarArquivo = async (arquivo: File | FileList) => {
     const formData = new FormData();
-    formData.append("file", arquivo);
+    
 
-    const response = await fetch("/api/upload", {
-      method: "POST",
-      body: formData,
+        if (arquivo instanceof FileList) {
+          // Se for FileList, pega o primeiro arquivo
+          formData.append("file", arquivo[0]);
+        } else {
+          // Se for File individual
+          formData.append("file", arquivo);
+        }
+
+    formData.forEach((value, key) => {
+      console.log(key, value);
     });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_URL_API}/fotos/upload`,
+      {
+        method: "POST",
+        body: formData,
+        headers: {
+          Authorization: `Bearer ${cliente.token}`, // Adiciona o header de autorização
+          // "Content-Type": "multipart/form-data", // Adiciona o tipo de conteúdo, se necessário
+        },
+      }
+    );
 
     if (!response.ok) {
+      const errorMessage = await response.text(); // Obtenha a resposta de erro
+      console.error("Erro no upload:", errorMessage); // Logar a mensagem de erro
       throw new Error("Erro ao enviar o arquivo");
     }
 
@@ -127,43 +150,65 @@ export default function Orcamento() {
     return data.url;
   };
 
+
+
+
   const onSubmit = async (data: FormInputs) => {
     setIsSubmitting(true);
     try {
-      const imagensUrls = [];
       
-      if (data.referencias) {
-        for (let i = 0; i < data.referencias.length; i++) {
-          const url = await enviarArquivo(data.referencias[i]);
-          imagensUrls.push(url);
+    // let urlReferencia = "";
+    // let urlPlanta = "";
+
+    
+    // if (data.referencias) {
+    //   urlReferencia = await enviarArquivo(data.referencias); 
+    // }
+
+    // if (data.plantas) {
+    //   urlPlanta = await enviarArquivo(data.plantas); 
+    // }
+    console.log(data.referencias)
+    console.log(data.plantas)
+        let urlReferencia = "";
+        let urlPlanta = "";
+
+        // Verifica se há arquivos de referência e se há pelo menos um arquivo
+        if (data.referencias && data.referencias.length > 0) {
+          urlReferencia = await enviarArquivo(data.referencias);
         }
-      }
 
-      const plantasUrls = [];
-      if (data.plantas) {
-        for (let i = 0; i < data.plantas.length; i++) {
-          const url = await enviarArquivo(data.plantas[i]);
-          plantasUrls.push(url);
+        // Verifica se há plantas e se há pelo menos um arquivo
+        if (data.plantas && data.plantas.length > 0) {
+          urlPlanta = await enviarArquivo(data.plantas);
         }
-      }
 
-      const orcamentoData = {
-        ...data,
-        referencias: imagensUrls,
-        plantas: plantasUrls,
-        status: "PENDENTE",
-        dataCriacao: new Date().toISOString(),
-      };
+   console.log("url da foto planta: " + urlReferencia)
+    const orcamentoData = {
+      ...data,
+      urlReferencia,
+      urlPlanta,
+      // status: "PENDENTE", Não precisa ele ja tem um default("PENDENTE")
+      // dataCriacao: new Date().toISOString(),
+      clienteId: cliente.id,
+      itens: data.itens.map((item) => parseInt(item, 10)), // Converte para inteiro
+      cores: data.cores.map((cor) => parseInt(cor, 10)),
+    };
 
-      const response = await fetch("/api/orcamentos", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(orcamentoData),
-      });
+    console.log("Tudo do data: " + data)
+      
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_URL_API}/orcamentos`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(orcamentoData),
+        }
+      );
 
       if (response.ok) {
         alert("Orçamento enviado com sucesso!");
-        router.push("/dashboard");
+        // router.push("/dashboard"); de onde saiu essa rota? n tem dashboard
       } else {
         throw new Error("Erro ao enviar orçamento");
       }
@@ -181,7 +226,7 @@ export default function Orcamento() {
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-gray-900">Solicitar Orçamento</h1>
           <p className="mt-2 text-gray-600">
-            Preencha as informações abaixo para recebermos sua solicitação de projeto
+            Preencha as informações abaixo para recebermos sua solicitação de projeto 
           </p>
         </div>
 
@@ -277,7 +322,7 @@ export default function Orcamento() {
                     <input
                       type="checkbox"
                       {...register("itens")}
-                      value={movel.nome}
+                      value={movel.id}
                       className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                     />
                     <span className="text-sm text-gray-700">{movel.nome}</span>
@@ -292,14 +337,14 @@ export default function Orcamento() {
               </label>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {cores.map(cor => (
-                  <label key={cor} className="flex items-center space-x-2">
+                  <label key={cor.id} className="flex items-center space-x-2">
                     <input
                       type="checkbox"
                       {...register("cores")}
-                      value={cor}
+                      value={cor.id}
                       className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                     />
-                    <span className="text-sm text-gray-700">{cor}</span>
+                    <span className="text-sm text-gray-700">{cor.nome}</span>
                   </label>
                 ))}
               </div>
@@ -368,8 +413,8 @@ export default function Orcamento() {
                       <input
                         id="referencias"
                         type="file"
-                        multiple
                         accept="image/*"
+                        multiple
                         className="sr-only"
                         {...register("referencias")}
                         onChange={handleImagePreview}
@@ -411,8 +456,8 @@ export default function Orcamento() {
               </label>
               <input
                 type="file"
-                multiple
                 accept=".pdf,.dwg,.dxf,image/*"
+                multiple
                 {...register("plantas")}
                 className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
               />
