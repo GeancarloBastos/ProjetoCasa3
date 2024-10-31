@@ -124,6 +124,7 @@ router.put("/:id", async (req, res) => {
   //     }
   //   }
   // });
+  
   router.get("/", async (req, res) => {
     const { tipoMaterial, cor, precoMin, precoMax, search } = req.query;
     try {
@@ -141,18 +142,6 @@ router.put("/:id", async (req, res) => {
             equals: cor as string
           }
         }
-  
-  
-        // if (precoMin){
-        //   filtros.preco = {
-        //     gte: Number(precoMin)
-        //   }
-        // }
-        // if (precoMax){
-        //   filtros.preco = {
-        //     lte: Number(precoMax)
-        //   }
-        // }
   
         if (precoMin || precoMax) {
           filtros.preco = {};
@@ -196,10 +185,10 @@ router.get("/teste/:id", async (req, res) => {
   }
 });
 
-interface FiltroNomeDescricao {
-  nome?: { contains: string; mode: "insensitive" };
-  descricao?: { contains: string; mode: "insensitive" };
-}
+// interface FiltroNomeDescricao {
+//   nome?: { contains: string; mode: "insensitive" };
+//   descricao?: { contains: string; mode: "insensitive" };
+// }
 
 // interface where {
 //   tipoMaterial?: TipoMaterial;

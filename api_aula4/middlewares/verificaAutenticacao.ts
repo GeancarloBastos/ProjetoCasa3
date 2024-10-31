@@ -25,6 +25,8 @@ export function verificaAutenticacao(req: Request | any, res: Response, next: Ne
 
   const token = authorization.split(" ")[1]
 
+  console.log("Token depois do split: " + token)
+
   try {
     const decode = jwt.verify(token, process.env.JWT_KEY as string)
     console.log(decode)

@@ -52,13 +52,25 @@ model Cliente {
 }
 
 model Orcamento {
-  id        Int               @id @default(autoincrement())
-  cliente   Cliente           @relation(fields: [clienteId], references: [id])
-  clienteId String
-  status    String            @default("PENDENTE") @db.VarChar(60)
-  createdAt DateTime          @default(now())
-  updatedAt DateTime          @updatedAt
+  id            Int               @id @default(autoincrement())
+  cliente       Cliente           @relation(fields: [clienteId], references: [id])
+  clienteId     String
+  status        String            @default("PENDENTE") @db.VarChar(60)
+  acabamento    String           @db.VarChar(60)
+  ambiente      String           @db.VarChar(60)
+  faixaPreco    String           @db.VarChar(120)
+  observacoes   String          @db.VarChar(255)
+  prazo         String          @db.VarChar(255)
+  gavetas       Boolean    
+  iluminacao    Boolean
+  portas        Boolean
+  largura       Decimal
+  metragem      Decimal
+  profundidade  Decimal
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
   itens     ItemOrcamento[]
+  cores     CorOrcamento[]
   imagens   ImagemOrcamento[]
 
   @@map("orcamentos")
@@ -72,6 +84,15 @@ model Item {
   @@map("itens")
 }
 
+
+model Cor {
+  id         Int             @id @default(autoincrement())
+  nome       String          @db.VarChar(60)
+  orcamentos CorOrcamento[]
+
+  @@map("cores")
+}
+
 model ItemOrcamento {
   id          Int       @id @default(autoincrement())
   orcamento   Orcamento @relation(fields: [orcamentoId], references: [id])
@@ -82,9 +103,20 @@ model ItemOrcamento {
   @@map("orcamento_itens")
 }
 
-model ImagemOrcamento {
+model CorOrcamento {
   id          Int       @id @default(autoincrement())
-  url         String    @db.VarChar(255) // Armazena o link da imagem gerado pelo Supabase
+  orcamento   Orcamento @relation(fields: [orcamentoId], references: [id])
+  orcamentoId Int
+  cor         Cor      @relation(fields: [corId], references: [id])
+  corId      Int
+
+  @@map("orcamento_cores")
+}
+
+model ImagemOrcamento {
+  id                    Int       @id @default(autoincrement())
+  urlReferencia         String    @db.VarChar(255) // Armazena o link da imagem gerado pelo Supabase da referencia
+  urlPlanta             String    @db.VarChar(255) // Armazena o link da imagem gerado pelo Supabase da planta
   orcamento   Orcamento @relation(fields: [orcamentoId], references: [id])
   orcamentoId Int // Relacionamento com a tabela Orcamento
   uploadedAt  DateTime  @default(now())

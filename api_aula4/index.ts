@@ -4,6 +4,8 @@ import moveisRoutes from './routes/moveis'
 import fotosRoutes from './routes/fotos'
 import clientesRoutes from './routes/clientes'
 import orcamentoRoutes from './routes/orcamento'
+import itensRoutes from './routes/itens'
+import coresRoutes from './routes/cores'
 import cors from 'cors'
 const app = express()
 const port = 3004
@@ -16,6 +18,8 @@ app.use("/moveis", moveisRoutes)
 app.use("/fotos", fotosRoutes)
 app.use("/clientes", clientesRoutes)
 app.use("/orcamentos", orcamentoRoutes)
+app.use("/itens", itensRoutes)
+app.use("/cores", coresRoutes)
 
 app.get('/', (req, res) => {
   res.send('API: Sistema de Venda de Móveis')

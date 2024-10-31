@@ -27,19 +27,50 @@ router.get("/:id", async (req, res) => {
 });
 
 
-router.post("/", async (req, res) => {
-  const { clienteId, itens, urlImagem } = req.body;
 
-  if (!clienteId || !itens || !urlImagem) {
-    res
-      .status(400)
-      .json({ erro: "Informe clienteId, os itens e o url da imagem" });
-    return;
-  }
+// model Orcamento {
+//   id            Int               @id @default(autoincrement())
+//   cliente       Cliente           @relation(fields: [clienteId], references: [id])
+//   clienteId     String
+//   status        String            @default("PENDENTE") @db.VarChar(60)
+//   acabamento    String           @db.VarChar(60)
+//   ambiente      String           @db.VarChar(60)
+//   faixaPreco    String           @db.VarChar(120)
+//   observacoes   String          @db.VarChar(255)
+//   prazo         String          @db.VarChar(255)
+//   gavetas       Boolean    
+//   iluminacao    Boolean
+//   portas        Boolean
+//   largura       Decimal
+//   metragem      Decimal
+//   profundidade  Decimal
+//   createdAt     DateTime          @default(now())
+//   updatedAt     DateTime          @updatedAt
+//   itens     ItemOrcamento[]
+//   cores     CorOrcamento[]
+//   imagens   ImagemOrcamento[]
+
+//   @@map("orcamentos")
+// }
+
+
+router.post("/", async (req, res) => {
+  const { clienteId, itens, cores, urlReferencia, urlPlanta, acabamento, ambiente, faixaPreco, observacoes,
+    prazo, gavetas, iluminacao, portas, largura, metragem, profundidade
+   } = req.body;
+
+  // if (!clienteId || !itens || !cores || !urlReferencia || !urlPlanta || !acabamento || !ambiente || !faixaPreco
+  //   || !observacoes || !prazo || !gavetas || !iluminacao || !portas || !largura || !metragem || !profundidade
+  // ) {
+  //   res
+  //     .status(400)
+  //     .json({ erro: "Informe clienteId, os itens e o url da imagem" });
+  //   return;
+  // }
 
   try {
     const orcamento = await prisma.orcamento.create({
-      data: { clienteId },
+      data: { clienteId, acabamento, ambiente, faixaPreco, observacoes, prazo, gavetas, iluminacao, portas, largura, metragem, profundidade },
     });
 
     for (const itemId of itens) {
@@ -48,9 +79,16 @@ router.post("/", async (req, res) => {
         })
     }
 
+    for (const corId of cores) {
+        await prisma.corOrcamento.create({
+            data: {orcamentoId:orcamento.id, corId}
+        })
+    }
+
       await prisma.imagemOrcamento.create({
         data: {
-          url: urlImagem,
+          urlPlanta: urlPlanta,
+          urlReferencia: urlReferencia,
           orcamentoId: orcamento.id,
         },
       });
