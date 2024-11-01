@@ -35,7 +35,7 @@ const reviews = [
 
 export default function Avaliacoes() {  
   return (  
-    <div className="max-w-2xl mx-auto py-8">  
+    <div className="max-w-2xl mx-auto py-8 mt-16">  
       <h2 className="text-3xl font-bold mb-6 text-center">Avaliações dos Clientes</h2>  
       <Swiper  
         className='avaliacoes-swiper'
@@ -48,7 +48,7 @@ export default function Avaliacoes() {
       >  
         {reviews.map((review, index) => (  
           <SwiperSlide key={index}>  
-            <div className="bg-white shadow-md rounded-lg p-10">  
+            <div className="bg-colorc3brancobg shadow-md rounded-lg p-10">  
               <div className="flex items-center mb-4">  
                 <div className="text-lg font-semibold">{review.name}</div>  
                 <div className="ml-auto flex">  

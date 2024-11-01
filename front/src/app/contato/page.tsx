@@ -44,7 +44,7 @@ export default function Contato() {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-16">
+      <div className="container mx-auto px-1 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
 
           <div className="bg-white p-8 rounded-lg shadow-lg text-center">
@@ -78,10 +78,8 @@ export default function Contato() {
               <Mail className="w-8 h-8 text-white" />
             </div>
             <h3 className="text-xl font-semibold mb-2">E-mail</h3>
-            <p className="text-gray-600">
-              contato@casa3ambientes.com.br
-              <br />
-              comercial@casa3ambientes.com.br
+            <p className="text-gray-600 items-center text center left-0">
+              casa3.ambientespersonalizados@gmail.com
             </p>
           </div>
 
@@ -93,7 +91,7 @@ export default function Contato() {
             <p className="text-gray-600">
               Segunda a Sexta
               <br />
-              09:00 - 18:00
+              09:00 as 12:00 - 13:30 as 18:30
               <br />
               Sábado: 09:00 - 13:00
             </p>

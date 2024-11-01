@@ -22,6 +22,7 @@ const config: Config = {
         'colorc3marrom': '#a67b5b',
         'colorc3rosapastel': '#d9a5b3',
         'colorc3verde': '#809b8a',
+        'cards': '#F5F0E8',
       },
       'fontFamily': {
         'nunito': ['"Nunito"', 'serif'],

@@ -40,47 +40,81 @@ export default function Page() {
         <div className="">
           <Carousel />
         </div>
-        <section id="about" className="bg-colorc3bege py-16">
+        <section id="about" className="bg-colorc3bege py-20">
           <div className="container mx-auto px-6 max-w-6xl">
-            <h2 className="text-4xl font-bold mb-12 text-gray-800 text-center">Sobre Nós</h2>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-              <div className="space-y-6">
-                <p className="text-gray-700 leading-relaxed">
-                  Na Casa 3 Ambientes Personalizados, nossa paixão é transformar espaços em lares extraordinários. Especializamo-nos em móveis planejados que não apenas otimizam cada ambiente, mas também refletem a personalidade única de nossos clientes.
-                </p>
-                <p className="text-gray-700 leading-relaxed">
-                  Nossa missão é elevar a beleza e funcionalidade da sua casa. Por que se contentar com o comum quando você pode ter o extraordinário? Exploramos uma gama de opções personalizáveis para criar móveis que correspondam à sua visão.
-                </p>
-                <p className="text-gray-700 leading-relaxed">
-                  Do conceito à criação, damos vida às suas ideias. Nossa equipe dedicada de designers e artesãos trabalha em conjunto para transformar seus sonhos em realidade, garantindo que cada detalhe seja perfeito.
+            <h2 className="text-4xl font-bold mb-12 text-zinc-900 text-center">Sobre Nós</h2>
+
+            <div className="max-w-4xl mx-auto mb-16 space-y-6 text-lg font-medium">
+              <p className="text-zinc-900 leading-relaxed text-center text-xl font-semibold">
+                <span className="underline font-bold text-2xl text-black">Nossa missão</span> é conectar as pessoas com seus lares através de móveis planejados que promovem
+                o bem-estar e a harmonia familiar. Buscamos criar ambientes que inspirem momentos de alegria,
+                conforto e união.
+              </p>
+              <p className="text-zinc-900 leading-relaxed text-center">
+                Na Casa 3 Ambientes Personalizados, valorizamos a sua individualidade e criamos móveis
+                sob medida para transformar o seu lar em um espaço único e memorável. Nossa missão é proporcionar
+                uma experiência completa, desde o projeto até a instalação, para que você possa desfrutar
+                de momentos especiais com seus familiares.
+              </p>
+              
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="bg-cards p-8 rounded-lg shadow-md">
+                <h3 className="font-semibold mb-4 text-lg">Família</h3>
+                <p className="text-gray-600">
+                  Acreditamos que a casa é o lugar onde a família se reúne e cria memórias inesquecíveis
                 </p>
               </div>
-              <div className="bg-white p-8 rounded-lg shadow-lg">
-                <h3 className="text-2xl font-semibold mb-6 text-gray-800">Nossos Valores</h3>
-                <ul className="space-y-4">
-                  {[
-                    "Personalização em cada projeto",
-                    "Qualidade superior em materiais e acabamentos",
-                    "Inovação constante em design e soluções",
-                    "Compromisso com a satisfação do cliente",
-                    "Respeito ao meio ambiente em nossas práticas"
-                  ].map((valor, index) => (
-                    <li key={index} className="flex items-center text-gray-700">
-                      <svg className="w-5 h-5 mr-3 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                      </svg>
-                      {valor}
-                    </li>
-                  ))}
-                </ul>
-                <div className="mt-8">
-                  <a href="./catalogo" className="bg-green-600 text-white px-8 py-3 rounded-full hover:bg-colorc3 transition duration-300 shadow-md inline-block text-center">
-                    Visite Nosso Catálogo
-                  </a>
-                </div>
+
+              <div className="bg-cards p-8 rounded-lg shadow-md">
+                <h3 className="font-semibold mb-4 text-lg">Personalização</h3>
+                <p className="text-gray-600">
+                  Cada cliente é único e merece um projeto exclusivo
+                </p>
+              </div>
+
+              <div className="bg-cards p-8 rounded-lg shadow-md">
+                <h3 className="font-semibold mb-4 text-lg">Qualidade</h3>
+                <p className="text-gray-600">
+                  Utilizamos materiais de alta qualidade e processos eficientes
+                </p>
+              </div>
+
+              <div className="bg-cards p-8 rounded-lg shadow-md">
+                <h3 className="font-semibold mb-4 text-lg">Experiência do Cliente</h3>
+                <p className="text-gray-600">
+                  Atendimento personalizado e acolhedor
+                </p>
+              </div>
+
+              <div className="bg-cards p-8 rounded-lg shadow-md">
+                <h3 className="font-semibold mb-4 text-lg">Inovação</h3>
+                <p className="text-gray-600">
+                  Sempre atentos às novas tendências do mercado
+                </p>
+              </div>
+
+              <div className="bg-cards p-8 rounded-lg shadow-md">
+                <h3 className="font-semibold mb-4 text-lg">Sustentabilidade</h3>
+                <p className="text-gray-600">
+                  Priorizamos materiais ecologicamente corretos
+                </p>
               </div>
             </div>
+
           </div>
+              <div className="max-w-4xl mx-auto mb-16 mt-16 space-y-6 text-lg font-semibold">
+                <p className="text-zinc-900 leading-relaxed text-center">
+                  Queremos ser reconhecidos como referência em móveis planejados personalizados, transformando
+                  cada ambiente em um espaço único e memorável, onde as pessoas vivem momentos especiais.
+                </p>
+              </div>
+            <div className="text-center mt-12">
+              <a href="./catalogo" className="bg-green-600 text-white px-8 py-3 rounded-full hover:bg-colorc3 transition duration-300 shadow-md inline-block">
+                Visite Nosso Catálogo
+              </a>
+            </div>
         </section>
 
         <section id="services" className="bg-gray-100 py-24">

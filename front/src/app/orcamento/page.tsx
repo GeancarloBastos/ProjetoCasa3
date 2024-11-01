@@ -11,18 +11,12 @@ import { useClienteStore } from "@/context/cliente";
 interface FormInputs {
   // Informações do Ambiente
   ambiente: string;
-  metragem: number;
-  altura: number;
-  largura: number;
-  profundidade: number;
 
   // Detalhes do Projeto
   itens: string[];
   cores: string[];
   acabamento: string;
-  iluminacao: boolean;
-  gavetas: boolean;
-  portas: boolean;
+  adicionais: string[];
 
   // Informações Adicionais
   observacoes: string;
@@ -70,6 +64,13 @@ const cores = [
     "Acetinado",
     "Texturizado",
     "Alto Brilho",
+    "Laca",
+    "Verniz",
+    "Porta Americana",
+    "Vidro Reflecta Bronze",
+    "Vidro Incolor",
+    "Vidro Canelado",
+    "Espelho",
   ];
 
   const moveis = [
@@ -83,6 +84,37 @@ const cores = [
     { id: 8, nome: "Cama Planejada" },
     { id: 9, nome: "Mesa" },
     { id: 10, nome: "Painel TV" },
+    { id: 11, nome: "Armários Inferiores Suspensos" },
+    { id: 12, nome: "Armários Inferiores com pés de mdf" },
+    { id: 13, nome: "Armários Superiores com pés para por granito" },
+  ];
+
+  const adicionais = [
+    { id: 1, nome: "Puxadores" },
+    { id: 2, nome: "Rodapé" },
+    { id: 3, nome: "Pedras" },
+    { id: 4, nome: "Gavetas" },
+    { id: 5, nome: "Portas" },
+    { id: 6, nome: "Corrediças" },
+    { id: 7, nome: "Dobradiças" },
+    { id: 8, nome: "Prateleiras" },
+    { id: 9, nome: "Nichos" },
+    { id: 10, nome: "Vidros" },
+    { id: 11, nome: "Espelhos" },
+    { id: 12, nome: "Iluminação" },
+    { id: 13, nome: "Vidro Temperado" },
+    { id: 14, nome: "Vidro Canelado" },
+    { id: 15, nome: "Vidro Incolor" },
+    { id: 16, nome: "Vidro Reflecta Bronze" },
+    { id: 17, nome: "Divisória" },
+    { id: 18, nome: "Porta de Correr" },
+    { id: 19, nome: "Porta de Abrir" },
+    { id: 20, nome: "Porta de Correr com Espelho" },
+    { id: 21, nome: "Porta de Correr com Vidro" },
+    { id: 22, nome: "Porta de Correr com Vidro Reflecta Bronze" },
+    { id: 23, nome: "Porta de Correr com Vidro Incolor" },
+    { id: 24, nome: "Porta de Correr com Vidro Canelado" },
+    { id: 25, nome: "Porta de Correr com Vidro Temperado" },
   ];
 
   const faixasPreco = [
@@ -235,7 +267,7 @@ const cores = [
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-semibold text-gray-700 mb-1">
                 Tipo de Ambiente
               </label>
               <select
@@ -251,60 +283,6 @@ const cores = [
                 <p className="mt-1 text-sm text-red-600">{errors.ambiente.message}</p>
               )}
             </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Metragem (m²)
-              </label>
-              <input
-                type="number"
-                step="0.01"
-                {...register("metragem", { 
-                  required: "Informe a metragem",
-                  min: { value: 1, message: "Metragem mínima de 1m²" }
-                })}
-                className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-              />
-              {errors.metragem && (
-                <p className="mt-1 text-sm text-red-600">{errors.metragem.message}</p>
-              )}
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Altura (m)
-              </label>
-              <input
-                type="number"
-                step="0.01"
-                {...register("altura", { required: "Informe a altura" })}
-                className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Largura (m)
-              </label>
-              <input
-                type="number"
-                step="0.01"
-                {...register("largura", { required: "Informe a largura" })}
-                className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Profundidade (m)
-              </label>
-              <input
-                type="number"
-                step="0.01"
-                {...register("profundidade", { required: "Informe a profundidade" })}
-                className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-              />
-            </div>
           </div>
         </div>
 
@@ -313,7 +291,7 @@ const cores = [
           
           <div className="space-y-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
                 Móveis Desejados
               </label>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
@@ -332,7 +310,7 @@ const cores = [
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
                 Cores Preferidas
               </label>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -351,7 +329,7 @@ const cores = [
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
                 Tipo de Acabamento
               </label>
               <select
@@ -365,33 +343,21 @@ const cores = [
               </select>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <label className="flex items-center space-x-2">
-                <input
-                  type="checkbox"
-                  {...register("iluminacao")}
-                  className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                />
-                <span className="text-sm text-gray-700">Iluminação LED</span>
-              </label>
-
-              <label className="flex items-center space-x-2">
-                <input
-                  type="checkbox"
-                  {...register("gavetas")}
-                  className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                />
-                <span className="text-sm text-gray-700">Gavetas</span>
-              </label>
-
-              <label className="flex items-center space-x-2">
-                <input
-                  type="checkbox"
-                  {...register("portas")}
-                  className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                />
-                <span className="text-sm text-gray-700">Portas</span>
-              </label>
+            <div className="block text-sm text-gray-700 mb-2">
+              <label className="block text-sm font-semibold text-gray-700 mb-2">Adicionais</label>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                {adicionais.map(adc => (
+                <label key={adc.id} className="flex items-center space-x-2">
+                    <input
+                      type="checkbox"
+                      {...register("adicionais")}
+                      value={adc.id}
+                      className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                    />
+                    <span className="text-sm text-gray-700">{adc.nome}</span>
+                  </label>
+                ))}
+              </div>
             </div>
           </div>
         </div>
