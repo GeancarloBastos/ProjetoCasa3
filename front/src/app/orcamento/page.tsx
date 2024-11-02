@@ -225,6 +225,7 @@ const cores = [
       clienteId: cliente.id,
       itens: data.itens.map((item) => parseInt(item, 10)), // Converte para inteiro
       cores: data.cores.map((cor) => parseInt(cor, 10)),
+      adicionais: data.adicionais.map((adc) => parseInt(adc, 10)),
     };
 
     console.log("Tudo do data: " + data)
