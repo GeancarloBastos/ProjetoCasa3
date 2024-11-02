@@ -7,9 +7,8 @@ const prisma = new PrismaClient({
 });
 const router = Router();
 
-
 router.get("/:id", async (req, res) => {
-  const {id} = req.params
+  const { id } = req.params;
   try {
     const orcamentos = await prisma.orcamento.findMany({
       include: {
@@ -17,8 +16,8 @@ router.get("/:id", async (req, res) => {
         imagens: true,
       },
       where: {
-        clienteId: id
-      }
+        clienteId: id,
+      },
     });
     res.status(200).json(orcamentos);
   } catch (error) {
@@ -28,64 +27,64 @@ router.get("/:id", async (req, res) => {
 
 
 
-// model Orcamento {
-//   id            Int               @id @default(autoincrement())
-//   cliente       Cliente           @relation(fields: [clienteId], references: [id])
-//   clienteId     String
-//   status        String            @default("PENDENTE") @db.VarChar(60)
-//   acabamento    String           @db.VarChar(60)
-//   ambiente      String           @db.VarChar(60)
-//   faixaPreco    String           @db.VarChar(120)
-//   observacoes   String          @db.VarChar(255)
-//   prazo         String          @db.VarChar(255)
-//   gavetas       Boolean    
-//   iluminacao    Boolean
-//   portas        Boolean
-//   largura       Decimal
-//   metragem      Decimal
-//   profundidade  Decimal
-//   createdAt     DateTime          @default(now())
-//   updatedAt     DateTime          @updatedAt
-//   itens     ItemOrcamento[]
-//   cores     CorOrcamento[]
-//   imagens   ImagemOrcamento[]
-
-//   @@map("orcamentos")
-// }
-
-
 router.post("/", async (req, res) => {
-  const { clienteId, itens, cores, urlReferencia, urlPlanta, acabamento, ambiente, faixaPreco, observacoes,
-    prazo, gavetas, iluminacao, portas, largura, metragem, profundidade
-   } = req.body;
+  const {
+    clienteId,
+    itens,
+    cores,
+    adicionais,
+    urlReferencia,
+    urlPlanta,
+    acabamento,
+    ambiente,
+    faixaPreco,
+    observacoes,
+    prazo,
+  } = req.body;
 
-  // if (!clienteId || !itens || !cores || !urlReferencia || !urlPlanta || !acabamento || !ambiente || !faixaPreco
-  //   || !observacoes || !prazo || !gavetas || !iluminacao || !portas || !largura || !metragem || !profundidade
+  // COMENTADO VERIFICAÇÃO DE TODAS VARIAVEIS RECEBIDAS, ATÉ CONFIRMAR COM CLIENTE QUAIS SERIAM OBRIGATÓRIOS NO FORM.
+  
+  // if (!clienteId || !itens || !cores || !adicionais || !urlReferencia || !urlPlanta || !acabamento || !ambiente || !faixaPreco
+  //   || !observacoes || !prazo
   // ) {
   //   res
   //     .status(400)
-  //     .json({ erro: "Informe clienteId, os itens e o url da imagem" });
+  //     .json({ erro: "Informações de formulário faltando" });
   //   return;
   // }
 
   try {
-    const orcamento = await prisma.orcamento.create({
-      data: { clienteId, acabamento, ambiente, faixaPreco, observacoes, prazo, gavetas, iluminacao, portas, largura, metragem, profundidade },
-    });
+    const resultado = await prisma.$transaction(async (prisma) => {
+      const orcamento = await prisma.orcamento.create({
+        data: {
+          clienteId,
+          acabamento,
+          ambiente,
+          faixaPreco,
+          observacoes,
+          prazo,
+        },
+      });
 
-    for (const itemId of itens) {
-        await prisma.itemOrcamento.create({
-            data: {orcamentoId:orcamento.id, itemId}
+      const itemPromises = itens.map((itemId: number) =>
+        prisma.itemOrcamento.create({
+          data: { orcamentoId: orcamento.id, itemId },
         })
-    }
+      );
 
-    for (const corId of cores) {
-        await prisma.corOrcamento.create({
-            data: {orcamentoId:orcamento.id, corId}
+      const corPromises = cores.map((corId: number) =>
+        prisma.corOrcamento.create({
+          data: { orcamentoId: orcamento.id, corId },
         })
-    }
+      );
 
-      await prisma.imagemOrcamento.create({
+      const adicionalPromises = adicionais.map((adicionalId: number) =>
+        prisma.adicionalOrcamento.create({
+          data: { orcamentoId: orcamento.id, adicionalId },
+        })
+      );
+
+      const imagemPromise = prisma.imagemOrcamento.create({
         data: {
           urlPlanta: urlPlanta,
           urlReferencia: urlReferencia,
@@ -93,12 +92,19 @@ router.post("/", async (req, res) => {
         },
       });
 
-    res.status(201).json(orcamento);
+      await Promise.all([
+        ...itemPromises,
+        ...corPromises,
+        ...adicionalPromises,
+        imagemPromise,
+      ]);
+
+    });
+    res.status(201).json(resultado);
   } catch (error) {
+    console.error("Erro ao processar orçamento:", error);
     res.status(400).json(error);
   }
 });
 
-
-
-export default router
+export default router;

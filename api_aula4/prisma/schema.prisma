@@ -32,6 +32,7 @@ model Movel {
   // createdAt    DateTime     @default(now())
   // updatedAt    DateTime     @updatedAt
   tipoMaterial TipoMaterial
+
   // marca        Marca        @relation(fields: [marcaId], references: [id])
   // marcaId      Int
   @@map("moveis")
@@ -52,26 +53,21 @@ model Cliente {
 }
 
 model Orcamento {
-  id            Int               @id @default(autoincrement())
-  cliente       Cliente           @relation(fields: [clienteId], references: [id])
-  clienteId     String
-  status        String            @default("PENDENTE") @db.VarChar(60)
-  acabamento    String           @db.VarChar(60)
-  ambiente      String           @db.VarChar(60)
-  faixaPreco    String           @db.VarChar(120)
-  observacoes   String          @db.VarChar(255)
-  prazo         String          @db.VarChar(255)
-  gavetas       Boolean    
-  iluminacao    Boolean
-  portas        Boolean
-  largura       Decimal
-  metragem      Decimal
-  profundidade  Decimal
-  createdAt     DateTime          @default(now())
-  updatedAt     DateTime          @updatedAt
-  itens     ItemOrcamento[]
-  cores     CorOrcamento[]
-  imagens   ImagemOrcamento[]
+  id          Int               @id @default(autoincrement())
+  cliente     Cliente           @relation(fields: [clienteId], references: [id])
+  clienteId   String
+  status      String            @default("PENDENTE") @db.VarChar(60)
+  acabamento  String            @db.VarChar(60)
+  ambiente    String            @db.VarChar(60)
+  faixaPreco  String            @db.VarChar(120)
+  observacoes String            @db.VarChar(255)
+  prazo       String            @db.VarChar(255)
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  itens       ItemOrcamento[]
+  cores       CorOrcamento[]
+  imagens     ImagemOrcamento[]
+  adicionais AdicionalOrcamento[]
 
   @@map("orcamentos")
 }
@@ -84,13 +80,30 @@ model Item {
   @@map("itens")
 }
 
-
 model Cor {
-  id         Int             @id @default(autoincrement())
-  nome       String          @db.VarChar(60)
+  id         Int            @id @default(autoincrement())
+  nome       String         @db.VarChar(60)
   orcamentos CorOrcamento[]
 
   @@map("cores")
+}
+
+model Adicional {
+  id         Int            @id @default(autoincrement())
+  nome       String         @db.VarChar(60)
+  orcamentos AdicionalOrcamento[]
+
+  @@map("adicionais")
+}
+
+model AdicionalOrcamento {
+  id          Int       @id @default(autoincrement())
+  orcamento   Orcamento @relation(fields: [orcamentoId], references: [id])
+  orcamentoId Int
+  adicional   Adicional @relation(fields: [adicionalId], references: [id])
+  adicionalId Int
+
+  @@map("orcamento_adicionais")
 }
 
 model ItemOrcamento {
@@ -107,19 +120,19 @@ model CorOrcamento {
   id          Int       @id @default(autoincrement())
   orcamento   Orcamento @relation(fields: [orcamentoId], references: [id])
   orcamentoId Int
-  cor         Cor      @relation(fields: [corId], references: [id])
-  corId      Int
+  cor         Cor       @relation(fields: [corId], references: [id])
+  corId       Int
 
   @@map("orcamento_cores")
 }
 
 model ImagemOrcamento {
-  id                    Int       @id @default(autoincrement())
-  urlReferencia         String    @db.VarChar(255) // Armazena o link da imagem gerado pelo Supabase da referencia
-  urlPlanta             String    @db.VarChar(255) // Armazena o link da imagem gerado pelo Supabase da planta
-  orcamento   Orcamento @relation(fields: [orcamentoId], references: [id])
-  orcamentoId Int // Relacionamento com a tabela Orcamento
-  uploadedAt  DateTime  @default(now())
+  id            Int       @id @default(autoincrement())
+  urlReferencia String    @db.VarChar(255) // Armazena o link da imagem gerado pelo Supabase da referencia
+  urlPlanta     String    @db.VarChar(255) // Armazena o link da imagem gerado pelo Supabase da planta
+  orcamento     Orcamento @relation(fields: [orcamentoId], references: [id])
+  orcamentoId   Int // Relacionamento com a tabela Orcamento
+  uploadedAt    DateTime  @default(now())
 
   @@map("imagens_orcamentos")
 }
@@ -134,8 +147,6 @@ enum TipoMaterial {
   // MANTA
   // ESPELHO
 }
-
-
 
 enum Cargo {
   COMUM
