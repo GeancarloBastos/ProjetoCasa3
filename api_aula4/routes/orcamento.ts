@@ -14,6 +14,8 @@ router.get("/:id", async (req, res) => {
       include: {
         itens: true,
         imagens: true,
+        cores: true,
+        adicionais: true
       },
       where: {
         clienteId: id,
