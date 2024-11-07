@@ -44,12 +44,21 @@ model Cliente {
   email      String      @unique @db.VarChar(60)
   senha      String      @db.VarChar(60) // senha deve ser varchar(60)
   telefone   String      @db.VarChar(20)
-  cargo      Cargo       @default(COMUM)
   createdAt  DateTime    @default(now())
   updatedAt  DateTime    @updatedAt
   orcamentos Orcamento[]
 
   @@map("clientes")
+}
+
+model Admin {
+  id           Int      @id @default(autoincrement())
+  nome         String   @db.VarChar(60)
+  email        String   @db.VarChar(60) @unique
+  senha        String   @db.VarChar(60)   // senha deve ser varchar(60)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt  
+  @@map("admins")
 }
 
 model Orcamento {
@@ -148,7 +157,3 @@ enum TipoMaterial {
   // ESPELHO
 }
 
-enum Cargo {
-  COMUM
-  ADMIN
-}

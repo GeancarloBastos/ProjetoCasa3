@@ -5,15 +5,15 @@ import multer from "multer";
 
 // middleware login verificar token
 import { verificaAutenticacao } from "../middlewares/verificaAutenticacao";
-import { verificaCargo } from "../middlewares/verificaCargo";
+
 import supabaseClient from "../supabaseClient";
 
 const prisma = new PrismaClient();
 const router = Router();
 
 // uploadMiddleware.js
-// Define o local temporário para salvar os arquivos antes de enviá-los ao Supabase
-const storage = multer.memoryStorage(); // Armazenar na memória temporariamente
+
+const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
 declare global {
@@ -21,7 +21,7 @@ declare global {
     interface Request {
       userLogadoId?: number;
       userLogadoNome?: string;
-      userLogadoCargo?: string;
+      // userLogadoCargo?: string;
     }
   }
 }
@@ -53,7 +53,7 @@ router.post(
       const { data: urlAssinado, error: urlAssinadoError } =
         await supabase.storage
           .from("Fotos")
-          .createSignedUploadUrl(filePath); // URL válido por 1 hora para upload de arquivos
+          .createSignedUploadUrl(filePath); 
 
       if (urlAssinadoError) {
         return res
@@ -62,9 +62,9 @@ router.post(
       }
 
       const { data: uploadData, error: uploadError } = await supabase.storage
-        .from("Fotos") // Substitua pelo nome do seu bucket
+        .from("Fotos") 
         .uploadToSignedUrl(filePath, urlAssinado.token, buffer, {
-          contentType: "image/jpg", // Verifique o tipo correto do arquivo
+          contentType: "image/jpg", 
           upsert: true, // Substitua o arquivo se já existir
         });
 

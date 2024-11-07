@@ -1,44 +1,35 @@
-import jwt from "jsonwebtoken"
-import { Request, Response, NextFunction } from 'express'
+import jwt from "jsonwebtoken";
+import { Request, Response, NextFunction } from "express";
 
 interface TokenI {
-  userLogadoId: number
-  userLogadoNome: string
-  userLogadoCargo: string
+  userLogadoId: number;
+  userLogadoNome: string;
 }
 
-// interface CustomRequest extends Request {
-//   userLogadoId?: string;
-//   userLogadoNome?: string;
-// }
-// uma solução seria colocar essa interface como tipo de req, chatgpt disse que é melhor que any ali
-
-
-export function verificaAutenticacao(req: Request | any, res: Response, next: NextFunction) {
-  const { authorization } = req.headers
-  console.log(authorization)
+// Middleware de autenticação para qualquer usuário logado
+export function verificaAutenticacao(
+  req: Request | any,
+  res: Response,
+  next: NextFunction
+) {
+  const { authorization } = req.headers;
 
   if (!authorization) {
-    res.status(401).json({ error: "Token não informado" })
-    return
+    return res.status(401).json({ error: "Token não informado" });
   }
 
-  const token = authorization.split(" ")[1]
-
-  console.log("Token depois do split: " + token)
+  const token = authorization.split(" ")[1];
 
   try {
-    const decode = jwt.verify(token, process.env.JWT_KEY as string)
-    console.log(decode)
-    const { userLogadoId, userLogadoNome, userLogadoCargo } = decode as TokenI
-    console.log(userLogadoCargo)
+    const decode = jwt.verify(token, process.env.JWT_KEY as string) as TokenI;
+    const { userLogadoId, userLogadoNome } = decode;
 
-    req.userLogadoId   = userLogadoId
-    req.userLogadoNome = userLogadoNome
-    req.userLogadoCargo = userLogadoCargo
+    // Passa o ID e nome do usuário para o próximo middleware
+    req.userLogadoId = userLogadoId;
+    req.userLogadoNome = userLogadoNome;
 
     next();
   } catch (error) {
-    res.status(401).json({ error: "Token inválido" });
+    return res.status(401).json({ error: "Token inválido" });
   }
 }
