@@ -18,25 +18,6 @@ type InputPesquisaProps = {
 export function InputPesquisa({ setMoveis }: InputPesquisaProps) {
   const { register, handleSubmit, reset } = useForm<Inputs>();
 
-  // async function enviaPesquisa(data: Inputs) {
-  //   if (data.termo.length < 2) {
-  //     alert("Informe, no mínimo, 2 caracteres para a pesquisa");
-  //     return;
-  //   }
-  //   const response = await fetch(
-  //     `${process.env.NEXT_PUBLIC_URL_API}/moveis/pesquisa/${data.termo}`
-  //   );
-  //   const dados = await response.json();
-  //   if (dados.length == 0) {
-  //     alert(
-  //       "Não há informações para a sua pesquisa... Realize uma nova pesquisa."
-  //     );
-  //     reset({ termo: "" });
-  //     return;
-  //   }
-  //   setMoveis(dados);
-  // }
-
   async function mostraDestaques() {
     const response = await fetch(`${process.env.NEXT_PUBLIC_URL_API}/moveis`);
     const dados = await response.json();

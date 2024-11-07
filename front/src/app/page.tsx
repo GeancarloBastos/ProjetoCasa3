@@ -30,8 +30,6 @@ export default function Page() {
       getCliente(clienteSalvo)
     }
 
-
-    // getDados()
   }, [])
 
   return (
@@ -59,7 +57,7 @@ export default function Page() {
               
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 ">
               <div className="bg-cards p-8 rounded-lg shadow-md">
                 <h3 className="font-semibold mb-4 text-lg">Família</h3>
                 <p className="text-gray-600">

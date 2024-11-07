@@ -24,7 +24,7 @@ export default function Login() {
           "Content-Type": "application/json",
         },
         method: "POST",
-        body: JSON.stringify({ email: data.email, senha: data.senha }),
+        body: JSON.stringify(data),
       }
     );
     // console.log(response)
@@ -40,7 +40,6 @@ export default function Login() {
           localStorage.removeItem("client_key");
         }
       }
-
       router.push("/");
     } else {
       alert("Erro... Login ou senha incorretos");

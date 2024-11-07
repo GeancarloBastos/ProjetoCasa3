@@ -30,7 +30,7 @@ export function Header() {
             <div className="ml-10 flex items-baseline space-x-4">  
               <Link href="/" className="text-colorc3offbranco hover:text-colorc3verde px-3 py-2 rounded-md text-md font-medium">Início</Link>  
               <Link href="/catalogo" className="text-colorc3offbranco hover:text-colorc3verde px-3 py-2 rounded-md text-md font-medium">Catálogo</Link>  
-              <Link href="/sobre" className="text-colorc3offbranco hover:text-colorc3verde px-3 py-2 rounded-md text-md font-medium">Sobre Nós</Link>  
+              <Link href="#about" className="text-colorc3offbranco hover:text-colorc3verde px-3 py-2 rounded-md text-md font-medium">Sobre Nós</Link>  
               <Link href="/contato" className="text-colorc3offbranco hover:text-colorc3verde px-3 py-2 rounded-md text-md font-medium">Contato</Link>  
             </div>  
           </div>  
@@ -39,7 +39,7 @@ export function Header() {
               <Link href={cliente.id ? "/orcamento" : "/login"} className="bg-colorc3verde hover:bg-green-800 text-white px-3 py-2 rounded-md text-sm font-medium">  
                 FAÇA SEU PROJETO  
               </Link>  
-              <Link href="" className="ml-3 bg-green-800 hover:bg-green-700 text-white px-3 py-2 rounded-md text-sm font-medium flex items-center">  
+              <Link href="/carrinho" className="ml-3 bg-green-800 hover:bg-green-700 text-white px-3 py-2 rounded-md text-sm font-medium flex items-center">  
                 <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">  
                   <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />  
                 </svg>  
