@@ -166,15 +166,15 @@ const cores = [
         method: "POST",
         body: formData,
         headers: {
-          Authorization: `Bearer ${cliente.token}`, // Adiciona o header de autorização
+          Authorization: `Bearer ${cliente.token}`,
           // "Content-Type": "multipart/form-data", // Adiciona o tipo de conteúdo, se necessário
         },
       }
     );
 
     if (!response.ok) {
-      const errorMessage = await response.text(); // Obtenha a resposta de erro
-      console.error("Erro no upload:", errorMessage); // Logar a mensagem de erro
+      const errorMessage = await response.text(); 
+      console.error("Erro no upload:", errorMessage); 
       throw new Error("Erro ao enviar o arquivo");
     }
 

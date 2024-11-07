@@ -1,5 +1,5 @@
 'use client';  
-import { useCarrinho } from '@/components/CarrinhoContext';  
+import { useCarrinho } from '@/context/CarrinhoContext';  
 import { ShoppingCart, ArrowLeft } from 'lucide-react';  
 import Link from 'next/link';  
 
@@ -10,7 +10,7 @@ export default function CarrinhoPage() {
     atualizarQuantidade,  
     valorTotal,
     totalItens   
-  } = useCarrinho();  
+  } = useCarrinho();
 
   return (  
     <div className="min-h-screen bg-gray-50 dark:bg-zinc-900">  

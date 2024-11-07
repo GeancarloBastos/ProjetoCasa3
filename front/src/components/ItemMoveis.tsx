@@ -1,10 +1,12 @@
 import { MovelI } from "@/utils/types/movel";
 import { useState } from "react";
-import { useCarrinho } from "./CarrinhoContext";
+import { useCarrinho } from "../context/CarrinhoContext";
 
 export function ItemMoveis({ data }: { data: MovelI }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { adicionarAoCarrinho } = useCarrinho();
+  const { adicionarAoCarrinho, totalItens, itens } = useCarrinho();
+    console.log("Itens no Carrinho:", totalItens);
+    console.log("Itens no Carrinho:", itens);
 
   const handleAddToCart = () => {
     adicionarAoCarrinho({

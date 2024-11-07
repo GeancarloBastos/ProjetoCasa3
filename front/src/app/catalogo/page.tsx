@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { InputPesquisa } from "@/components/InputPesquisa";  
 import { ItemMoveis } from "@/components/ItemMoveis";  
 import { MovelI } from "@/utils/types/movel";  
+import { CarrinhoProvider } from "@/context/CarrinhoContext";
+
 
 export default function Catalogo() {  
   const [moveis, setMoveis] = useState<MovelI[]>([]);  
@@ -73,7 +75,10 @@ export default function Catalogo() {
         </div>  
       ) : (  
         <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">  
+        
+
           {listaMoveis}  
+        
         </section>  
       )}  
     </div>  
