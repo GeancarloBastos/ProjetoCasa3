@@ -41,7 +41,7 @@ export default function Footer() {
             </div>
           </nav>
 
-          <div className="flex flex-col items-center lg:items-end gap-8">
+          <div className="flex flex-col items-center m-auto lg:items-end gap-8">
             <div className="flex flex-col items-center lg:items-end gap-4">
               <h3 className="text-lg font-semibold">Conecte-se conosco</h3>
               <div className="flex gap-6">
@@ -88,9 +88,9 @@ export default function Footer() {
 
             <div className="text-right">
               <h3 className="text-lg font-semibold mb-4 text-center lg:text-right">Nossa Equipe</h3>
-              <div className="text-zinc-400 text-sm space-y-2">
+              <div className="text-zinc-400 text-sm space-y-2 flex flex-col justify-center items-center md:items-end">
                 <p>Geancarlo Bastos <span className="text-zinc-500">(Front-end)</span></p>
-                <p>Leonardo Bonato <span className="text-zinc-500">(Banco de dados)</span></p>
+                <p>Leonardo Bonato <span className="text-zinc-500">(PO)</span></p>
                 <p>Cauã Stocker Saraiva <span className="text-zinc-500">(Back-end)</span></p>
               </div>
             </div>

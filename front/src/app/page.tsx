@@ -42,13 +42,13 @@ export default function Page() {
           <div className="container mx-auto px-6 max-w-6xl">
             <h2 className="text-4xl font-bold mb-12 text-zinc-900 text-center">Sobre Nós</h2>
 
-            <div className="max-w-4xl mx-auto mb-16 space-y-6 text-lg font-medium">
-              <p className="text-zinc-900 leading-relaxed text-center text-xl font-semibold">
-                <span className="underline font-bold text-2xl text-black">Nossa missão</span> é conectar as pessoas com seus lares através de móveis planejados que promovem
+            <div className="w-64 md:w-auto md:max-w-4xl mx-auto mb-16 space-y-6 text-lg font-medium">
+              <p className="text-zinc-900 leading-relaxed text-center text-lg md:text-xl font-semibold">
+                <span className="underline font-bold  text-xl md:text-2xl text-black">Nossa missão</span> é conectar as pessoas com seus lares através de móveis planejados que promovem
                 o bem-estar e a harmonia familiar. Buscamos criar ambientes que inspirem momentos de alegria,
                 conforto e união.
               </p>
-              <p className="text-zinc-900 leading-relaxed text-center">
+              <p className="text-zinc-900 leading-relaxed text-center text-base ">
                 Na Casa 3 Ambientes Personalizados, valorizamos a sua individualidade e criamos móveis
                 sob medida para transformar o seu lar em um espaço único e memorável. Nossa missão é proporcionar
                 uma experiência completa, desde o projeto até a instalação, para que você possa desfrutar
@@ -102,7 +102,7 @@ export default function Page() {
             </div>
 
           </div>
-              <div className="max-w-4xl mx-auto mb-16 mt-16 space-y-6 text-lg font-semibold">
+              <div className="md:max-w-4xl mx-1 md:mx-auto mb-16 mt-16 space-y-6 text-lg font-semibold">
                 <p className="text-zinc-900 leading-relaxed text-center">
                   Queremos ser reconhecidos como referência em móveis planejados personalizados, transformando
                   cada ambiente em um espaço único e memorável, onde as pessoas vivem momentos especiais.

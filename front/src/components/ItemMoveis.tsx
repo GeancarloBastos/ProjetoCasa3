@@ -24,7 +24,7 @@ export function ItemMoveis({ data }: { data: MovelI }) {
 
   return (
     <>
-      <div className="w-96 mt-20 mb-20 bg-white border border-gray-200 rounded-lg shadow dark:bg-zinc-900 dark:border-white">
+      <div className="w-72 md:w-96 mt-20 mb-20 bg-white border border-gray-200 rounded-lg shadow dark:bg-zinc-900 dark:border-white">
         <div className="w-full aspect-[16/10] overflow-hidden rounded-t-lg">
           <img className="w-full h-full object-cover" src={data.foto} alt={`Imagem do ${data.nome}`} />
         </div>

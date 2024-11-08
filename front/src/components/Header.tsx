@@ -85,7 +85,7 @@ export function Header() {
               <Link href={cliente.id ? "/detalhes" : "/login"} className="bg-colorc3verde hover:bg-green-800 text-white px-3 py-2 rounded-md text-sm font-medium">  
                 FAÇA SEU PROJETO  
               </Link>  
-              <Link href="#" className="ml-3 bg-green-800 hover:bg-green-700 text-white px-3 py-2 rounded-md text-sm font-medium flex items-center">  
+              <Link href="/carrinho" className="ml-3 bg-green-800 hover:bg-green-700 text-white px-3 py-2 rounded-md text-sm font-medium flex items-center">  
                 CARRINHO  
               </Link>  
             </div>  

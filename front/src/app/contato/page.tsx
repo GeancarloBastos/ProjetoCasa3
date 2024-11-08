@@ -44,10 +44,10 @@ export default function Contato() {
         </div>
       </div>
 
-      <div className="container mx-auto px-1 py-16">
+      <div className="container mx-auto px-1 md:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
 
-          <div className="bg-white p-8 rounded-lg shadow-lg text-center">
+          <div className="bg-white p-4 md:p-8 rounded-lg shadow-lg text-center">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-colorc3 rounded-full mb-6">
               <MapPin className="w-8 h-8 text-white" />
             </div>
@@ -61,7 +61,7 @@ export default function Contato() {
             </p>
           </div>
 
-          <div className="bg-white p-8 rounded-lg shadow-lg text-center">
+          <div className="bg-white p-4 md:p-8 rounded-lg shadow-lg text-center">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-colorc3 rounded-full mb-6">
               <Phone className="w-8 h-8 text-white" />
             </div>
@@ -73,7 +73,7 @@ export default function Contato() {
             </p>
           </div>
 
-          <div className="bg-white p-8 rounded-lg shadow-lg text-center">
+          <div className="bg-white p-4 md:p-8  rounded-lg shadow-lg text-center">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-colorc3 rounded-full mb-6">
               <Mail className="w-8 h-8 text-white" />
             </div>
@@ -83,7 +83,7 @@ export default function Contato() {
             </p>
           </div>
 
-          <div className="bg-white p-8 rounded-lg shadow-lg text-center">
+          <div className="bg-white p-4 md:p-8  rounded-lg shadow-lg text-center">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-colorc3 rounded-full mb-6">
               <Clock className="w-8 h-8 text-white" />
             </div>
@@ -114,7 +114,7 @@ export default function Contato() {
           </div>
         </div>
 
-        <div className="text-center mt-16">
+        <div className="text-center py-6 md:py-0 mt-16">
           <h2 className="text-2xl font-bold mb-6">Siga-nos nas Redes Sociais</h2>
           <div className="flex justify-center space-x-6">
             <a

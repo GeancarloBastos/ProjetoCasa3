@@ -75,8 +75,9 @@ export function CarrinhoProvider({ children }: { children: React.ReactNode }) {
   const limparCarrinho = useCallback(() => {  
     setItens([]);  
   }, []);  
-
-  const totalItens = itens.reduce((total, item) => total + item.quantidade, 0);  
+  console.log(itens)
+  const totalItens = itens.reduce((total, item) => total + item.quantidade, 0); 
+  console.log(totalItens)
 
   return (  
     <CarrinhoContext.Provider  

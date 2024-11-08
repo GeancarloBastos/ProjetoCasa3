@@ -123,12 +123,12 @@ export function InputPesquisa({ setMoveis }: InputPesquisaProps) {
           </div>
         </div>
 
-          <div className="flex items-center space-x-4">
+          <div className="flex flex-col gap-4 md:flex-row items-center space-x-4">
             <input
               type="text"
               placeholder="Pesquisar..."
               {...register("search")}
-              className="flex-grow p-2 border border-gray-300 rounded-md"
+              className="flex-grow w-full md:w-auto p-2 border border-gray-300 rounded-md"
             />
             <button type="submit" className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition duration-300">
               Buscar

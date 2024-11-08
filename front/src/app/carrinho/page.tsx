@@ -76,7 +76,7 @@ export default function CarrinhoPage() {
                       </p>  
                       <div className="flex items-center gap-3">  
                         <button  
-                          onClick={() => atualizarQuantidade(item.id, item.quantidade - 1)}  
+                          onClick={() => atualizarQuantidade(item.id,  -1)}  
                           className="text-gray-500 hover:text-gray-700 dark:text-gray-400"  
                         >  
                           -  
@@ -85,7 +85,7 @@ export default function CarrinhoPage() {
                           {item.quantidade}  
                         </span>  
                         <button  
-                          onClick={() => atualizarQuantidade(item.id, item.quantidade + 1)}  
+                          onClick={() => atualizarQuantidade(item.id, +1)}  
                           className="text-gray-500 hover:text-gray-700 dark:text-gray-400"  
                         >  
                           +  
