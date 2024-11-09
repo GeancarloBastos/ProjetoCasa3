@@ -54,25 +54,34 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
+router.patch("/:id", async (req, res) => {
   const { id } = req.params;
-  const { descricao, preco, foto } = req.body;
+  const { descricao, preco, foto, tipoProdutoId, corId } = req.body;
 
-  if (!descricao || !preco || !foto  ) {
-    res
+  // Verifica se pelo menos um campo foi enviado
+  if (!descricao && !preco && !foto && !tipoProdutoId && !corId) {
+    return res
       .status(400)
-      .json({ erro: "Informe nome, preco, e foto" });
-    return;
+      .json({ erro: "Informe pelo menos um campo para atualizar" });
   }
 
   try {
+    // Atualiza apenas os campos fornecidos
     const movel = await prisma.produto.update({
       where: { id: Number(id) },
-      data: { descricao, preco, foto },
+      data: {
+        descricao: descricao ?? undefined, // Só atualiza se fornecido
+        preco: Number(preco) ?? undefined, // Só atualiza se fornecido
+        foto: foto ?? undefined, // Só atualiza se fornecido
+        tipoProdutoId: Number(tipoProdutoId) ?? undefined, // Só atualiza se fornecido
+        corId: Number(corId) ?? undefined, // Só atualiza se fornecido
+      },
     });
+
     res.status(200).json(movel);
   } catch (error) {
-    res.status(400).json(error);
+    console.error(error);
+    res.status(500).json({ erro: "Erro ao atualizar o produto" });
   }
 });
 
@@ -161,7 +170,7 @@ router.put("/:id", async (req, res) => {
       // Consulta com where e busca combinados
       const produtos = await prisma.produto.findMany({
         where: filtros,
-        include: { cor: true } 
+        include: { cor: true, tipoProduto: true } 
       });
       console.log("Filtros aplicados:", JSON.stringify(filtros, null, 2));
       res.json(produtos);
@@ -176,9 +185,10 @@ router.get("/teste/:id", async (req, res) => {
   try {
     const movel = await prisma.produto.findUnique({
       where: { id: Number(id) },
-      // include: {
-      //   marca: true,
-      // },
+      include: {
+        cor: true,
+        tipoProduto: true
+      },
     });
     res.status(200).json(movel);
   } catch (error) {

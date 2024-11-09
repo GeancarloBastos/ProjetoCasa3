@@ -7,6 +7,9 @@ import orcamentoRoutes from './routes/orcamento'
 import itensRoutes from './routes/itens'
 import coresRoutes from './routes/cores'
 import cors from 'cors'
+import adminRoutes from './routes/admins'
+import dashbourdRoutes from './routes/dashboard'
+import tiposRoutes from './routes/tipos'
 const app = express()
 const port = 3004
 
@@ -20,6 +23,9 @@ app.use("/clientes", clientesRoutes)
 app.use("/orcamentos", orcamentoRoutes)
 app.use("/itens", itensRoutes)
 app.use("/cores", coresRoutes)
+app.use("/admins", adminRoutes)
+app.use("/dashboard", dashbourdRoutes)
+app.use("/tipos", tiposRoutes)
 
 app.get('/', (req, res) => {
   res.send('API: Sistema de Venda de Móveis')
