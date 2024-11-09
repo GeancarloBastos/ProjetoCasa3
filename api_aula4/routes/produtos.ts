@@ -22,18 +22,18 @@ const router = Router();
 // });
 
 router.post("/", async (req, res) => {
-  const { descricao, preco, foto, tipoMaterial, cor } = req.body;
+  const { descricao, preco, foto, tipoMaterial, corId, tipoProdutoId } = req.body;
 
-  if (!descricao || !preco || !foto || !tipoMaterial || !cor ) {
+  if (!descricao || !preco || !foto || !tipoMaterial || !corId || !tipoProdutoId ) {
     res
       .status(400)
-      .json({ erro: "Informe nome, preco, foto, tipoMaterial e marcaId" });
+      .json({ erro: "Informe nome, preco, foto, tipoMaterial e tipoProdutoId" });
     return;
   }
 
   try {
-    const movel = await prisma.movel.create({
-      data: { descricao, preco, foto, tipoMaterial, cor },
+    const movel = await prisma.produto.create({
+      data: { descricao, preco, foto, tipoMaterial, corId, tipoProdutoId },
     });
     res.status(201).json(movel);
   } catch (error) {
@@ -45,7 +45,7 @@ router.delete("/:id", async (req, res) => {
   const { id } = req.params;
 
   try {
-    const movel = await prisma.movel.delete({
+    const movel = await prisma.produto.delete({
       where: { id: Number(id) },
     });
     res.status(200).json(movel);
@@ -56,19 +56,19 @@ router.delete("/:id", async (req, res) => {
 
 router.put("/:id", async (req, res) => {
   const { id } = req.params;
-  const { descricao, preco, foto, tipoMaterial } = req.body;
+  const { descricao, preco, foto } = req.body;
 
-  if (!descricao || !preco || !foto || !tipoMaterial ) {
+  if (!descricao || !preco || !foto  ) {
     res
       .status(400)
-      .json({ erro: "Informe nome, preco, foto, tipoMaterial e marcaId" });
+      .json({ erro: "Informe nome, preco, e foto" });
     return;
   }
 
   try {
-    const movel = await prisma.movel.update({
+    const movel = await prisma.produto.update({
       where: { id: Number(id) },
-      data: { descricao, preco, foto, tipoMaterial },
+      data: { descricao, preco, foto },
     });
     res.status(200).json(movel);
   } catch (error) {
@@ -128,7 +128,7 @@ router.put("/:id", async (req, res) => {
   router.get("/", async (req, res) => {
     const { tipoMaterial, cor, precoMin, precoMax, search } = req.query;
     try {
-        const filtros: Prisma.MovelWhereInput = {}; // Usando a interface atualizada
+        const filtros: Prisma.ProdutoWhereInput = {}; // Usando a interface atualizada
         console.log(req.query)
   
         if (tipoMaterial) {
@@ -138,11 +138,11 @@ router.put("/:id", async (req, res) => {
         }
   
         if (cor) {
-          filtros.cor = {
-            equals: cor as string
-          }
+          filtros.corId = {
+            equals: Number(cor), // Converta `cor` para número, pois é o `id` da cor
+          };
         }
-  
+
         if (precoMin || precoMax) {
           filtros.preco = {};
           if (precoMin) {
@@ -159,8 +159,9 @@ router.put("/:id", async (req, res) => {
         }
       console.log("filtros aplicados=" + filtros)
       // Consulta com where e busca combinados
-      const produtos = await prisma.movel.findMany({
-        where: filtros
+      const produtos = await prisma.produto.findMany({
+        where: filtros,
+        include: { cor: true } 
       });
       console.log("Filtros aplicados:", JSON.stringify(filtros, null, 2));
       res.json(produtos);
@@ -173,7 +174,7 @@ router.put("/:id", async (req, res) => {
 router.get("/teste/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    const movel = await prisma.movel.findUnique({
+    const movel = await prisma.produto.findUnique({
       where: { id: Number(id) },
       // include: {
       //   marca: true,

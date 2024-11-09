@@ -1,6 +1,6 @@
 import express from 'express'
 // import marcasRoutes from './routes/marcas'
-import moveisRoutes from './routes/moveis'
+import moveisRoutes from './routes/produtos'
 import fotosRoutes from './routes/fotos'
 import clientesRoutes from './routes/clientes'
 import orcamentoRoutes from './routes/orcamento'

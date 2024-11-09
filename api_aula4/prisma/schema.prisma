@@ -22,21 +22,32 @@ datasource db {
 //   @@map("marcas")
 // }
 
-model Movel {
-  id           Int          @id @default(autoincrement())
-  descricao    String       @db.VarChar(40)
-  preco        Decimal      @db.Decimal(10, 2)
-  foto         String
-  cor          String
-  destaque     Boolean      @default(true)
+model Produto {
+  id            Int          @id @default(autoincrement())
+  descricao     String       @db.VarChar(40)
+  preco         Decimal      @db.Decimal(10, 2)
+  foto          String
+  // destaque     Boolean      @default(true)
   // createdAt    DateTime     @default(now())
   // updatedAt    DateTime     @updatedAt
-  tipoMaterial TipoMaterial
+  tipoMaterial  TipoMaterial?
+  tipoProduto   TipoProduto           @relation(fields: [tipoProdutoId], references: [id])
+  tipoProdutoId Int
+  cor           Cor                 @relation(fields: [corId], references: [id])
+  corId         Int
 
   // marca        Marca        @relation(fields: [marcaId], references: [id])
   // marcaId      Int
-  @@map("moveis")
+  @@map("produtos")
 }
+
+model TipoProduto {
+  id         Int         @id @default(autoincrement())
+  nome       String      @db.VarChar(60)
+  produtos   Produto[]
+  @@map("tipo_produtos")
+}
+
 
 model Cliente {
   id         String      @id @default(uuid()) @db.VarChar(36)
@@ -85,7 +96,6 @@ model Item {
   id         Int             @id @default(autoincrement())
   nome       String          @db.VarChar(60)
   orcamentos ItemOrcamento[]
-
   @@map("itens")
 }
 
@@ -93,6 +103,7 @@ model Cor {
   id         Int            @id @default(autoincrement())
   nome       String         @db.VarChar(60)
   orcamentos CorOrcamento[]
+  produtos   Produto[]
 
   @@map("cores")
 }
