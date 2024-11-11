@@ -48,11 +48,11 @@ export function MenuLateral() {
             </Link>
           </li>
           <li>
-          <Link href="/principal/propostas" className="flex items-center p-2 cursor-pointer">
+          <Link href="/principal/orcamentos" className="flex items-center p-2 cursor-pointer">
               <span className="h-5 text-gray-600 text-2xl">
                 <BsCashCoin />
               </span>
-              <span className="ms-2 mt-1">Controle de Propostas</span>
+              <span className="ms-2 mt-1">Controle de Orçamentos</span>
             </Link>
           </li>
 

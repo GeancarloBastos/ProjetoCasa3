@@ -76,7 +76,7 @@ async function alterarProduto(data: ProdutoI) {
     preco: data.preco,
     foto: data.foto,
     tipoProdutoId: data.tipoProdutoId,
-    corId: data.corId, // Certifique-se de enviar a corId corretamente
+    corId: data.corId, 
   };
 
   const response = await fetch(
@@ -99,14 +99,11 @@ async function alterarProduto(data: ProdutoI) {
         "Content-type": "application/json",
       },
     }
-  ); // Produto atualizado com a nova cor
+  ); 
 
   const updatedProduto = await response.json()
 
-    // Verifique o que está sendo retornado
-    console.log("Produto após atualização:", updatedProduto);
-
-    // Atualiza o estado de produtos com a nova cor
+    
     setProdutos((prevProdutos) => {
       return prevProdutos.map((x) =>
         x.id === produto.id
@@ -122,7 +119,7 @@ async function alterarProduto(data: ProdutoI) {
           tipoProdutoId: updatedProduto.tipoProdutoId,
           tipoProduto: updatedProduto.tipoProduto.nome,
           corId: updatedProduto.corId,
-          cor: updatedProduto.cor.nome // Atualiza a corId
+          cor: updatedProduto.cor.nome 
         });
 
     setEditingId(null); // Finaliza o modo de edição
