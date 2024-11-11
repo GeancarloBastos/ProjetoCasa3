@@ -52,7 +52,7 @@ export default function Carousel() {
         {slides.map((slide, index) => (  
           <SwiperSlide key={index} className="hidden relative md:flex justify-center items-center">  
             <img src={slide} alt={`Slide ${index + 1}`} className="w-full h-full object-cover" />  
-            <div className="hidden md:absolute inset-y-0 left-0 w-1/3 bg-black opacity-70"></div>  
+            <div className="hidden md:block absolute inset-y-0 left-0 w-1/3 bg-black opacity-70"></div>  
             <div className="absolute left-0 top-1/4 md:top-0 p-16 text-white z-10  w-full md:w-1/4">  
               <h2 className="text-3xl w-72 md:text-4xl font-bold mb-4">{slideContent[index].title}</h2>  
               <p className="hidden md:block mb-4 text-lg font-semibold">{slideContent[index].subtitle}</p>  

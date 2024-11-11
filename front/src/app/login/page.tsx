@@ -51,7 +51,7 @@ export default function Login() {
       <h2 className="mt-32 mb-6 text-3xl font-bold text-center">
         Login do Cliente
       </h2>
-      <div className="mb-5">
+      <div className=" mb-5">
         <label
           htmlFor="email"
           className="block mb-2 text-sm font-medium text-gray-900 "
