@@ -12,14 +12,123 @@ router.get("/:id", async (req, res) => {
   try {
     const orcamentos = await prisma.orcamento.findMany({
       include: {
-        itens: true,
+        itens: {
+          include: {
+            item: true
+          }
+        },
         imagens: true,
-        cores: true,
-        adicionais: true
+        cores: {
+          include: {
+            cor: true
+          }
+        },
+        adicionais: {
+          include: {
+            adicional: true
+          }
+        }
       },
       where: {
         clienteId: id,
       },
+    });
+    res.status(200).json(orcamentos);
+  } catch (error) {
+    res.status(400).json(error);
+  }
+});
+
+router.get("/", async (req, res) => {
+  try {
+    const orcamentos = await prisma.orcamento.findMany({
+      include: {
+        itens: {
+          include: {
+            item: true
+          }
+        },
+        imagens: true,
+        cores: {
+          include: {
+            cor: true
+          }
+        },
+        adicionais: {
+          include: {
+            adicional: true
+          }
+        }
+      }
+    });
+    res.status(200).json(orcamentos);
+  } catch (error) {
+    res.status(400).json(error);
+  }
+});
+
+router.get("/pesq/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const orcamentos = await prisma.orcamento.findMany({
+      include: {
+        itens: {
+          include: {
+            item: true
+          }
+        },
+        imagens: true,
+        cores: {
+          include: {
+            cor: true
+          }
+        },
+        adicionais: {
+          include: {
+            adicional: true
+          }
+        }
+      },
+      where: {
+        id: Number(id)
+      }
+    });
+    res.status(200).json(orcamentos);
+  } catch (error) {
+    res.status(400).json(error);
+  }
+});
+
+router.get("/status/:id", async (req, res) => {
+  const { id } = req.params;
+  
+  try {
+
+    const orcamento = await prisma.orcamento.findUnique({
+      where: { id: Number(id) },
+      select: { status: true }
+    });
+
+    if (!orcamento) {
+      return res.status(404).json({ error: "Orçamento não encontrado" });
+    }
+
+    let novoStatus:string
+
+    
+    if (orcamento.status === "PENDENTE") {
+      novoStatus = "RESPONDIDO";
+    } else {
+      novoStatus = "PENDENTE";
+    }
+
+    const orcamentos = await prisma.orcamento.update({
+      where: {
+        id: Number(id),
+      },
+      data: {
+        status: novoStatus
+      }
     });
     res.status(200).json(orcamentos);
   } catch (error) {

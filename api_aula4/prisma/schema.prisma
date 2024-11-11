@@ -48,7 +48,6 @@ model TipoProduto {
   @@map("tipo_produtos")
 }
 
-
 model Cliente {
   id         String      @id @default(uuid()) @db.VarChar(36)
   nome       String      @db.VarChar(60)
@@ -156,6 +155,7 @@ model ImagemOrcamento {
 
   @@map("imagens_orcamentos")
 }
+
 
 enum TipoMaterial {
   MADEIRA

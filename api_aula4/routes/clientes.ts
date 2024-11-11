@@ -75,7 +75,8 @@ router.get("/:id", async (req, res) => {
       res.status(200).json({
         id: cliente.id,
         nome: cliente.nome,
-        email: cliente.email
+        email: cliente.email,
+        telefone: cliente.telefone
       })
    } 
   } catch (error) {
