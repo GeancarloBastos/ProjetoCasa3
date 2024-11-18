@@ -10,6 +10,7 @@ import cors from 'cors'
 import adminRoutes from './routes/admins'
 import dashbourdRoutes from './routes/dashboard'
 import tiposRoutes from './routes/tipos'
+import carrinhoRoutes from './routes/carrinhos'
 const app = express()
 const port = 3004
 
@@ -26,6 +27,7 @@ app.use("/cores", coresRoutes)
 app.use("/admins", adminRoutes)
 app.use("/dashboard", dashbourdRoutes)
 app.use("/tipos", tiposRoutes)
+app.use("/carrinhos", carrinhoRoutes)
 
 app.get('/', (req, res) => {
   res.send('API: Sistema de Venda de Móveis')

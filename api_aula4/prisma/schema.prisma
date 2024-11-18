@@ -35,11 +35,35 @@ model Produto {
   tipoProdutoId Int
   cor           Cor                 @relation(fields: [corId], references: [id])
   corId         Int
+  carrinhos     CarrinhoProduto[]
 
   // marca        Marca        @relation(fields: [marcaId], references: [id])
   // marcaId      Int
   @@map("produtos")
 }
+
+model Carrinho {
+  id            Int          @id @default(autoincrement())
+  valor         Decimal      @db.Decimal(10, 2)
+  createdAt    DateTime     @default(now())
+  cliente     Cliente           @relation(fields: [clienteId], references: [id])
+  clienteId   String
+  produtos   CarrinhoProduto[]
+  
+  @@map("req_carrinho")
+}
+
+model CarrinhoProduto {
+  id          Int       @id @default(autoincrement())
+  produto     Produto @relation(fields: [produtoId], references: [id])
+  produtoId   Int
+  carrinho    Carrinho @relation(fields: [carrinhoId], references: [id])
+  carrinhoId Int
+  quantidade Int
+
+  @@map("carrinho_produtos")
+}
+
 
 model TipoProduto {
   id         Int         @id @default(autoincrement())
@@ -57,6 +81,7 @@ model Cliente {
   createdAt  DateTime    @default(now())
   updatedAt  DateTime    @updatedAt
   orcamentos Orcamento[]
+  carrinhos  Carrinho[]
 
   @@map("clientes")
 }
