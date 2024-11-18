@@ -23,31 +23,31 @@ function ItemCarro({
 }: listaOrcamentoProps) {
   const [editingId, setEditingId] = useState<number | null>(null);
   const { register, handleSubmit, reset } = useForm<ProdutoI>();
-  const [cores, setCores] = useState<CorI[]>([]);
-  const [tipos, setTipos] = useState<TipoI[]>([]);
+  // const [cores, setCores] = useState<CorI[]>([]);
+  // const [tipos, setTipos] = useState<TipoI[]>([]);
 
-  useEffect(() => {
-    async function fetchCores() {
-      try {
-        const response = await fetch("http://localhost:3004/cores");
-        const data = await response.json();
-        setCores(data);
-      } catch (error) {
-        console.error("Erro ao buscar cores:", error);
-      }
-    }
-    async function fetchTipos() {
-      try {
-        const response = await fetch("http://localhost:3004/tipos");
-        const data2 = await response.json();
-        setTipos(data2);
-      } catch (error) {
-        console.error("Erro ao buscar tipos:", error);
-      }
-    }
-    fetchCores();
-    fetchTipos();
-  }, []);
+  // useEffect(() => {
+  //   async function fetchCores() {
+  //     try {
+  //       const response = await fetch("http://localhost:3004/cores");
+  //       const data = await response.json();
+  //       setCores(data);
+  //     } catch (error) {
+  //       console.error("Erro ao buscar cores:", error);
+  //     }
+  //   }
+  //   async function fetchTipos() {
+  //     try {
+  //       const response = await fetch("http://localhost:3004/tipos");
+  //       const data2 = await response.json();
+  //       setTipos(data2);
+  //     } catch (error) {
+  //       console.error("Erro ao buscar tipos:", error);
+  //     }
+  //   }
+  //   fetchCores();
+  //   fetchTipos();
+  // }, []);
 
   //   async function excluirCarro() {
   //     if (confirm(`Confirma a exclusão`)) {

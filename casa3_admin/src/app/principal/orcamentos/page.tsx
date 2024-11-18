@@ -17,14 +17,7 @@ function Cadprodutos() {
 
       const orcamentosCompletos = dados.map((orcamento: OrcamentoI) => {
         return {
-          ...orcamento,
-          // tipoProduto: {
-          //   id: produto.tipoProduto?.id, // Acessa o id de tipoProduto se ele existir
-          //   nome: produto.tipoProduto?.nome, // Acessa o nome de tipoProduto se ele existir
-          // },
-          // cores: {
-          //   nome: produto.cor?.nome, // Acessa o nome de cor se ele existir
-          // },
+          ...orcamento
         };
       });
 

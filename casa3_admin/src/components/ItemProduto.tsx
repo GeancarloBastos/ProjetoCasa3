@@ -104,14 +104,13 @@ async function alterarProduto(data: ProdutoI) {
   const updatedProduto = await response.json()
 
     
-    setProdutos((prevProdutos) => {
-      return prevProdutos.map((x) =>
-        x.id === produto.id
-          ? { ...x, cor: { ...updatedProduto.cor }, ...updatedProduto }
-          : x
-      );
-    });
+        setProdutos((prevProdutos) => {
+          return prevProdutos.map((x) =>
+            x.id === produto.id ? { ...x, ...updatedProduto } : x
+          );
+        });
 
+        
         reset({
           descricao: updatedProduto.descricao,
           preco: updatedProduto.preco,
