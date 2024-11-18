@@ -2,16 +2,15 @@
 import React, { createContext, useContext, useState, useCallback, useEffect } from 'react';  
 
 // Tipos  
-interface ProdutoCarrinho {  
+export interface ProdutoCarrinho {  
   id: number;  
-  nome: string;  
+  // nome: string;  ??? n tem nome pq teria nome
   descricao: string;  
   preco: number;  
   foto: string;  
   quantidade: number;  
   observacao?: string;  
-  material?: string;  
-  marca?: string;  
+  material?: string; 
 }
 
 interface CarrinhoContextData {  
