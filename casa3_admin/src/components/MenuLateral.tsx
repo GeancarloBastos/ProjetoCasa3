@@ -40,11 +40,11 @@ export function MenuLateral() {
             </Link>
           </li>
           <li>
-          <Link href="/principal/clientes" className="flex items-center p-2">
+          <Link href="/principal/carrinho" className="flex items-center p-2">
               <span className="h-5 text-gray-600 text-2xl">
                 <FaUsers />
               </span>
-              <span className="ms-2 mt-1">Controle de Clientes</span>
+              <span className="ms-2 mt-1">Requisições Produtos / Carrinho</span>
             </Link>
           </li>
           <li>

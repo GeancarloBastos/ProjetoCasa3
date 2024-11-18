@@ -20,6 +20,7 @@ export default function Detalhes() {
   const [orcamento, setOrcamento] = useState<OrcamentoI | null>(null);
   const [statusAtual, setStatus] = useState("");
   const [telCliente, setTel] = useState("");
+  const [nomeCliente, setNome] = useState("")
   const { register, handleSubmit, reset } = useForm<Inputs>();
   const [isLoading, setIsLoading] = useState(true);
 
@@ -36,6 +37,7 @@ export default function Detalhes() {
       );
       const dadosTelefone = await responseTel.json();
       setTel(dadosTelefone.telefone);
+      setNome(dadosTelefone.nome)
 
       
 
@@ -81,6 +83,12 @@ export default function Detalhes() {
       <div className="mb-4 w-full">
         <p className="text-lg font-semibold text-gray-700">Prazo:</p>
         <p className="text-xl text-gray-900">{orcamento.prazo}</p>
+      </div>
+
+      {/* NOME CLIENTE */}
+      <div className="mb-4 w-full">
+        <p className="text-lg font-semibold text-gray-700">Nome do Cliente:</p>
+        <p className="text-xl text-gray-900">{nomeCliente}</p>
       </div>
 
       {/* TELEFONE */}
