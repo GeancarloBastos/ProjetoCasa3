@@ -11,12 +11,12 @@ export function ItemMoveis({ data }: { data: MovelI }) {
   const handleAddToCart = () => {
     adicionarAoCarrinho({
       id: data.id,
-      nome: data.nome,
+      // nome: data.nome,
       descricao: data.descricao?.toString() ?? '',
       preco: data.preco,
       foto: data.foto,
       material: data.tipoMaterial,
-      marca: data.marca?.nome,
+      // marca: data.marca?.nome,
       observacao: data.observacao
     });
     setIsModalOpen(false);
@@ -52,7 +52,7 @@ export function ItemMoveis({ data }: { data: MovelI }) {
       {/* Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white dark:bg-zinc-800 p-8 rounded-lg max-w-2xl w-full mx-4 relative">
+          <div className="bg-white dark:bg-zinc-800 p-8 rounded-lg  max-w-2xl w-full mx-4 relative">
             <button
               onClick={() => setIsModalOpen(false)}
               className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"

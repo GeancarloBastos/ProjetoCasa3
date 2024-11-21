@@ -182,7 +182,7 @@ export function Header() {
           <div className="pt-4 pb-3 border-t border-green-700">
             <div className="flex items-center px-5">
               <Link
-                href={cliente.id ? "/detalhes" : "/login"}
+                href={cliente.id ? "/orcamento" : "/login"}
                 className="bg-colorc3verde hover:bg-green-800 text-white px-3 py-2 rounded-md text-sm font-medium"
               >
                 FAÇA SEU PROJETO
@@ -197,7 +197,7 @@ export function Header() {
             <div className="mt-3 px-2 space-y-1">
               {cliente.id ? (
                 <>
-                    <form action="/action_page.php">
+                    {/* <form action="/action_page.php">
                       <label htmlFor="cars">{cliente.nome}</label>
                       <select name="cars" id="cars">
                         <option value="volvo">Volvo</option>
@@ -207,10 +207,10 @@ export function Header() {
                       </select>
                       
                       
-                    </form>
-                  {/* <span className="block px-3 py-2 rounded-md text-base font-medium text-colorc3offbranco">
+                    </form> */}
+                  <span className="block px-3 py-2 rounded-md text-base font-medium text-colorc3offbranco">
                     Olá, {cliente.nome}
-                  </span> */}
+                  </span>
                   <button
                     onClick={sairCliente}
                     className="block px-3 py-2 rounded-md text-base font-medium text-colorc3verde hover:text-colorc3offbranco"

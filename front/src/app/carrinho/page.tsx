@@ -51,15 +51,15 @@ export default function CarrinhoPage() {
     <div className="min-h-screen bg-gray-50 dark:bg-zinc-900">
       <div className="max-w-7xl mx-auto px-4 py-8">
         {/* Header */}
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex flex-col gap-4 md:flex-row md:gap-0 items-center justify-between mb-8">
           <Link
             href="/catalogo"
-            className="flex items-center text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
+            className="flex items-center text-sm md:text-base text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
           >
-            <ArrowLeft className="w-5 h-5 mr-2" />
+            <ArrowLeft className="w-3 h-3 mr-2 md:w-5 md:h-5" />
             Voltar para o Catálogo
           </Link>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+          <h1 className="text-xl w-full text-center md:w-auto md:text-2xl font-bold text-gray-900 dark:text-white">
             Carrinho de Compras
           </h1>
         </div>
@@ -108,7 +108,7 @@ export default function CarrinhoPage() {
                     {/* <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">  
                       {item.marca}
                     </p>   */}
-                    <div className="flex items-center justify-between">
+                    <div className="flex flex-col items-start gap-2 md:gap-0 md:flex-row md:items-center justify-between">
                       <p className="text-green-600 dark:text-green-400 font-semibold">
                         R${" "}
                         {item.preco.toLocaleString("pt-BR", {
