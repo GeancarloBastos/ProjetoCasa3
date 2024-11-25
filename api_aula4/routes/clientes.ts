@@ -5,7 +5,8 @@ import jwt from "jsonwebtoken"
 // import supabase from '../supabaseClient';
 // import authenticateUser from "../middlewares/DESCONTINUADOverificaToken";
 
-const prisma = new PrismaClient()
+// const prisma = new PrismaClient()
+import { prisma } from "../prisma";
 const router = Router()
 
 // router.get("/", async (req, res) => {

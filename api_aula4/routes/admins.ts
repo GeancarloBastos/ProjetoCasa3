@@ -3,7 +3,10 @@ import { Router } from "express"
 import bcrypt from 'bcrypt'
 import jwt from "jsonwebtoken"
 
-const prisma = new PrismaClient()
+// const prisma = new PrismaClient()
+
+import { prisma } from "../prisma";
+
 const router = Router()
 
 router.get("/", async (req, res) => {
@@ -108,12 +111,14 @@ router.post("/login", async (req, res) => {
 
     // se o e-mail existe, faz-se a comparação dos hashs
     if (bcrypt.compareSync(senha, admin.senha)) {
-      const token = jwt.sign({
-        admin_logado_id: admin.id,
-        admin_logado_nome: admin.nome
-      },
+      const token = jwt.sign(
+        {
+          userLogadoId: admin.id,
+          userLogadoNome: admin.nome,
+        },
         process.env.JWT_KEY as string,
-        { expiresIn: "1h" })
+        { expiresIn: "1h" }
+      );
       
       // devolve id, nome e o token gerado   
       res.status(200).json({id: admin.id, nome: admin.nome, token })

@@ -1,11 +1,11 @@
 import { Prisma, PrismaClient } from "@prisma/client";
 import { Router } from "express";
 import { TipoMaterial } from "@prisma/client";
+import { verificaAutenticacao } from "../middlewares/verificaAutenticacao";
+import { verificaAdmin } from "../middlewares/verificaAdmin";
 
-// const prisma = new PrismaClient();
-const prisma = new PrismaClient({
-  log: ["query", "info", "warn", "error"],
-});
+import {prisma} from '../prisma'
+
 const router = Router();
 
 // router.get("/", async (req, res) => {
@@ -21,7 +21,7 @@ const router = Router();
 //   }
 // });
 
-router.post("/", async (req, res) => {
+router.post("/", verificaAutenticacao, verificaAdmin, async (req, res) => {
   const { descricao, preco, foto, tipoMaterial, corId, tipoProdutoId } = req.body;
 
   if (!descricao || !preco || !foto || !tipoMaterial || !corId || !tipoProdutoId ) {

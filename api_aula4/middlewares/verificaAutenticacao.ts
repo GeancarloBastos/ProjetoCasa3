@@ -24,6 +24,8 @@ export function verificaAutenticacao(
     const decode = jwt.verify(token, process.env.JWT_KEY as string) as TokenI;
     const { userLogadoId, userLogadoNome } = decode;
 
+    console.log(userLogadoNome, userLogadoId)
+
     // Passa o ID e nome do usuário para o próximo middleware
     req.userLogadoId = userLogadoId;
     req.userLogadoNome = userLogadoNome;

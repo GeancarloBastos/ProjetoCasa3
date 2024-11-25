@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { PrismaClient } from "@prisma/client";
 
-export async function verifyAdmin(
+export async function verificaAdmin(
   req: Request | any,
   res: Response,
   next: NextFunction
@@ -12,7 +12,9 @@ export async function verifyAdmin(
 
     const admin = await prisma.admin.findUnique({
         where: {id: Number(userLogadoId)}
-    }) 
+    })
+
+    console.log(admin)
 
     if (!admin) {
       return res

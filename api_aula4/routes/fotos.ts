@@ -8,7 +8,7 @@ import { verificaAutenticacao } from "../middlewares/verificaAutenticacao";
 
 import supabaseClient from "../supabaseClient";
 
-const prisma = new PrismaClient();
+
 const router = Router();
 
 // uploadMiddleware.js
