@@ -47,7 +47,7 @@ function ItemCarro({ produto, produtos, setProdutos }: listaProdutoProps) {
   async function excluirCarro() {
     if (confirm(`Confirma a exclusão`)) {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_URL_API}/moveis/${produto.id}`,
+        `${process.env.NEXT_PUBLIC_URL_API}/produtos/${produto.id}`,
         {
           method: "DELETE",
           headers: {
@@ -80,11 +80,13 @@ async function alterarProduto(data: ProdutoI) {
   };
 
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_URL_API}/moveis/${produto.id}`,
+    `${process.env.NEXT_PUBLIC_URL_API}/produtos/${produto.id}`,
     {
       method: "PATCH",
       headers: {
         "Content-type": "application/json",
+        Authorization: ("Bearer " +
+          Cookies.get("admin_logado_token")) as string,
       },
       body: JSON.stringify(payload),
     }
@@ -92,7 +94,7 @@ async function alterarProduto(data: ProdutoI) {
 
   if (response.status === 200) {
     const response =  await fetch(
-    `${process.env.NEXT_PUBLIC_URL_API}/moveis/teste/${produto.id}`,
+    `${process.env.NEXT_PUBLIC_URL_API}/produtos/teste/${produto.id}`,
     {
       method: "GET",
       headers: {

@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useState } from "react";
 import { Chart } from "react-google-charts";
+import Cookies from "js-cookie";
 
 interface produtosTipoI {
   tipo: string
@@ -21,14 +22,32 @@ export default function Principal() {
 
   useEffect(() => {
     async function getDadosGerais() {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_URL_API}/dashboard/gerais`)
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_URL_API}/dashboard/gerais`,
+        {
+          headers: {
+            "Content-type": "application/json",
+            Authorization: ("Bearer " +
+              Cookies.get("admin_logado_token")) as string,
+          },
+        }
+      );
       const dados = await response.json()
       setDados(dados)
     }
     getDadosGerais()
 
     async function getDadosGrafico() {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_URL_API}/dashboard/produtosTipo`)
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_URL_API}/dashboard/produtosTipo`,
+        {
+          headers: {
+            "Content-type": "application/json",
+            Authorization: ("Bearer " +
+              Cookies.get("admin_logado_token")) as string,
+          },
+        }
+      );
       const dados = await response.json()
       setProdutosTipo(dados)
     }

@@ -12,7 +12,7 @@ function Cadprodutos() {
   useEffect(() => {
     async function getprodutos() {
 
-      const response = await fetch(`${process.env.NEXT_PUBLIC_URL_API}/moveis`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_URL_API}/produtos`);
       const dados = await response.json();
 
       const produtosCompletos = dados.map((produto: ProdutoI) => {

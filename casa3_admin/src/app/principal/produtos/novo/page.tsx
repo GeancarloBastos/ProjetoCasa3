@@ -78,7 +78,7 @@ function NovoProduto() {
 
     console.log(novoProduto)
 
-    const response = await fetch(`${process.env.NEXT_PUBLIC_URL_API}/moveis`,
+    const response = await fetch(`${process.env.NEXT_PUBLIC_URL_API}/produtos`,
       {
         method: "POST",
         headers: {
