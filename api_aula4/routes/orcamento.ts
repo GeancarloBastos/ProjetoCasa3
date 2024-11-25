@@ -7,6 +7,7 @@ import { Router } from "express";
 // });
 
 import { prisma } from "../prisma";
+import { verificaAutenticacao } from "../middlewares/verificaAutenticacao";
 
 const router = Router();
 
@@ -141,7 +142,7 @@ router.get("/status/:id", async (req, res) => {
 
 
 
-router.post("/", async (req, res) => {
+router.post("/", verificaAutenticacao, async (req, res) => {
   const {
     clienteId,
     itens,

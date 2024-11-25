@@ -14,6 +14,8 @@ export function verificaAutenticacao(
 ) {
   const { authorization } = req.headers;
 
+  console.log(authorization)
+
   if (!authorization) {
     return res.status(401).json({ error: "Token não informado" });
   }
@@ -32,6 +34,6 @@ export function verificaAutenticacao(
 
     next();
   } catch (error) {
-    return res.status(401).json({ error: "Token inválido" });
+    return res.status(402).json({ error: "Token inválido" });
   }
 }

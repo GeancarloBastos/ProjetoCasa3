@@ -30,6 +30,7 @@ import { Router } from "express";
 // });
 
 import { prisma } from "../prisma";
+import { verificaAutenticacao } from "../middlewares/verificaAutenticacao";
 
 const router = Router();
 
@@ -102,7 +103,7 @@ router.get("/pesq/:id", async (req, res) => {
   material?: string;
 }
 
-router.post("/", async (req, res) => {
+router.post("/", verificaAutenticacao, async (req, res) => {
   const {
     clienteId,
     produtos,

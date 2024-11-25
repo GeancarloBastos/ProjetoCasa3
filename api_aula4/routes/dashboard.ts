@@ -2,9 +2,11 @@ import { PrismaClient } from "@prisma/client"
 import { Router } from "express"
 
 import { prisma } from "../prisma";
+import { verificaAutenticacao } from "../middlewares/verificaAutenticacao";
+import { verificaAdmin } from "../middlewares/verificaAdmin";
 const router = Router()
 
-router.get("/gerais", async (req, res) => {
+router.get("/gerais", verificaAutenticacao, verificaAdmin, async (req, res) => {
   try {
     const clientes = await prisma.cliente.count()
     const moveis = await prisma.produto.count()
@@ -15,7 +17,7 @@ router.get("/gerais", async (req, res) => {
   }
 })
 
-router.get("/produtosTipo", async (req, res) => {
+router.get("/produtosTipo", verificaAutenticacao, verificaAdmin, async (req, res) => {
   try {
     const produtos = await prisma.produto.groupBy({
       by: ['tipoProdutoId'],

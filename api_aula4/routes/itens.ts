@@ -30,6 +30,8 @@ import { Router } from "express"
 // })
 
 import { prisma } from "../prisma";
+import { verificaAutenticacao } from "../middlewares/verificaAutenticacao";
+import { verificaAdmin } from "../middlewares/verificaAdmin";
 
 const router = Router()
 
@@ -42,7 +44,7 @@ router.get("/", async (req, res) => {
   }
 })
 
-router.post("/", async (req, res) => {
+router.post("/", verificaAutenticacao, verificaAdmin, async (req, res) => {
   const { nome } = req.body
 
   if (!nome) {

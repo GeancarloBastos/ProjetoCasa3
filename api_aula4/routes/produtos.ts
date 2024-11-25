@@ -41,7 +41,7 @@ router.post("/", verificaAutenticacao, verificaAdmin, async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", verificaAutenticacao, verificaAdmin, async (req, res) => {
   const { id } = req.params;
 
   try {
@@ -54,7 +54,7 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-router.patch("/:id", async (req, res) => {
+router.patch("/:id", verificaAutenticacao, verificaAdmin, async (req, res) => {
   const { id } = req.params;
   const { descricao, preco, foto, tipoProdutoId, corId } = req.body;
 

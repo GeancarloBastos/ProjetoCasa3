@@ -18,7 +18,7 @@ app.use(express.json())
 app.use(cors())
 
 // app.use("/marcas", marcasRoutes)
-app.use("/moveis", moveisRoutes)
+app.use("/produtos", moveisRoutes)
 app.use("/fotos", fotosRoutes)
 app.use("/clientes", clientesRoutes)
 app.use("/orcamentos", orcamentoRoutes)
