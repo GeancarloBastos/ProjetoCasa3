@@ -15,7 +15,7 @@ export default function Catalogo() {
     async function getDados() {  
       try {  
         setIsLoading(true);  
-        const response = await fetch(`${process.env.NEXT_PUBLIC_URL_API}/moveis`);  
+        const response = await fetch(`${process.env.NEXT_PUBLIC_URL_API}/produtos`);  
         
         if (!response.ok) {  
           throw new Error('Falha ao carregar os dados');  

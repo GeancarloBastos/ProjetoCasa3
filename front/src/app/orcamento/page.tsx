@@ -234,7 +234,12 @@ const cores = [
         `${process.env.NEXT_PUBLIC_URL_API}/orcamentos`,
         {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: ("Bearer " +
+              (cliente.token)) as string,
+          },
+
           body: JSON.stringify(orcamentoData),
         }
       );

@@ -22,7 +22,7 @@ export function InputPesquisa({ setMoveis }: InputPesquisaProps) {
    const [tipos, setTipos] = useState<TipoI[]>([]); 
 
   async function mostraDestaques() {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_URL_API}/moveis`);
+    const response = await fetch(`${process.env.NEXT_PUBLIC_URL_API}/produtos`);
     const dados = await response.json();
     reset({ search: "", colecao: 0, precoMin: 0, precoMax: 0, cor: 0 });
     setMoveis(dados);
@@ -41,7 +41,7 @@ export function InputPesquisa({ setMoveis }: InputPesquisaProps) {
       if (data.precoMax) params.append("precoMax", data.precoMax);
       if (data.search) params.append("search", data.search);
 
-      const response = await fetch(`${process.env.NEXT_PUBLIC_URL_API}/moveis?${params.toString()}`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_URL_API}/produtos?${params.toString()}`);
       const dados = await response.json();
       setMoveis(dados);
     } catch (error) {

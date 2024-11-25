@@ -35,6 +35,7 @@ export default function CarrinhoPage() {
       {
         headers: {
           "Content-Type": "application/json",
+          Authorization: ("Bearer " + cliente.token as string)
         },
         method: "POST",
         body: JSON.stringify(carrinhoData),
