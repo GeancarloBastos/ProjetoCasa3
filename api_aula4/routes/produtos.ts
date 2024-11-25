@@ -135,14 +135,14 @@ router.patch("/:id", async (req, res) => {
   // });
   
   router.get("/", async (req, res) => {
-    const { tipoMaterial, cor, precoMin, precoMax, search } = req.query;
+    const { tipoProdutoId, cor, precoMin, precoMax, search } = req.query;
     try {
         const filtros: Prisma.ProdutoWhereInput = {}; // Usando a interface atualizada
         console.log(req.query)
   
-        if (tipoMaterial) {
-          filtros.tipoMaterial = {
-            equals: tipoMaterial as TipoMaterial
+        if (tipoProdutoId) {
+          filtros.tipoProdutoId = {
+            equals: Number(tipoProdutoId)
           }
         }
   

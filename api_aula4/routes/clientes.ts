@@ -154,7 +154,7 @@ router.post("/login", async (req, res) => {
         userLogadoNome: usuario.nome,
       },
         process.env.JWT_KEY as string,
-        { expiresIn: "1h" }
+        { expiresIn: "2h" }
       )
 
       res.status(200).json({

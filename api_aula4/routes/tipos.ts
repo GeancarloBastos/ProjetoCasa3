@@ -40,23 +40,23 @@ router.get("/", async (req, res) => {
   }
 });
 
-// router.post("/", async (req, res) => {
-//   const { nome } = req.body;
+router.post("/", async (req, res) => {
+  const { nome } = req.body;
 
-//   if (!nome) {
-//     res.status(400).json({ erro: "Informe nome do cor" });
-//     return;
-//   }
+  if (!nome) {
+    res.status(400).json({ erro: "Informe nome do tipo de produto" });
+    return;
+  }
 
-//   try {
-//     const cor = await prisma.cor.create({
-//       data: { nome },
-//     });
-//     res.status(201).json(cor);
-//   } catch (error) {
-//     res.status(400).json(error);
-//   }
-// });
+  try {
+    const tipo = await prisma.tipoProduto.create({
+      data: { nome },
+    });
+    res.status(201).json(tipo);
+  } catch (error) {
+    res.status(400).json(error);
+  }
+});
 
 // router.delete("/:id", async (req, res) => {
 //   const { id } = req.params
