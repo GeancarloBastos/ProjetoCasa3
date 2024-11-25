@@ -3,21 +3,31 @@ import { useForm } from "react-hook-form"
 import Cookies from "js-cookie"
 import { toast } from "sonner"
 import { useState, useEffect } from "react"
-import { MarcaI } from "@/utils/types/tipos"
+import { CorI } from "@/utils/types/cores"
+import { TipoI } from "@/utils/types/tipos"
 
-type Inputs = {
-  modelo: string
-  marcaId: number
-  ano: number
-  km: number
-  preco: number
-  foto: string
-  acessorios: string
-  combustivel: string
+enum TipoMaterial {
+  MADEIRA = "MADEIRA",
+  MDF = "MDF",
+  MDP = "MDP",
+  PEDRA = "PEDRA",
+  ESTOFADO = "ESTOFADO",
 }
 
-function NovoCarro() {
-  const [marcas, setMarcas] = useState<MarcaI[]>([])
+interface Inputs {
+  descricao: string
+  preco: number
+  foto: string
+  tipoMaterial: TipoMaterial
+  tipoProdutoId: number
+  corId: number
+}
+
+
+function NovoProduto() {
+  const [cores, setCores] = useState<CorI[]>([])
+  const [tipos, setTipos] = useState<TipoI[]>([])
+
   const {
     register,
     handleSubmit,
@@ -26,48 +36,65 @@ function NovoCarro() {
   } = useForm<Inputs>()
 
   useEffect(() => {
-    async function getMarcas() {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_URL_API}/marcas`)
+    async function getCores() {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_URL_API}/cores`)
       const dados = await response.json()
-      setMarcas(dados)
+      setCores(dados)
     }
-    getMarcas()
-    setFocus("modelo")
+    getCores()
+    async function getTipos() {
+      const response2 = await fetch(`${process.env.NEXT_PUBLIC_URL_API}/tipos`)
+      const dados2 = await response2.json()
+      setTipos(dados2)
+    }
+    getTipos()
+    // setFocus("")
   }, [])
 
-  const optionsMarca = marcas.map(marca => (
-    <option key={marca.id} value={marca.id}>{marca.nome}</option>
+  const optionsCores = cores.map(cor => (
+    <option key={cor.id} value={cor.id}>{cor.nome}</option>
   ))
 
-  async function incluirCarro(data: Inputs) {
+  const optionsTipos = tipos.map(tipo => (
+    <option key={tipo.id} value={tipo.id}>{tipo.nome}</option>
+  ))
 
-    const novoCarro: Inputs = {
-      modelo: data.modelo,
-      marcaId: Number(data.marcaId),
-      ano: Number(data.ano),
-      km: Number(data.km),
-      acessorios: data.acessorios,
-      foto: data.foto,
+  const materiais = Object.values(TipoMaterial);
+
+  const optionsMaterial = materiais.map(material => (
+    <option key={material} value={material}>{material}</option>
+  ))
+
+  async function incluirProduto(data: Inputs) {
+
+    const novoProduto: Inputs = {
+      descricao: data.descricao,
+      corId: Number(data.corId),
+      tipoProdutoId: Number(data.tipoProdutoId),
       preco: Number(data.preco),
-      combustivel: data.combustivel
+      foto: data.foto,
+      tipoMaterial: data.tipoMaterial
     }
 
-    const response = await fetch(`${process.env.NEXT_PUBLIC_URL_API}/carros`,
+    console.log(novoProduto)
+
+    const response = await fetch(`${process.env.NEXT_PUBLIC_URL_API}/moveis`,
       {
         method: "POST",
         headers: {
           "Content-type": "application/json",
           Authorization: "Bearer " + Cookies.get("admin_logado_token") as string
         },
-        body: JSON.stringify(novoCarro)
+        body: JSON.stringify(novoProduto)
       },
     )
+    console.log(response)
 
     if (response.status == 201) {
-      toast.success("Ok! Carro cadastrado com sucesso")
+      toast.success("Ok! Produto cadastrado com sucesso")
       reset()
     } else {
-      toast.error("Erro no cadastro do Carro...")
+      toast.error("Erro no cadastro do Produto...")
     }
   }
 
@@ -77,90 +104,122 @@ function NovoCarro() {
         Inclusão de Carros
       </h1>
 
-      <form className="max-w-xl mx-auto" onSubmit={handleSubmit(incluirCarro)}>
+      <form
+        className="max-w-xl mx-auto"
+        onSubmit={handleSubmit(incluirProduto)}
+      >
         <div className="mb-3">
-          <label htmlFor="modelo" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-            Modelo do Carro</label>
-          <input type="text" id="modelo"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required
-            {...register("modelo")}
+          <label
+            htmlFor="descricao"
+            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >
+            Descrição do produto
+          </label>
+          <input
+            type="text"
+            id="modelo"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            required
+            {...register("descricao")}
           />
         </div>
         <div className="grid gap-6 mb-3 md:grid-cols-2">
           <div className="mb-3">
-            <label htmlFor="marcaId" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-              Marca</label>
-            <select id="marcaId"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required
-              {...register("marcaId")}
+            <label
+              htmlFor="corId"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
-              {optionsMarca}
+              Cor
+            </label>
+            <select
+              id="corId"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              required
+              {...register("corId")}
+            >
+              {optionsCores}
             </select>
           </div>
           <div className="mb-3">
-            <label htmlFor="ano" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-              Ano</label>
-            <input type="number" id="ano"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required
-              {...register("ano")}
-            />
+            <label
+              htmlFor="tipoProdutoId"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Coleção
+            </label>
+            <select
+              id="tipoProdutoid"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              required
+              {...register("tipoProdutoId")}
+            >
+              {optionsTipos}
+            </select>
           </div>
         </div>
         <div className="grid gap-6 mb-3 md:grid-cols-2">
           <div className="mb-3">
-            <label htmlFor="preco" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-              Preço R$</label>
-            <input type="number" id="preco"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required
+            <label
+              htmlFor="preco"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Preço R$
+            </label>
+            <input
+              type="number"
+              id="preco"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              required
               {...register("preco")}
             />
           </div>
+
           <div className="mb-3">
-            <label htmlFor="km" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-              Km</label>
-            <input type="number" id="km"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required
-              {...register("km")}
-            />
-          </div>
-        </div>
-        <div className="grid gap-6 mb-3 md:grid-cols-2">
-          <div className="mb-3">
-            <label htmlFor="foto" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-              URL da Foto</label>
-            <input type="text" id="foto"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required
-              {...register("foto")}
-            />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="combustivel" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-              Combustível</label>
-            <select id="combustivel"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required
-              {...register("combustivel")}
+            <label
+              htmlFor="tipoMaterial"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
-              <option>FLEX</option>
-              <option>GASOLINA</option>
-              <option>ALCOOL</option>
-              <option>DIESEL</option>
-              <option>ELETRICIDADE</option>
+              TipoMaterial
+            </label>
+            <select
+              id="tipoMaterial"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              required
+              {...register("tipoMaterial")}
+            >
+              {optionsMaterial}
             </select>
           </div>
         </div>
-        <div className="mb-3">
-          <label htmlFor="sinopse" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-            Acessórios</label>
-          <textarea id="acessorios" rows={4}
-            className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            {...register("acessorios")}></textarea>
+
+        <div className="grid gap-6 mb-3 md:grid-cols-2">
+          <div className="mb-3">
+            <label
+              htmlFor="foto"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              URL da Foto
+            </label>
+            <input
+              type="text"
+              id="foto"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              required
+              {...register("foto")}
+            />
+          </div>
+
         </div>
 
-        <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-          Incluir</button>
+        <button
+          type="submit"
+          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
+          Incluir
+        </button>
       </form>
     </>
-  )
+  );
 }
 
-export default NovoCarro
+export default NovoProduto
