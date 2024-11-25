@@ -1,20 +1,16 @@
 import { MovelI } from "@/utils/types/movel";
 import { useForm } from "react-hook-form";
 import { useState, useEffect } from "react";
+import { TipoI } from "@/utils/types/tipos";
+import { CorI } from "@/utils/types/cores";
 
 type Inputs = {
-  termo: string;
   search: string;
-  material: string;
+  colecao: number;
   precoMin: number;
   precoMax: number;
   cor: number;
 };
-
-interface Cor {
-  id: number;
-  nome: string;
-}
 
 type InputPesquisaProps = {
   setMoveis: React.Dispatch<React.SetStateAction<MovelI[]>>;
@@ -22,19 +18,24 @@ type InputPesquisaProps = {
 
 export function InputPesquisa({ setMoveis }: InputPesquisaProps) {
   const { register, handleSubmit, reset } = useForm<Inputs>();
-   const [cores, setCores] = useState<Cor[]>([]); 
+   const [cores, setCores] = useState<CorI[]>([]); 
+   const [tipos, setTipos] = useState<TipoI[]>([]); 
 
   async function mostraDestaques() {
     const response = await fetch(`${process.env.NEXT_PUBLIC_URL_API}/moveis`);
     const dados = await response.json();
-    reset({ termo: "" });
+    reset({ search: "", colecao: 0, precoMin: 0, precoMax: 0, cor: 0 });
     setMoveis(dados);
+  }
+
+  function capitalizar(palavra:string) {
+    return palavra.charAt(0).toUpperCase() + palavra.slice(1);
   }
 
   const buscarProdutos = async (data: any) => {
     try {
       const params = new URLSearchParams();
-      if (data.material) params.append("tipoMaterial", data.material);
+      if (data.colecao) params.append("tipoProdutoId", data.colecao);
       if (data.cor) params.append("cor", data.cor);
       if (data.precoMin) params.append("precoMin", data.precoMin);
       if (data.precoMax) params.append("precoMax", data.precoMax);
@@ -57,6 +58,13 @@ export function InputPesquisa({ setMoveis }: InputPesquisaProps) {
         } catch (error) {
           console.error("Erro ao buscar cores:", error);
         }
+        try {
+          const response2 = await fetch("http://localhost:3004/tipos"); // Use o URL correto para a API
+          const data2 = await response2.json();
+          setTipos(data2);
+        } catch (error) {
+          console.error("Erro ao buscar cores:", error);
+        }
       }
 
       fetchCores();
@@ -68,20 +76,22 @@ export function InputPesquisa({ setMoveis }: InputPesquisaProps) {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <div>
             <label
-              htmlFor="material"
+              htmlFor="colecao"
               className="block text-sm font-medium text-gray-700 mb-1"
             >
-              Material:
+              Coleção:
             </label>
             <select
-              id="material"
-              {...register("material")}
+              id="colecao"
+              {...register("colecao")}
               className="w-full p-2 border border-gray-300 rounded-md"
             >
-              <option value="">Selecione o material</option>
-              <option value="MDF">MDF</option>
-              <option value="MDP">MDP</option>
-              <option value="MADEIRA">MADEIRA</option>
+              <option value="">Selecione a coleção</option>
+              {tipos.map((tipo) => (
+                <option key={tipo.id} value={tipo.id}>
+                  {capitalizar(tipo.nome)}
+                </option>
+              ))}
             </select>
           </div>
 
