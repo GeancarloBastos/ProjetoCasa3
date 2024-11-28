@@ -134,7 +134,7 @@ export default function Propostas() {
           className="bg-colorc3verde hover:bg-green-800 text-white px-3 py-2 rounded-md text-sm font-medium uppercase"
           onClick={() => setSelecionado("orcamento")}
         >
-          orcamentos
+          orçamentos
         </button>
       </div>
 

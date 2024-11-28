@@ -3,6 +3,7 @@
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { useClienteStore } from "@/context/cliente";
+import Link from "next/link";
 
 type Inputs = {
   email: string;
@@ -104,6 +105,12 @@ export default function Login() {
       >
         Entrar
       </button>
+      <p className="text-center text-sm text-gray-600 mt-4">
+        Não possui uma conta?{" "}
+        <Link href="/cadastro" className="text-blue-600 hover:underline">
+          Criar Conta
+        </Link>
+      </p>
     </form>
   );
 }

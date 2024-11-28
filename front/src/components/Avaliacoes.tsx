@@ -48,7 +48,7 @@ export default function Avaliacoes() {
         style={{
           "--swiper-pagination-bullet-size": "13px",
           "--swiper-pagination-bullet-horizontal-gap": "10px"
-        }} 
+        } as React.CSSProperties} 
       >  
         {reviews.map((review, index) => (  
           <SwiperSlide key={index}>  

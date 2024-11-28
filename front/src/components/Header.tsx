@@ -66,12 +66,12 @@ export function Header() {
               >
                 FAÇA SEU PROJETO
               </Link>
-              <Link
+              {/*<Link
                 href={cliente.id ? "/propostas" : "/login"}
-                className="bg-colorc3verde hover:bg-green-800 text-white px-3 py-2 rounded-md text-sm font-medium"
+                className="bg-colorc3verde hover:bg-green-800 text-white px-3 py-2 ml-2 rounded-md text-sm font-medium"
               >
-                FAÇA SEU PROJETO2
-              </Link>
+                MINHAS REQUISIÇÕES
+              </Link>*/}
               <Link
                 href="/carrinho"
                 className="ml-3 bg-green-800 hover:bg-green-700 text-white px-3 py-2 rounded-md text-sm font-medium flex items-center"
@@ -87,15 +87,48 @@ export function Header() {
               </Link>
               {cliente.id ? (
                 <div className="ml-3 relative">
-                  <span className="text-colorc3offbranco mr-2">
-                    Olá, {cliente.nome}
-                  </span>
                   <button
-                    onClick={sairCliente}
-                    className="text-colorc3verde hover:text-colorc3offbranco"
+                    onClick={() => setIsMenuOpen(!isMenuOpen)}
+                    className="flex items-center text-colorc3offbranco hover:text-colorc3verde focus:outline-none"
                   >
-                    Sair
+                    <span className="mr-2">Olá, {cliente.nome}</span>
+                    <svg
+                      className="h-5 w-5"
+                      fill="none"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path d="M19 9l-7 7-7-7"></path>
+                    </svg>
                   </button>
+
+                  {isMenuOpen && (
+                    <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-zinc-800 ring-1 ring-black ring-opacity-5 z-50">
+                      <div className="py-1" role="menu">
+                        <Link
+                          href="/propostas"
+                          className="block px-4 py-2 text-sm text-colorc3offbranco hover:bg-zinc-700 hover:text-colorc3verde"
+                          role="menuitem"
+                          onClick={() => setIsMenuOpen(false)}
+                        >
+                          Minhas Requisições
+                        </Link>
+                        <button
+                          onClick={() => {
+                            setIsMenuOpen(false);
+                            sairCliente();
+                          }}
+                          className="block w-full text-left px-4 py-2 text-sm text-colorc3offbranco hover:bg-zinc-700 hover:text-colorc3verde"
+                          role="menuitem"
+                        >
+                          Sair
+                        </button>
+                      </div>
+                    </div>
+                  )}
                 </div>
               ) : (
                 <Link
@@ -197,7 +230,7 @@ export function Header() {
             <div className="mt-3 px-2 space-y-1">
               {cliente.id ? (
                 <>
-                    {/* <form action="/action_page.php">
+                  {/* <form action="/action_page.php">
                       <label htmlFor="cars">{cliente.nome}</label>
                       <select name="cars" id="cars">
                         <option value="volvo">Volvo</option>
