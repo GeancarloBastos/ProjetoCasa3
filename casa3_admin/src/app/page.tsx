@@ -41,11 +41,11 @@ export default function Home() {
   }
 
   return (
-    <main className="max-w-screen-xl flex flex-col items-center mx-auto p-6">
+    <main className="min-h-screen w-full flex flex-col items-center justify-center bg-zinc-900 px-4 py-8">
       <img src="./logo.webp" alt="Revenda" style={{ width: 240 }}
         className="d-block" />
       <div className="max-w-sm">
-        <h1 className="text-3xl font-bold my-8">Admin: Casa 3</h1>
+        <h1 className="text-3xl font-bold my-8 text-gray-200">Admin: Casa 3</h1>
         <form className="max-w-sm mx-auto"
           onSubmit={handleSubmit(verificaLogin)} >
           <div className="mb-5">
