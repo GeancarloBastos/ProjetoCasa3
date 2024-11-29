@@ -8,6 +8,7 @@ export function Header() {
   const { cliente, deslogaCliente } = useClienteStore();
   const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [menuResponOpen, setMenuResponOpen] = useState(false);
 
   function sairCliente() {
     deslogaCliente();
@@ -229,32 +230,54 @@ export function Header() {
             </div>
             <div className="mt-3 px-2 space-y-1">
               {cliente.id ? (
-                <>
-                  {/* <form action="/action_page.php">
-                      <label htmlFor="cars">{cliente.nome}</label>
-                      <select name="cars" id="cars">
-                        <option value="volvo">Volvo</option>
-                        <option value="saab">Saab</option>
-                        <option value="opel">Opel</option>
-                        <option value="audi">Audi</option>
-                      </select>
-                      
-                      
-                    </form> */}
-                  <span className="block px-3 py-2 rounded-md text-base font-medium text-colorc3offbranco">
-                    Olá, {cliente.nome}
-                  </span>
+                <div className="ml-3 relative">
                   <button
-                    onClick={sairCliente}
-                    className="block px-3 py-2 rounded-md text-base font-medium text-colorc3verde hover:text-colorc3offbranco"
+                    onClick={() => setMenuResponOpen(!menuResponOpen)}
+                    className="flex items-center text-colorc3offbranco hover:text-colorc3verde focus:outline-none"
                   >
-                    Sair
+                    <span className="mr-2">Olá, {cliente.nome}</span>
+                    <svg
+                      className="h-5 w-5"
+                      fill="none"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path d="M19 9l-7 7-7-7"></path>
+                    </svg>
                   </button>
-                </>
+
+                  {menuResponOpen && (
+                    <div className="absolute right-1/2 mt-2 w-48 rounded-md shadow-lg bg-zinc-800 ring-1 ring-black ring-opacity-5 z-50">
+                      <div className="py-1" role="menu">
+                        <Link
+                          href="/propostas"
+                          className="block px-4 py-2 text-sm text-colorc3offbranco hover:bg-zinc-700 hover:text-colorc3verde"
+                          role="menuitem"
+                          onClick={() => setMenuResponOpen(false)}
+                        >
+                          Minhas Requisições
+                        </Link>
+                        <button
+                          onClick={() => {
+                            setMenuResponOpen(false);
+                            sairCliente();
+                          }}
+                          className="block w-full text-left px-4 py-2 text-sm text-colorc3offbranco hover:bg-zinc-700 hover:text-colorc3verde"
+                          role="menuitem"
+                        >
+                          Sair
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
               ) : (
                 <Link
                   href="/login"
-                  className="block px-3 py-2 rounded-md text-base font-medium text-colorc3offbranco hover:text-colorc3verde"
+                  className="ml-3 text-colorc3offbranco hover:text-colorc3verde"
                 >
                   Entrar
                 </Link>

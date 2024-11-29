@@ -84,8 +84,10 @@ export default function Propostas() {
     </tr>
   ));
 
-  const propostasTable2 = carrinhos.map((carrinho) => (
-    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+
+
+  const propostasTableCarrinho = carrinhos.map((carrinho) => (
+    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hidden md:table-row">
       <th
         scope="row"
         className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
@@ -121,7 +123,7 @@ export default function Propostas() {
 
   return (
     <section className="max-w-7xl mx-auto">
-      <div className="mt-4 flex gap-4">
+      <div className="mt-4 flex gap-4 justify-evenly md:justify-normal">
         <button
           type="button"
           className="bg-colorc3verde hover:bg-green-800 text-white px-3 py-2 rounded-md text-sm font-medium uppercase"
@@ -140,55 +142,129 @@ export default function Propostas() {
 
       {selecionado === "orcamento" ? (
         <>
-          <h1 className="mb-6 mt-4 text-3xl font-extrabold leading-none tracking-tight text-zinc-900 md:text-4xl lg:text-5xl underline underline-offset-8">
+          <h1 className="mb-6 mt-4 text-2xl text-center md:text-start font-extrabold leading-none tracking-tight text-zinc-900 md:text-4xl lg:text-5xl underline underline-offset-8">
             Listagem de Orçamentos
           </h1>
 
-          <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-              <tr>
-                <th scope="col" className="px-6 py-3">
+          <div className="hidden md:block overflow-x-auto">
+            <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+              <thead className="hidden md:table-header-group text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                  <th scope="col" className="px-6 py-3">
+                    Itens
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Foto Referencia
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Observações
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Status
+                  </th>
+                </tr>
+              </thead>
+              <tbody>{propostasTable}</tbody>
+            </table>
+          </div>
+
+          <div className="md:hidden">
+            {orcamentos.map((orcamento) => (
+              <div className="border rounded-lg p-4 mb-4 shadow-md bg-zinc-900 text-center mx-4">
+                <h3 className="font-bold text-lg text-colorc3offbranco">
                   Itens
-                </th>
-                <th scope="col" className="px-6 py-3">
+                </h3>
+                <p className="text-gray-200">
+                  {orcamento.itens
+                    .map((itemRel) => itemRel.item.nome)
+                    .join(", ")}
+                </p>
+                <h3 className="font-bold text-lg mt-4 text-colorc3offbranco">
                   Foto Referencia
-                </th>
-                <th scope="col" className="px-6 py-3">
+                </h3>
+                {orcamento.imagens.length > 0 ? (
+                  <img
+                    src={orcamento.imagens[0].urlReferencia}
+                    className="w-full max-w-xs rounded-md mx-auto"
+                    alt="Foto Referencia"
+                  />
+                ) : (
+                  <p>Sem imagens</p>
+                )}
+                <h3 className="font-bold text-lg mt-4 text-colorc3offbranco">
                   Observações
-                </th>
-                <th scope="col" className="px-6 py-3">
+                </h3>
+                <p className="text-gray-200">{orcamento.observacoes}</p>
+                <h3 className="font-bold text-lg mt-4 text-colorc3offbranco">
                   Status
-                </th>
-              </tr>
-            </thead>
-            <tbody>{propostasTable}</tbody>
-          </table>
+                </h3>
+                <p className="text-gray-400 font-semibold">{orcamento.status}</p>
+              </div>
+            ))}
+          </div>
         </>
       ) : (
         <>
-          <h1 className="mb-6 mt-4 text-3xl font-extrabold leading-none tracking-tight text-zinc-900 md:text-4xl lg:text-5xl underline underline-offset-8">
+          <h1 className="mb-6 mt-4  text-xl text-center md:text-start  font-extrabold leading-none tracking-tight text-zinc-900 md:text-4xl lg:text-5xl underline underline-offset-8">
             Listagem de Requisições Carrinho
           </h1>
 
-          <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-              <tr>
-                <th scope="col" className="px-6 py-3">
+          <div className="hidden md:block overflow-x-auto">
+            <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+              <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                  <th scope="col" className="px-6 py-3">
+                    Produtos
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Foto Referencia
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Valor Total
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Data
+                  </th>
+                </tr>
+              </thead>
+              <tbody>{propostasTableCarrinho}</tbody>
+            </table>
+          </div>
+
+          <div className="md:hidden">
+            {carrinhos.map((carrinho) => (
+              <div className="border rounded-lg p-4 mb-14 shadow-md bg-zinc-900 text-center mx-4">
+                <h3 className="font-bold text-lg text-colorc3offbranco">
                   Produtos
-                </th>
-                <th scope="col" className="px-6 py-3">
+                </h3>
+                <p className="text-gray-200">
+                  {carrinho.produtos
+                    .map((itemRel) => itemRel.produto.descricao)
+                    .join(", ")}
+                </p>
+                <h3 className="font-bold text-lg mt-4 text-colorc3offbranco ">
                   Foto Referencia
-                </th>
-                <th scope="col" className="px-6 py-3">
+                </h3>
+                {carrinho.produtos.length > 0 ? (
+                  <img
+                    src={carrinho.produtos[0].produto.foto}
+                    className="w-full max-w-xs rounded-md mx-auto"
+                    alt="Foto Referencia"
+                  />
+                ) : (
+                  <p>Sem imagens</p>
+                )}
+                <h3 className="font-bold text-lg mt-4 text-colorc3offbranco">
                   Valor Total
-                </th>
-                <th scope="col" className="px-6 py-3">
+                </h3>
+                <p className="text-gray-200">{carrinho.valor}</p>
+                <h3 className="font-bold text-lg mt-4 text-colorc3offbranco">
                   Data
-                </th>
-              </tr>
-            </thead>
-            <tbody>{propostasTable2}</tbody>
-          </table>
+                </h3>
+                <p className="text-gray-200">{dataDMA(carrinho.createdAt)}</p>
+              </div>
+            ))}
+          </div>
         </>
       )}
     </section>
