@@ -4,6 +4,7 @@ import { use, useEffect, useState } from "react";
 import { useClienteStore } from '@/context/cliente';
 import { OrcamentoI } from '@/utils/types/orcamentos';
 import { Heading1 } from 'lucide-react';
+import Image from 'next/image';
 import { CarrinhoI } from '@/utils/types/carrinhos';
 
 
@@ -50,9 +51,8 @@ export default function Propostas() {
   }
 
 
-
   const propostasTable = orcamentos.map((orcamento) => (
-    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+    <tr className="bg-white border-b dark:bg-zinc-900 dark:border-gray-700">
       <th
         scope="row"
         className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
@@ -87,7 +87,7 @@ export default function Propostas() {
 
 
   const propostasTableCarrinho = carrinhos.map((carrinho) => (
-    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hidden md:table-row">
+    <tr className="bg-white border-b dark:bg-zinc-900 dark:border-gray-700 hidden md:table-row">
       <th
         scope="row"
         className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
@@ -142,13 +142,13 @@ export default function Propostas() {
 
       {selecionado === "orcamento" ? (
         <>
-          <h1 className="mb-6 mt-4 text-2xl text-center md:text-start font-extrabold leading-none tracking-tight text-zinc-900 md:text-4xl lg:text-5xl underline underline-offset-8">
+          <h1 className="mb-6 mt-4 text-2xl text-center md:text-start font-extrabold leading-none tracking-tight text-zinc-900 md:text-4xl lg:text-5xl">
             Listagem de Orçamentos
           </h1>
 
           <div className="hidden md:block overflow-x-auto">
-            <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-              <thead className="hidden md:table-header-group text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <table className="w-full text-sm text-left rtl:text-right text-gray-200">
+              <thead className="hidden md:table-header-group text-xs text-gray-700 uppercase bg-gray-50 dark:bg-zinc-700 dark:text-gray-50 underline">
                 <tr>
                   <th scope="col" className="px-6 py-3">
                     Itens
@@ -170,7 +170,7 @@ export default function Propostas() {
 
           <div className="md:hidden">
             {orcamentos.map((orcamento) => (
-              <div className="border rounded-lg p-4 mb-4 shadow-md bg-zinc-900 text-center mx-4">
+              <div className="border rounded-lg p-4 mb-4 shadow-md bg-zinc-800 text-center mx-4">
                 <h3 className="font-bold text-lg text-colorc3offbranco">
                   Itens
                 </h3>
@@ -205,13 +205,13 @@ export default function Propostas() {
         </>
       ) : (
         <>
-          <h1 className="mb-6 mt-4  text-xl text-center md:text-start  font-extrabold leading-none tracking-tight text-zinc-900 md:text-4xl lg:text-5xl underline underline-offset-8">
+          <h1 className="mb-6 mt-4  text-xl text-center md:text-start  font-extrabold leading-none tracking-tight text-zinc-900 md:text-4xl lg:text-5xl">
             Listagem de Requisições Carrinho
           </h1>
 
           <div className="hidden md:block overflow-x-auto">
-            <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-              <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <table className="w-full text-sm text-left rtl:text-right text-gray-100 dark:text-gray-100 mb-24">
+              <thead className="text-xs text-gray-100 uppercase bg-zinc-700 dark:bg-zinc-700 dark:text-gray-200 underline">
                 <tr>
                   <th scope="col" className="px-6 py-3">
                     Produtos
@@ -233,7 +233,7 @@ export default function Propostas() {
 
           <div className="md:hidden">
             {carrinhos.map((carrinho) => (
-              <div className="border rounded-lg p-4 mb-14 shadow-md bg-zinc-900 text-center mx-4">
+              <div className="border rounded-lg p-4 mb-24 shadow-md bg-zinc-900 text-center mx-4">
                 <h3 className="font-bold text-lg text-colorc3offbranco">
                   Produtos
                 </h3>
