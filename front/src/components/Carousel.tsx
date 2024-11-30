@@ -39,7 +39,7 @@ const slideContent = [
 
 export default function Carousel() {  
   return (  
-    <div className="relative h-96 md:h-screen object-cover">  
+    <div className="relative h-[28rem] md:h-screen object-cover">  
       <Swiper  
         modules={[Navigation, Pagination]}  
         spaceBetween={0}  
