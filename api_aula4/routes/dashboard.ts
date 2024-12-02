@@ -9,9 +9,22 @@ const router = Router()
 router.get("/gerais", verificaAutenticacao, verificaAdmin, async (req, res) => {
   try {
     const clientes = await prisma.cliente.count()
-    const moveis = await prisma.produto.count()
-    const orcamento = await prisma.orcamento.count()
-    res.status(200).json({ clientes, moveis, orcamento })
+    const produtos = await prisma.produto.count()
+    const orcamentos = await prisma.orcamento.count()
+    res.status(200).json({ clientes, produtos, orcamentos })
+  } catch (error) {
+    res.status(400).json(error)
+  }
+})
+
+router.get("/carrinhosMensal", verificaAutenticacao, verificaAdmin, async (req, res) => {
+  try {
+    const valorCarrinhosMensal = await prisma.carrinho.groupBy({
+      by: ["createdAt"],
+      _sum: { valor: true },
+      orderBy: { createdAt: "asc" },
+    });
+    res.status(200).json(valorCarrinhosMensal)
   } catch (error) {
     res.status(400).json(error)
   }
@@ -19,29 +32,22 @@ router.get("/gerais", verificaAutenticacao, verificaAdmin, async (req, res) => {
 
 router.get("/produtosTipo", verificaAutenticacao, verificaAdmin, async (req, res) => {
   try {
-    const produtos = await prisma.produto.groupBy({
-      by: ['tipoProdutoId'],
-      _count: {
-        id: true, 
-      }
-    })
+    const produtosPorTipo = await prisma.tipoProduto.findMany({
+      select: {
+        nome: true,
+        _count: { select: { produtos: true } },
+      },
+    });
 
-    // Para cada produto, inclui o nome do tipo relacionada ao tipoProdutoId
-    const produtosTipo = await Promise.all(
-      produtos.map(async (produto) => {
-        const tipo = await prisma.tipoProduto.findUnique({
-          where: { id: produto.tipoProdutoId }
-        })
-        return {
-          tipo: tipo?.nome, 
-          num: produto._count.id
-        }
-      })
-    )
-    res.status(200).json(produtosTipo)
+    res.status(200).json(produtosPorTipo)
   } catch (error) {
     res.status(400).json(error)
   }
 })
+
+
+
+
+
 
 export default router
