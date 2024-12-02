@@ -5,6 +5,7 @@ import { toast } from "sonner"
 import { useState, useEffect } from "react"
 import { CorI } from "@/utils/types/cores"
 import { TipoI } from "@/utils/types/tipos"
+import { useRouter } from "next/navigation"
 
 enum TipoMaterial {
   MADEIRA = "MADEIRA",
@@ -25,6 +26,8 @@ interface Inputs {
 
 
 function NovoProduto() {
+  const router = useRouter()
+
   const [cores, setCores] = useState<CorI[]>([])
   const [tipos, setTipos] = useState<TipoI[]>([])
 
@@ -32,9 +35,9 @@ function NovoProduto() {
     register,
     handleSubmit,
     reset,
-    setFocus
+    //setFocus
   } = useForm<Inputs>()
-
+  
   useEffect(() => {
     async function getCores() {
       const response = await fetch(`${process.env.NEXT_PUBLIC_URL_API}/cores`)
@@ -100,12 +103,12 @@ function NovoProduto() {
 
   return (
     <>
-      <h1 className="mb-4 mt-24 text-2xl font-bold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-4xl dark:text-white me-56">
-        Inclusão de Carros
+      <h1 className="mb-4 mt-24 text-center text-2xl font-bold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-4xl me-56">
+        Inclusão de Produtos
       </h1>
 
       <form
-        className="max-w-xl mx-auto"
+        className="max-w-xl mx-auto shadow-md rounded-lg p-10 bg-zinc-900"
         onSubmit={handleSubmit(incluirProduto)}
       >
         <div className="mb-3">
@@ -118,7 +121,7 @@ function NovoProduto() {
           <input
             type="text"
             id="modelo"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
             required
             {...register("descricao")}
           />
@@ -133,7 +136,7 @@ function NovoProduto() {
             </label>
             <select
               id="corId"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
               required
               {...register("corId")}
             >
@@ -149,7 +152,7 @@ function NovoProduto() {
             </label>
             <select
               id="tipoProdutoid"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
               required
               {...register("tipoProdutoId")}
             >
@@ -168,7 +171,7 @@ function NovoProduto() {
             <input
               type="number"
               id="preco"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
               required
               {...register("preco")}
             />
@@ -183,7 +186,7 @@ function NovoProduto() {
             </label>
             <select
               id="tipoMaterial"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
               required
               {...register("tipoMaterial")}
             >
@@ -203,7 +206,7 @@ function NovoProduto() {
             <input
               type="text"
               id="foto"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
               required
               {...register("foto")}
             />
@@ -213,9 +216,16 @@ function NovoProduto() {
 
         <button
           type="submit"
-          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          className="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
         >
           Incluir
+        </button>
+        <button
+          type="button"
+          onClick={() => router.push('/principal/produtos')}
+          className="px-6 py-2 ml-2 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-900 transition duration-200"
+        >
+          Voltar
         </button>
       </form>
     </>

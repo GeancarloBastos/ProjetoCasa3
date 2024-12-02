@@ -1,94 +1,138 @@
-'use client'
-import { useEffect, useState } from "react";
-import { Chart } from "react-google-charts";
-import Cookies from "js-cookie";
+'use client'  
+import { useEffect, useState } from "react";  
+import Cookies from "js-cookie";  
+import { Users, ShoppingBag, FileText, TrendingUp, Package, UserPlus } from 'lucide-react';  
+import { useRouter } from "next/navigation";
 
-interface produtosTipoI {
-  tipo: string
-  num: number
-}
+interface GeralDadosI {  
+  clientes: number;  
+  produtos: number;  
+  orcamentos: number;  
+}  
 
-interface geralDadosI {
-  clientes: number
-  produtos: number
-  orcamentos: number
-}
+export default function Principal() {  
+  const router = useRouter();
+  const [dados, setDados] = useState<GeralDadosI>({} as GeralDadosI);  
 
-type DataRow = [string, number, string]
+  useEffect(() => {  
+    async function getDadosGerais() {  
+      const response = await fetch(  
+        `${process.env.NEXT_PUBLIC_URL_API}/dashboard/gerais`,  
+        {  
+          headers: {  
+            "Content-type": "application/json",  
+            Authorization: ("Bearer " + Cookies.get("admin_logado_token")) as string,  
+          },  
+        }  
+      );  
+      const dados = await response.json();  
+      setDados(dados);  
+    }  
+    getDadosGerais();  
+  }, []);  
 
-export default function Principal() {
-  const [produtosTipo, setProdutosTipo] = useState<produtosTipoI[]>([])
-  const [dados, setDados] = useState<geralDadosI>({} as geralDadosI)
+  return (  
+    <div className="p-6 max-w-7xl mx-auto mt-20">  
+      {/* Header */}  
+      <div className="mb-8">  
+        <h1 className="text-3xl font-bold text-gray-800 mb-2">Dashboard</h1>  
+        <p className="text-gray-600">Bem-vindo ao painel de controle da Casa 3.</p>  
+      </div>  
 
-  useEffect(() => {
-    async function getDadosGerais() {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_URL_API}/dashboard/gerais`,
-        {
-          headers: {
-            "Content-type": "application/json",
-            Authorization: ("Bearer " +
-              Cookies.get("admin_logado_token")) as string,
-          },
-        }
-      );
-      const dados = await response.json()
-      setDados(dados)
-    }
-    getDadosGerais()
+      {/* Stats Overview */}  
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">  
+        {/* Clientes Card */}  
+        <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100 hover:shadow-md transition-shadow">  
+          <div className="flex items-center justify-between mb-4">  
+            <div className="flex items-center">  
+              <div className="bg-blue-100 p-3 rounded-lg">  
+                <Users className="h-6 w-6 text-blue-600" />  
+              </div>  
+              <div className="ml-4">  
+                <h2 className="text-sm font-medium text-gray-600">Total de Clientes</h2>  
+                <p className="text-2xl font-bold text-gray-800">{dados.clientes || 0}</p>  
+              </div>  
+            </div>  
+            <span className="bg-blue-50 text-blue-600 text-xs font-medium px-2.5 py-0.5 rounded-full">  
+              Ativos  
+            </span>  
+          </div>  
+          <div className="flex items-center text-sm text-gray-500">  
+            <UserPlus className="h-4 w-4 mr-1" />  
+            <span>+12% desde o último mês</span>  
+          </div>  
+        </div>  
 
-    async function getDadosGrafico() {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_URL_API}/dashboard/produtosTipo`,
-        {
-          headers: {
-            "Content-type": "application/json",
-            Authorization: ("Bearer " +
-              Cookies.get("admin_logado_token")) as string,
-          },
-        }
-      );
-      const dados = await response.json()
-      setProdutosTipo(dados)
-    }
-    getDadosGrafico()
-  }, [])
+        {/* Produtos Card */}  
+        <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100 hover:shadow-md transition-shadow">  
+          <div className="flex items-center justify-between mb-4">  
+            <div className="flex items-center">  
+              <div className="bg-red-100 p-3 rounded-lg">  
+                <Package className="h-6 w-6 text-red-600" />  
+              </div>  
+              <div className="ml-4">  
+                <h2 className="text-sm font-medium text-gray-600">Total de Produtos</h2>  
+                <p className="text-2xl font-bold text-gray-800">{dados.produtos || 0}</p>  
+              </div>  
+            </div>  
+            <span className="bg-red-50 text-red-600 text-xs font-medium px-2.5 py-0.5 rounded-full">  
+              Cadastrados  
+            </span>  
+          </div>  
+          <div className="flex items-center text-sm text-gray-500">  
+            <ShoppingBag className="h-4 w-4 mr-1" />  
+            <span>5 produtos adicionados hoje</span>  
+          </div>  
+        </div>  
 
-  const data: (["Tipo", "NºProdutos", { role: string }] | DataRow)[] = [
-    ["Tipo", "NºProdutos", { role: "style" }],
-  ];
-  
-  const cores = ["red", "blue", "violet", "green", "gold", "cyan", "chocolate", "purple", "brown", "orangered"]
+        {/* Orçamentos Card */}  
+        <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100 hover:shadow-md transition-shadow">  
+          <div className="flex items-center justify-between mb-4">  
+            <div className="flex items-center">  
+              <div className="bg-green-100 p-3 rounded-lg">  
+                <FileText className="h-6 w-6 text-green-600" />  
+              </div>  
+              <div className="ml-4">  
+                <h2 className="text-sm font-medium text-gray-600">Total de Orçamentos</h2>  
+                <p className="text-2xl font-bold text-gray-800">{dados.orcamentos || 0}</p>  
+              </div>  
+            </div>  
+            <span className="bg-green-50 text-green-600 text-xs font-medium px-2.5 py-0.5 rounded-full">  
+              Em análise  
+            </span>  
+          </div>  
+          <div className="flex items-center text-sm text-gray-500">  
+            <TrendingUp className="h-4 w-4 mr-1" />  
+            <span>Taxa de conversão: 68%</span>  
+          </div>  
+        </div>  
+      </div>  
 
-  produtosTipo.forEach((produto, index) => {
-    data.push([produto.tipo, produto.num, cores[index%10]])
-  })
-
-  return (
-    <div className="container mt-24">
-      <h2 className="text-3xl mb-4 font-bold">Visão Geral do Sistema</h2>
-
-      <div className="w-2/3 flex justify-between mx-auto mb-5">
-        <div className="border-blue-600 border rounded p-6 w-1/3 me-3">
-          <span className="bg-blue-100 text-blue-800 text-xl text-center font-bold mx-auto block px-2.5 py-5 rounded dark:bg-blue-900 dark:text-blue-300">
-            {dados.clientes}</span>
-          <p className="font-bold mt-2 text-center">Nº Clientes</p>
-        </div>
-        <div className="border-red-600 border rounded p-6 w-1/3 me-3">
-          <span className="bg-red-100 text-red-800 text-xl text-center font-bold mx-auto block px-2.5 py-5 rounded dark:bg-red-900 dark:text-red-300">
-            {dados.produtos}</span>
-          <p className="font-bold mt-2 text-center">Nº Produtos</p>
-        </div>
-        <div className="border-green-600 border rounded p-6 w-1/3">
-          <span className="bg-green-100 text-green-800 text-xl text-center font-bold mx-auto block px-2.5 py-5 rounded dark:bg-green-900 dark:text-green-300">
-            {dados.orcamentos}</span>
-          <p className="font-bold mt-2 text-center">Nº Orcamentos</p>
-        </div>
-      </div>
-
-      <h2 className="text-2xl font-bold mt-4">Gráfico: Nº de Produtos por Tipo</h2>
-      <Chart chartType="ColumnChart" width="95%" height="380px" data={data} />
-
-    </div>
-  )
+      {/* Quick Actions */}  
+      <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">  
+        <h2 className="text-lg font-semibold text-gray-800 mb-4">Ações Rápidas</h2>  
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">  
+          <button className="flex items-center justify-center p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors">  
+            <Users className="h-5 w-5 text-blue-600 mr-2" />  
+            <span className="text-blue-600 font-medium">Novo Cliente</span>  
+          </button>  
+          <button 
+            className="flex items-center justify-center p-4 bg-red-50 rounded-lg hover:bg-red-100 transition-colors"
+            onClick={() => router.push('/principal/produtos/novo')}
+          >
+            <Package className="h-5 w-5 text-red-600 mr-2" />  
+            <span className="text-red-600 font-medium">Novo Produto</span>  
+          </button>  
+          <button className="flex items-center justify-center p-4 bg-green-50 rounded-lg hover:bg-green-100 transition-colors">  
+            <FileText className="h-5 w-5 text-green-600 mr-2" />  
+            <span className="text-green-600 font-medium">Novo Orçamento</span>  
+          </button>  
+          <button className="flex items-center justify-center p-4 bg-purple-50 rounded-lg hover:bg-purple-100 transition-colors">  
+            <TrendingUp className="h-5 w-5 text-purple-600 mr-2" />  
+            <span className="text-purple-600 font-medium">Ver Relatórios</span>  
+          </button>  
+        </div>  
+      </div>  
+    </div>  
+  );  
 }

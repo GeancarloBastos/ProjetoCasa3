@@ -9,6 +9,7 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 type Inputs = {
   descricao: string;
@@ -16,6 +17,7 @@ type Inputs = {
 };
 
 export default function Detalhes() {
+  const router = useRouter();
   const params = useParams();
 
   const [carrinho, setCarrinho] = useState<CarrinhoI | null>(null);
@@ -39,7 +41,7 @@ export default function Detalhes() {
       setTel(dadosTelefone.telefone);
       setNome(dadosTelefone.nome)
 
-      
+
 
 
       setCarrinho(dados);
@@ -48,16 +50,16 @@ export default function Detalhes() {
     getDados();
   }, []);
 
-  
-    return (
-    <div className="flex flex-col items-center mt-16 bg-white p-8 rounded-xl shadow-lg max-w-4xl mx-auto">
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">
+
+  return (
+    <div className="flex flex-col items-center mt-32 bg-gray-300 p-8 rounded-xl shadow-lg max-w-4xl mx-auto">
+      <h1 className="text-3xl font-bold text-zinc-900 mb-6">
         Detalhes do Orçamento
       </h1>
 
       {/* Valor Total */}
       <div className="mb-6 w-full">
-        <p className="text-lg font-semibold text-gray-700">Valor Total:</p>
+        <p className="text-lg font-bold text-zinc-900">Valor Total:</p>
         <p className="text-2xl text-green-600 font-bold">
           R$ {carrinho?.valor}
         </p>
@@ -65,19 +67,19 @@ export default function Detalhes() {
 
       {/* Nome cliente */}
       <div className="mb-6 w-full">
-        <p className="text-lg font-semibold text-gray-700">Nome do Cliente:</p>
-        <p className="text-xl text-gray-900">{nomeCliente}</p>
+        <p className="text-lg font-bold text-zinc-900">Nome do Cliente:</p>
+        <p className="text-xl text-zinc-900">{nomeCliente}</p>
       </div>
 
       {/* Telefone */}
       <div className="mb-6 w-full">
-        <p className="text-lg font-semibold text-gray-700">Telefone:</p>
-        <p className="text-xl text-gray-900">{telCliente}</p>
+        <p className="text-lg font-bold text-zinc-900">Telefone:</p>
+        <p className="text-xl text-zinc-900">{telCliente}</p>
       </div>
 
       {/* Produtos */}
       <div className="w-full">
-        <p className="text-lg font-semibold text-gray-700 mb-4">Produtos:</p>
+        <p className="text-lg font-bold text-zinc-900 mb-4">Produtos:</p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {carrinho?.produtos.map((itemRel) => (
             <div
@@ -91,13 +93,21 @@ export default function Detalhes() {
                 className="w-24 h-24 object-cover mb-4 rounded-lg"
               />
               {/* Nome do Produto */}
-              <p className="text-lg font-semibold text-gray-800">
+              <p className="text-lg font-bold text-zinc-800">
                 {itemRel.produto.descricao}
               </p>
               {/* Quantidade */}
-              <p className="text-gray-600">Quantidade: {itemRel.quantidade}</p>
+              <p className="text-zinc-600 font-semibold">Quantidade: {itemRel.quantidade}</p>
             </div>
           ))}
+        </div>
+        <div>
+          <button
+            onClick={() => router.push('/principal/carrinho')}
+            className="px-6 py-2 mt-5 bg-blue-600 text-white font-bold rounded-lg shadow-md hover:bg-blue-900 transition duration-200"
+          >
+            Voltar
+          </button>
         </div>
       </div>
     </div>

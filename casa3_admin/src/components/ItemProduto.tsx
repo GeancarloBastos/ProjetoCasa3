@@ -1,19 +1,17 @@
-import { Dispatch, SetStateAction, useEffect } from "react";
-import { TiDeleteOutline } from "react-icons/ti";
-import { FaRegStar } from "react-icons/fa";
-import Cookies from "js-cookie";
-import { ProdutoI } from "@/utils/types/produtos";
-import { CorI } from "@/utils/types/cores";
-import { TipoI } from "@/utils/types/tipos";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { Dispatch, SetStateAction, useEffect } from "react";  
+import { Pencil, Trash2, Save } from 'lucide-react'; // Importar do lucide-react  
+import Cookies from "js-cookie";  
+import { ProdutoI } from "@/utils/types/produtos";  
+import { CorI } from "@/utils/types/cores";  
+import { TipoI } from "@/utils/types/tipos";  
+import { useState } from "react";  
+import { useForm } from "react-hook-form"; 
 
 interface listaProdutoProps {
   produto: ProdutoI;
   produtos: ProdutoI[];
   setProdutos: Dispatch<SetStateAction<ProdutoI[]>>;
 }
-
 
 function ItemCarro({ produto, produtos, setProdutos }: listaProdutoProps) {
   const [editingId, setEditingId] = useState<number | null>(null);
@@ -129,106 +127,109 @@ async function alterarProduto(data: ProdutoI) {
   }
 }
 
-  return (
-    <tr
-      key={produto.id}
-      className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"
-    >
-      <th
-        scope="row"
-        className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-      >
-        <img src={produto.foto} alt="Capa do Produto" style={{ width: 200 }} />
-      </th>
-      <td className="px-6 py-4 font-extrabold">
-        {editingId === produto.id ? (
-          <input
-            {...register("descricao")}
-            defaultValue={produto.descricao}
-            className="p-1 border border-gray-300 rounded"
-          />
-        ) : (
-          produto.descricao
-        )}
-      </td>
-      <td className="px-6 py-4 font-extrabold">
-        {editingId === produto.id ? (
-          <select
-            id="tipoProduto"
-            {...register("tipoProdutoId")}
-            value={produto.tipoProduto.id || ""}
-            className="p-1 border border-gray-300 rounded"
-          >
-            <option value="">Selecione um tipo</option>
-            {tipos.map((tipo) => (
-              <option key={tipo.id} value={tipo.id}>
-                {tipo.nome}
-              </option>
-            ))}
-          </select>
-        ) : (
-          produto.tipoProduto.nome
-        )}
-      </td>
-      <td className="px-6 py-4 font-extrabold">
-        {editingId === produto.id ? (
-          <select
-            id="cor"
-            {...register("corId")}
-            // value={produto.corId || ""}
-          
-            className="p-1 border border-gray-300 rounded"
-          >
-            <option value="">Selecione uma cor</option>
-            {cores.map((cor) => (
-              <option key={cor.id} value={cor.id}>
-                {cor.nome}
-              </option>
-            ))}
-          </select>
-        ) : (
-          produto.cor.nome
-        )}
-      </td>
-      <td className="px-6 py-4 font-extrabold">
-        {editingId === produto.id ? (
-          <input
-            {...register("preco")}
-            defaultValue={produto.preco}
-            className="p-1 border border-gray-300 rounded"
-          />
-        ) : (
-          Number(produto.preco).toLocaleString("pt-br", {
-            minimumFractionDigits: 2,
-          })
-        )}
-      </td>
-      <td className="px-6 py-4">
-        {editingId === produto.id ? (
-          <button
-            onClick={handleSubmit(alterarProduto)}
-            className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
-          >
-            Salvar
-          </button>
-        ) : (
-          <>
-            <TiDeleteOutline
-              className="text-3xl text-red-600 inline-block cursor-pointer"
-              title="Excluir"
-              onClick={excluirCarro}
-            />
-            &nbsp;
-            <FaRegStar
-              className="text-3xl text-yellow-600 inline-block cursor-pointer"
-              title="Destacar"
-              onClick={() => setEditingId(produto.id)}
-            />
-          </>
-        )}
-      </td>
-    </tr>
-  );
-}
+return (  
+  <tr  
+    key={produto.id}  
+    className="transition-colors duration-200 hover:bg-zinc-600 border-b border-zinc-600 hover:text-gray-100"  
+  >  
+    <td className="px-6 py-4">  
+      <img   
+        src={produto.foto}   
+        alt="Capa do Produto"   
+        className="w-48 h-48 object-cover rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200"  
+      />  
+    </td>  
+    <td className="px-6 py-4 font-medium">  
+      {editingId === produto.id ? (  
+        <input  
+          {...register("descricao")}  
+          defaultValue={produto.descricao}  
+          className="w-full p-2 bg-zinc-700 border border-zinc-500 rounded-md focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200"  
+        />  
+      ) : (  
+        <span className="text-zinc-900 hover:text-zinc-900">{produto.descricao}</span>  
+      )}  
+    </td>  
+    <td className="px-6 py-4">  
+      {editingId === produto.id ? (  
+        <select  
+          {...register("tipoProdutoId")}  
+          value={produto.tipoProduto.id || ""}  
+          className="w-full p-2 bg-zinc-700 border border-zinc-500 rounded-md focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200"  
+        >  
+          <option value="">Selecione um tipo</option>  
+          {tipos.map((tipo) => (  
+            <option key={tipo.id} value={tipo.id}>  
+              {tipo.nome}  
+            </option>  
+          ))}  
+        </select>  
+      ) : (  
+        <span className="text-zinc-900">{produto.tipoProduto.nome}</span>  
+      )}  
+    </td>  
+    <td className="px-6 py-4">  
+      {editingId === produto.id ? (  
+        <select  
+          {...register("corId")}  
+          className="w-full p-2 bg-zinc-700 border border-zinc-500 rounded-md focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200"  
+        >  
+          <option value="">Selecione uma cor</option>  
+          {cores.map((cor) => (  
+            <option key={cor.id} value={cor.id}>  
+              {cor.nome}  
+            </option>  
+          ))}  
+        </select>  
+      ) : (  
+        <span className="text-zinc-900">{produto.cor.nome}</span>  
+      )}  
+    </td>  
+    <td className="px-6 py-4">  
+      {editingId === produto.id ? (  
+        <input  
+          {...register("preco")}  
+          defaultValue={produto.preco}  
+          className="w-full p-2 bg-zinc-700 border border-zinc-500 rounded-md focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200"  
+        />  
+      ) : (  
+        <span className="text-zinc-900">  
+          R$ {Number(produto.preco).toLocaleString("pt-br", {  
+            minimumFractionDigits: 2,  
+          })}  
+        </span>  
+      )}  
+    </td>  
+    <td className="px-6 py-4">  
+      {editingId === produto.id ? (  
+        <button  
+          onClick={handleSubmit(alterarProduto)}  
+          className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md transition-colors duration-200"  
+        >  
+          <Save size={16} />  
+          Salvar  
+        </button>  
+      ) : (  
+        <div className="flex gap-3">  
+          <button  
+            onClick={excluirCarro}  
+            className="p-2 text-red-400 hover:text-red-600 hover:bg-red-100/10 rounded-full transition-all duration-200"  
+            title="Excluir"  
+          >  
+            <Trash2 size={20} />  
+          </button>  
+          <button  
+            onClick={() => setEditingId(produto.id)}  
+            className="p-2 text-blue-400 hover:text-blue-600 hover:bg-blue-100/10 rounded-full transition-all duration-200"  
+            title="Editar"  
+          >  
+            <Pencil size={20} />  
+          </button>  
+        </div>  
+      )}  
+    </td>  
+  </tr>  
+);  
+}  
 
-export default ItemCarro;
+export default ItemCarro;  

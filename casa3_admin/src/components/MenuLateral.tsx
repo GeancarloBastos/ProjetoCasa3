@@ -21,11 +21,11 @@ export function MenuLateral() {
 
   return (
     <aside id="default-sidebar" className="fixed mt-24 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
-      <div className="h-full px-3 py-4 overflow-y-auto bg-blue-300 dark:bg-gray-800">
+      <div className="h-full px-3 py-4 overflow-y-auto bg-zinc-900 text-gray-300">
         <ul className="space-y-2 font-medium">
         <li>
             <Link href="/principal" className="flex items-center p-2">
-              <span className="h-5 text-gray-600 text-2xl">
+              <span className="h-5 text-gray-50 text-2xl">
                 <BiSolidDashboard />
               </span>
               <span className="ms-2 mt-1">Visão Geral</span>
@@ -33,7 +33,7 @@ export function MenuLateral() {
           </li>
           <li>
             <Link href="/principal/produtos" className="flex items-center p-2">
-              <span className="h-5 text-gray-600 text-2xl">
+              <span className="h-5 text-gray-50 text-2xl">
                 <FaCarSide />
               </span>
               <span className="ms-2 mt-1">Cadastro de Produtos</span>
@@ -41,7 +41,7 @@ export function MenuLateral() {
           </li>
           <li>
           <Link href="/principal/carrinho" className="flex items-center p-2">
-              <span className="h-5 text-gray-600 text-2xl">
+              <span className="h-5 text-gray-50 text-2xl">
                 <FaUsers />
               </span>
               <span className="ms-2 mt-1">Requisições Produtos / Carrinho</span>
@@ -49,7 +49,7 @@ export function MenuLateral() {
           </li>
           <li>
           <Link href="/principal/orcamentos" className="flex items-center p-2 cursor-pointer">
-              <span className="h-5 text-gray-600 text-2xl">
+              <span className="h-5 text-gray-50 text-2xl">
                 <BsCashCoin />
               </span>
               <span className="ms-2 mt-1">Controle de Orçamentos</span>
@@ -58,7 +58,7 @@ export function MenuLateral() {
 
           <li>
             <span className="flex items-center p-2 cursor-pointer">
-              <span className="h-5 text-gray-600 text-2xl">
+              <span className="h-5 text-gray-50 text-2xl">
                 <IoExitOutline />
               </span>
               <span className="ms-2 mt-1" onClick={adminSair}>Sair do Sistema</span>

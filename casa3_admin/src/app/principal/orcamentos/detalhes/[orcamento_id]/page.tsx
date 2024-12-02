@@ -9,6 +9,9 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
+import { useRouter } from "next/navigation";
+
+
 type Inputs = {
   descricao: string;
   dataSolicitada: Date;
@@ -16,13 +19,14 @@ type Inputs = {
 
 export default function Detalhes() {
   const params = useParams();
-
+  
   const [orcamento, setOrcamento] = useState<OrcamentoI | null>(null);
   const [statusAtual, setStatus] = useState("");
   const [telCliente, setTel] = useState("");
   const [nomeCliente, setNome] = useState("")
   const { register, handleSubmit, reset } = useForm<Inputs>();
   const [isLoading, setIsLoading] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
     async function getDados() {
@@ -74,65 +78,65 @@ export default function Detalhes() {
 
   
   return (
-    <div className="flex flex-col items-center mt-32 bg-gray-50 p-8 rounded-xl shadow-lg max-w-3xl mx-auto">
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">
+    <div className="flex flex-col items-center mt-32 bg-zinc-300 p-20 rounded-xl shadow-lg max-w-3xl mx-auto">
+      <h1 className="text-3xl font-bold text-zinc-900 mb-6">
         Detalhes do Orçamento
       </h1>
 
       {/* Prazo */}
       <div className="mb-4 w-full">
-        <p className="text-lg font-semibold text-gray-700">Prazo:</p>
-        <p className="text-xl text-gray-900">{orcamento.prazo}</p>
+        <p className="text-lg font-bold text-zinc-900">Prazo:</p>
+        <p className="text-xl text-zinc-900">{orcamento.prazo}</p>
       </div>
 
       {/* NOME CLIENTE */}
       <div className="mb-4 w-full">
-        <p className="text-lg font-semibold text-gray-700">Nome do Cliente:</p>
-        <p className="text-xl text-gray-900">{nomeCliente}</p>
+        <p className="text-lg font-bold text-zinc-900">Nome do Cliente:</p>
+        <p className="text-xl text-zinc-900">{nomeCliente}</p>
       </div>
 
       {/* TELEFONE */}
       <div className="mb-4 w-full">
-        <p className="text-lg font-semibold text-gray-700">Telefone:</p>
-        <p className="text-xl text-gray-900">{telCliente}</p>
+        <p className="text-lg font-bold text-zinc-900">Telefone:</p>
+        <p className="text-xl text-zinc-900">{telCliente}</p>
       </div>
 
       {/* ACABAMENTO */}
       <div className="mb-4 w-full">
-        <p className="text-lg font-semibold text-gray-700">Acabamento:</p>
-        <p className="text-xl text-gray-900">{orcamento.acabamento}</p>
+        <p className="text-lg font-bold text-zinc-900">Acabamento:</p>
+        <p className="text-xl text-zinc-900">{orcamento.acabamento}</p>
       </div>
 
       {/* FAIXA PREÇO */}
       <div className="mb-4 w-full">
-        <p className="text-lg font-semibold text-gray-700">Faixa preço:</p>
-        <p className="text-xl text-gray-900">{orcamento.faixaPreco}</p>
+        <p className="text-lg font-bold text-zinc-900">Faixa preço:</p>
+        <p className="text-xl text-zinc-900">{orcamento.faixaPreco}</p>
       </div>
 
       {/* OBSERVAÇÕES */}
       <div className="mb-4 w-full">
-        <p className="text-lg font-semibold text-gray-700">Observações:</p>
-        <p className="text-xl text-gray-900">{orcamento.observacoes}</p>
+        <p className="text-lg font-bold text-zinc-900">Observações:</p>
+        <p className="text-xl text-zinc-900">{orcamento.observacoes}</p>
       </div>
 
       {/* AMBIENTE */}
       <div className="mb-4 w-full">
-        <p className="text-lg font-semibold text-gray-700">Ambiente:</p>
-        <p className="text-xl text-gray-900">{orcamento.ambiente}</p>
+        <p className="text-lg font-bold text-zinc-900">Ambiente:</p>
+        <p className="text-xl text-zinc-900">{orcamento.ambiente}</p>
       </div>
 
       {/* Itens */}
       <div className="mb-4 w-full">
-        <p className="text-lg font-semibold text-gray-700">Itens:</p>
-        <p className="text-xl text-gray-900">
+        <p className="text-lg font-bold text-zinc-900">Itens:</p>
+        <p className="text-xl text-zinc-900">
           {orcamento.itens.map((itemRel) => itemRel.item.nome).join(", ")}
         </p>
       </div>
 
       {/* Adicionais */}
       <div className="mb-4 w-full">
-        <p className="text-lg font-semibold text-gray-700">Adicionais:</p>
-        <p className="text-xl text-gray-900">
+        <p className="text-lg font-bold text-zinc-900">Adicionais:</p>
+        <p className="text-xl text-zinc-900">
           {orcamento.adicionais
             .map((itemRel) => itemRel.adicional.nome)
             .join(", ")}
@@ -141,8 +145,8 @@ export default function Detalhes() {
 
       {/* Cores */}
       <div className="mb-4 w-full">
-        <p className="text-lg font-semibold text-gray-700">Cores:</p>
-        <p className="text-xl text-gray-900">
+        <p className="text-lg font-bold text-zinc-900">Cores:</p>
+        <p className="text-xl text-zinc-900">
           {orcamento.cores.map((itemRel) => itemRel.cor.nome).join(", ")}
         </p>
       </div>
@@ -152,7 +156,7 @@ export default function Detalhes() {
         {/* Imagem de referência */}
         {orcamento.imagens[0].urlReferencia ? (
           <div className="mb-4">
-            <p className="text-lg font-semibold text-gray-700">
+            <p className="text-lg font-bold text-zinc-900">
               Imagem de Referência:
             </p>
             <img
@@ -162,13 +166,13 @@ export default function Detalhes() {
             />
           </div>
         ) : (
-          <p className="text-lg text-gray-700">Sem imagem de referência</p>
+          <p className="text-lg text-zinc-900">Sem imagem de referência</p>
         )}
 
         {/* Imagem de planta */}
         {orcamento.imagens[0].urlPlanta ? (
           <div className="mb-4">
-            <p className="text-lg font-semibold text-gray-700">
+            <p className="text-lg font-bold text-zinc-900">
               Imagem de Planta:
             </p>
             <img
@@ -178,7 +182,7 @@ export default function Detalhes() {
             />
           </div>
         ) : (
-          <p className="text-lg text-gray-700">Sem imagem de Planta</p>
+          <p className="text-lg text-zinc-900">Sem imagem de Planta</p>
         )}
       </div>
 
@@ -187,9 +191,15 @@ export default function Detalhes() {
         {statusAtual}
         <button
           onClick={alterarStatus}
-          className="px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition duration-200"
+          className="px-6 py-2 bg-green-600 text-white font-bold rounded-lg shadow-md hover:bg-green-900 transition duration-200"
         >
           Trocar Status
+        </button>
+        <button
+          onClick={() => router.push('/principal/orcamentos')}
+          className="px-6 py-2 bg-blue-600 text-white font-bold rounded-lg shadow-md hover:bg-blue-900 transition duration-200"
+        >
+          Voltar
         </button>
       </div>
     </div>
