@@ -77,6 +77,8 @@ async function alterarProduto(data: ProdutoI) {
     corId: data.corId, 
   };
 
+  console.log(payload)
+
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_URL_API}/produtos/${produto.id}`,
     {
@@ -154,7 +156,7 @@ return (
       {editingId === produto.id ? (  
         <select  
           {...register("tipoProdutoId")}  
-          value={produto.tipoProduto.id || ""}  
+          // value={produto.tipoProduto.id || ""}  aqui tava o bug de n conseguir selecionar
           className="w-full p-2 bg-zinc-700 border border-zinc-500 rounded-md focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200"  
         >  
           <option value="">Selecione um tipo</option>  
