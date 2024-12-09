@@ -1,20 +1,10 @@
 "use client";
 
 import { CarrinhoI } from "@/utils/types/carrinhos";
-import { FotoI } from "@/utils/types/fotos";
-
-import { OrcamentoI } from "@/utils/types/orcamentos";
-import { log } from "console";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
-type Inputs = {
-  descricao: string;
-  dataSolicitada: Date;
-};
 
 export default function Detalhes() {
   const router = useRouter();
@@ -23,7 +13,7 @@ export default function Detalhes() {
   const [carrinho, setCarrinho] = useState<CarrinhoI | null>(null);
   const [telCliente, setTel] = useState("");
   const [nomeCliente, setNome] = useState("");
-  const { register, handleSubmit, reset } = useForm<Inputs>();
+  // const { register, handleSubmit, reset } = useForm<Inputs>();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -50,6 +40,11 @@ export default function Detalhes() {
     getDados();
   }, []);
 
+  if (isLoading) {
+    return (
+      <h1>Carregando.....</h1>
+    )
+  }
 
   return (
     <div className="flex flex-col items-center mt-32 bg-gray-300 p-8 rounded-xl shadow-lg max-w-4xl mx-auto">

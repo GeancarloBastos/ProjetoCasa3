@@ -22,7 +22,9 @@ function ItemCarro({ produto, produtos, setProdutos }: listaProdutoProps) {
   useEffect(() => {
     async function fetchCores() {
       try {
-        const response = await fetch("http://localhost:3004/cores");
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_URL_API}/cores`
+        );
         const data = await response.json();
         setCores(data);
       } catch (error) {
@@ -31,7 +33,7 @@ function ItemCarro({ produto, produtos, setProdutos }: listaProdutoProps) {
     }
     async function fetchTipos() {
       try {
-        const response = await fetch("http://localhost:3004/tipos");
+        const response = await fetch(`${process.env.NEXT_PUBLIC_URL_API}/tipos`);
         const data2 = await response.json();
         setTipos(data2);
       } catch (error) {

@@ -1,10 +1,8 @@
-import { AdicionalI } from "./adicionais";
+
 import { AdicionalRelationI } from "./adicionaisRelation";
 import { ClienteI } from "./clientes";
-import { CorI } from "./cores";
 import { CorRelationI } from "./coresRelation";
 import { ImagemOrcamentoI } from "./imagemOrcamentos";
-import { ItemI } from "./itens";
 import { ItemRelationI } from "./itensRelation";
 
 export interface OrcamentoI {

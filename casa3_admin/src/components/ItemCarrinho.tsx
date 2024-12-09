@@ -1,13 +1,4 @@
-import { Dispatch, SetStateAction, useEffect } from "react";
-import { TiDeleteOutline } from "react-icons/ti";
-import { FaRegStar } from "react-icons/fa";
-import Cookies from "js-cookie";
-import { ProdutoI } from "@/utils/types/produtos";
-import { CorI } from "@/utils/types/cores";
-import { TipoI } from "@/utils/types/tipos";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { OrcamentoI } from "@/utils/types/orcamentos";
+import { Dispatch, SetStateAction } from "react";
 import Link from "next/link";
 import { CarrinhoI } from "@/utils/types/carrinhos";
 
@@ -19,11 +10,10 @@ interface listaCarrinhoProps {
 
 function ItemCarrinho({
   carrinho,
-  carrinhos,
-  setCarrinho,
+  // carrinhos,
+  // setCarrinho,
 }: listaCarrinhoProps) {
-  const [editingId, setEditingId] = useState<number | null>(null);
-  const { register, handleSubmit, reset } = useForm<ProdutoI>();
+  // const { register, handleSubmit, reset } = useForm<ProdutoI>();
 
 
       function dataDMA(data: string) {
