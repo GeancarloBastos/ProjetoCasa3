@@ -65,13 +65,13 @@ function Cadprodutos() {
               <th scope="col" className="px-6 py-3">
                 Data
               </th>
-              <th scope="col" className="px-6 py-3"></th>
+              {/* <th scope="col" className="px-6 py-3"></th> */}
               {/* <th scope="col" className="px-6 py-3">
                 Preço R$
-              </th>
+              </th> */}
               <th scope="col" className="px-6 py-3">
                 Ações
-              </th> */}
+              </th>
             </tr>
           </thead>
           <tbody>{listacarrinhos}</tbody>

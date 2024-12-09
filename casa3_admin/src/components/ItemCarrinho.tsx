@@ -1,6 +1,8 @@
 import { Dispatch, SetStateAction } from "react";
 import Link from "next/link";
 import { CarrinhoI } from "@/utils/types/carrinhos";
+import Cookies from "js-cookie"; 
+import { Trash2 } from 'lucide-react'; // Importar do lucide-react  
 
 interface listaCarrinhoProps {
   carrinho: CarrinhoI;
@@ -10,8 +12,8 @@ interface listaCarrinhoProps {
 
 function ItemCarrinho({
   carrinho,
-  // carrinhos,
-  // setCarrinho,
+  carrinhos,
+  setCarrinho,
 }: listaCarrinhoProps) {
   // const { register, handleSubmit, reset } = useForm<ProdutoI>();
 
@@ -22,6 +24,33 @@ function ItemCarrinho({
         const dia = data.substring(8, 10);
         return dia + "/" + mes + "/" + ano;
       }
+      
+      
+
+        async function excluirCarrinho() {
+          if (confirm(`Confirma a exclusão`)) {
+            console.log(`id na esclusao: ${carrinho.id}`)
+            const response = await fetch(
+              `${process.env.NEXT_PUBLIC_URL_API}/carrinhos/${carrinho.id}`,
+              {
+                method: "DELETE",
+                headers: {
+                  "Content-type": "application/json",
+                  Authorization: ("Bearer " +
+                    Cookies.get("admin_logado_token")) as string,
+                },
+              }
+            );
+
+            if (response.status === 200) {
+              const produtos2 = carrinhos.filter((x) => x.id !== carrinho.id);
+              setCarrinho(produtos2);
+              alert("Produto excluído com sucesso");
+            } else {
+              alert("Erro... Produto não foi excluído");
+            }
+          }
+        }
 
   return (
     <tr className="bg-zinc-800 border-b p-10">
@@ -59,28 +88,40 @@ function ItemCarrinho({
           <i>Enviado em: {dataDMA(carrinho.createdAt)}</i>
         </p>
       </td>
-      <td>
-        <Link
-          href={`/principal/carrinho/detalhes/${carrinho.id}`}
-          className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
-        >
-          Detalhes
-          <svg
-            className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 14 10"
+     
+      
+      <td className="px-6 py-5">
+        <div className="flex gap-3">
+
+          <Link
+            href={`/principal/carrinho/detalhes/${carrinho.id}`}
+            className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
           >
-            <path
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M1 5h12m0 0L9 1m4 4L9 9"
-            />
-          </svg>
-        </Link>
+            Detalhes
+            <svg
+              className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 14 10"
+            >
+              <path
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M1 5h12m0 0L9 1m4 4L9 9"
+              />
+            </svg>
+          </Link>
+          <button
+            onClick={excluirCarrinho}
+            className="p-2 text-red-400 hover:text-red-600 hover:bg-red-100/10 rounded-full transition-all duration-200"
+            title="Excluir"
+          >
+            <Trash2 size={20} />
+          </button>
+        </div>
       </td>
     </tr>
   );
