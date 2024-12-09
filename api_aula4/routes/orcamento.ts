@@ -8,8 +8,31 @@ import { Router } from "express";
 
 import { prisma } from "../prisma";
 import { verificaAutenticacao } from "../middlewares/verificaAutenticacao";
+import { verificaAdmin } from "../middlewares/verificaAdmin";
 
 const router = Router();
+
+  prisma.$use(async (params, next) => {
+    // Check incoming query type
+    if (params.model == "Orcamento") {
+      if (params.action == "delete") {
+        // Delete queries
+        // Change action to an update
+        params.action = "update";
+        params.args["data"] = { deleted: true };
+      }
+      if (params.action == "deleteMany") {
+        // Delete many queries
+        params.action = "updateMany";
+        if (params.args.data != undefined) {
+          params.args.data["deleted"] = true;
+        } else {
+          params.args["data"] = { deleted: true };
+        }
+      }
+    }
+    return next(params);
+  });
 
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
@@ -18,23 +41,24 @@ router.get("/:id", async (req, res) => {
       include: {
         itens: {
           include: {
-            item: true
-          }
+            item: true,
+          },
         },
         imagens: true,
         cores: {
           include: {
-            cor: true
-          }
+            cor: true,
+          },
         },
         adicionais: {
           include: {
-            adicional: true
-          }
-        }
+            adicional: true,
+          },
+        },
       },
       where: {
         clienteId: id,
+        deleted: false 
       },
     });
     res.status(200).json(orcamentos);
@@ -49,21 +73,22 @@ router.get("/", async (req, res) => {
       include: {
         itens: {
           include: {
-            item: true
-          }
+            item: true,
+          },
         },
         imagens: true,
         cores: {
           include: {
-            cor: true
-          }
+            cor: true,
+          },
         },
         adicionais: {
           include: {
-            adicional: true
-          }
-        }
-      }
+            adicional: true,
+          },
+        },
+      },
+      where: {  deleted: false  },
     });
     res.status(200).json(orcamentos);
   } catch (error) {
@@ -218,6 +243,19 @@ router.post("/", verificaAutenticacao, async (req, res) => {
     res.status(201).json(resultado);
   } catch (error) {
     console.error("Erro ao processar orçamento:", error);
+    res.status(400).json(error);
+  }
+});
+
+router.delete("/:id", verificaAutenticacao, verificaAdmin, async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const movel = await prisma.orcamento.delete({
+      where: { id: Number(id) },
+    });
+    res.status(200).json(movel);
+  } catch (error) {
     res.status(400).json(error);
   }
 });

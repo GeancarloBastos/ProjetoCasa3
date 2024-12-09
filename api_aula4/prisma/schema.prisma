@@ -45,10 +45,11 @@ model Produto {
 model Carrinho {
   id            Int          @id @default(autoincrement())
   valor         Decimal      @db.Decimal(10, 2)
-  createdAt    DateTime     @default(now())
-  cliente     Cliente           @relation(fields: [clienteId], references: [id])
-  clienteId   String
-  produtos   CarrinhoProduto[]
+  deleted       Boolean     @default(false)
+  createdAt     DateTime     @default(now())
+  cliente       Cliente           @relation(fields: [clienteId], references: [id])
+  clienteId     String
+  produtos      CarrinhoProduto[]
   
   @@map("req_carrinho")
 }
@@ -106,6 +107,7 @@ model Orcamento {
   faixaPreco  String            @db.VarChar(120)
   observacoes String            @db.VarChar(255)
   prazo       String            @db.VarChar(255)
+  deleted       Boolean     @default(false)
   createdAt   DateTime          @default(now())
   updatedAt   DateTime          @updatedAt
   itens       ItemOrcamento[]
