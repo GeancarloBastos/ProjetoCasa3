@@ -23,7 +23,7 @@ export default function Cadastro() {
     }  
 
     const response = await fetch(  
-      `${process.env.NEXT_PUBLIC_URL_API}/clientes/cadastro`,  
+      `${process.env.NEXT_PUBLIC_URL_API}/clientes`,  
       {  
         headers: {  
           "Content-Type": "application/json",  

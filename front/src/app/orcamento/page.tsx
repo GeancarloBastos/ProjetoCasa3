@@ -32,7 +32,7 @@ export default function Orcamento() {
   const { register, handleSubmit, formState: { errors } } = useForm<FormInputs>();
   const [previewImages, setPreviewImages] = useState<string[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false); 
-  const { cliente, deslogaCliente } = useClienteStore(); 
+  const { cliente } = useClienteStore(); 
  
   const router = useRouter();
 
@@ -47,16 +47,16 @@ export default function Orcamento() {
     "Área Gourmet",
   ];
 
-const cores = [
-  { id: 1, nome: "Branco" },
-  { id: 2, nome: "Preto" },
-  { id: 3, nome: "Madeira Clara" },
-  { id: 4, nome: "Madeira Escura" },
-  { id: 5, nome: "Cinza" },
-  { id: 6, nome: "Bege" },
-  { id: 7, nome: "Azul" },
-  { id: 8, nome: "Verde" },
-];
+  const cores = [
+    { id: 1, nome: "Branco" },
+    { id: 2, nome: "Preto" },
+    { id: 3, nome: "Madeira Clara" },
+    { id: 4, nome: "Madeira Escura" },
+    { id: 5, nome: "Cinza" },
+    { id: 6, nome: "Bege" },
+    { id: 7, nome: "Azul" },
+    { id: 8, nome: "Verde" },
+  ];
 
   const acabamentos = [
     "Fosco",
@@ -147,8 +147,6 @@ const cores = [
 
   const enviarArquivo = async (arquivo: File | FileList) => {
     const formData = new FormData();
-    
-
         if (arquivo instanceof FileList) {
           // Se for FileList, pega o primeiro arquivo
           formData.append("file", arquivo[0]);
@@ -160,6 +158,8 @@ const cores = [
     formData.forEach((value, key) => {
       console.log(key, value);
     });
+
+
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_URL_API}/fotos/upload`,
       {
@@ -246,7 +246,7 @@ const cores = [
 
       if (response.ok) {
         alert("Orçamento enviado com sucesso!");
-        // router.push("/dashboard"); de onde saiu essa rota? n tem dashboard
+        router.push("/"); 
       } else {
         throw new Error("Erro ao enviar orçamento");
       }

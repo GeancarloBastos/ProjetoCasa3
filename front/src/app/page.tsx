@@ -1,12 +1,6 @@
 'use client'
-import { InputPesquisa } from "@/components/InputPesquisa"
-import { ItemMoveis } from "@/components/ItemMoveis";
-import { MovelI } from "@/utils/types/movel";
-import { useEffect, useState } from "react";
-import RedirectToHome from "@/components/RedirectToHome";
+import { useEffect } from "react";
 import Carousel from "@/components/Carousel";
-import { Header } from "@/components/Header";
-import SoliciteOrcamento from "@/components/SoliciteOrc";
 import Avaliacoes from "@/components/Avaliacoes";
 import FAQ from "@/components/Faq";
 import { useClienteStore } from "@/context/cliente";

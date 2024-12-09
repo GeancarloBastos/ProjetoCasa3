@@ -1,5 +1,5 @@
 'use client';
-import { use, useState } from "react";
+import { useState } from "react";
 import {
   MapPin,
   Phone,
@@ -7,8 +7,8 @@ import {
   Clock,
   Instagram,
   Facebook,
-  Send,
-  CheckCircle
+  // Send,
+  // CheckCircle
 } from "lucide-react";
 
 export default function Contato() {

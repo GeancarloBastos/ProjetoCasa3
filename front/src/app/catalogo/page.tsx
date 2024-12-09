@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { InputPesquisa } from "@/components/InputPesquisa";  
 import { ItemMoveis } from "@/components/ItemMoveis";  
 import { MovelI } from "@/utils/types/movel";  
-import { CarrinhoProvider } from "@/context/CarrinhoContext";
 
 
 export default function Catalogo() {  

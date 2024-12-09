@@ -1,10 +1,9 @@
 'use client'
 import './page.css'
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useClienteStore } from '@/context/cliente';
 import { OrcamentoI } from '@/utils/types/orcamentos';
-import { Heading1 } from 'lucide-react';
-import Image from 'next/image';
+
 import { CarrinhoI } from '@/utils/types/carrinhos';
 
 
@@ -52,7 +51,7 @@ export default function Propostas() {
 
 
   const propostasTable = orcamentos.map((orcamento) => (
-    <tr className="bg-white border-b dark:bg-zinc-900 dark:border-gray-700">
+    <tr className="bg-white border-b dark:bg-zinc-900 dark:border-gray-700" key={orcamento.id}>
       <th
         scope="row"
         className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
@@ -87,7 +86,7 @@ export default function Propostas() {
 
 
   const propostasTableCarrinho = carrinhos.map((carrinho) => (
-    <tr className="bg-white border-b dark:bg-zinc-900 dark:border-gray-700 hidden md:table-row">
+    <tr className="bg-white border-b dark:bg-zinc-900 dark:border-gray-700 hidden md:table-row" key={carrinho.id}>
       <th
         scope="row"
         className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
@@ -170,7 +169,7 @@ export default function Propostas() {
 
           <div className="md:hidden">
             {orcamentos.map((orcamento) => (
-              <div className="border rounded-lg p-4 mb-4 shadow-md bg-zinc-800 text-center mx-4">
+              <div className="border rounded-lg p-4 mb-4 shadow-md bg-zinc-800 text-center mx-4" key={orcamento.id}>
                 <h3 className="font-bold text-lg text-colorc3offbranco">
                   Itens
                 </h3>
@@ -233,7 +232,7 @@ export default function Propostas() {
 
           <div className="md:hidden">
             {carrinhos.map((carrinho) => (
-              <div className="border rounded-lg p-4 mb-24 shadow-md bg-zinc-900 text-center mx-4">
+              <div className="border rounded-lg p-4 mb-24 shadow-md bg-zinc-900 text-center mx-4" key={carrinho.id}>
                 <h3 className="font-bold text-lg text-colorc3offbranco">
                   Produtos
                 </h3>

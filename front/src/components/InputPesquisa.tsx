@@ -53,14 +53,16 @@ export function InputPesquisa({ setMoveis }: InputPesquisaProps) {
     useEffect(() => {
       async function fetchCores() {
         try {
-          const response = await fetch("http://localhost:3004/cores"); // Use o URL correto para a API
+          const response = await fetch(
+            `${process.env.NEXT_PUBLIC_URL_API}/cores`
+          ); // Use o URL correto para a API
           const data = await response.json();
           setCores(data);
         } catch (error) {
           console.error("Erro ao buscar cores:", error);
         }
         try {
-          const response2 = await fetch("http://localhost:3004/tipos"); // Use o URL correto para a API
+          const response2 = await fetch(`${process.env.NEXT_PUBLIC_URL_API}/tipos`); // Use o URL correto para a API
           const data2 = await response2.json();
           setTipos(data2);
         } catch (error) {
