@@ -7,6 +7,9 @@ import jwt from "jsonwebtoken"
 
 // const prisma = new PrismaClient()
 import { prisma } from "../prisma";
+
+
+
 const router = Router()
 
 // router.get("/", async (req, res) => {

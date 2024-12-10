@@ -190,6 +190,7 @@ enum TipoMaterial {
   MDP
   PEDRA
   ESTOFADO
+  DIVERSOS
   // AROMA
   // MANTA
   // ESPELHO
