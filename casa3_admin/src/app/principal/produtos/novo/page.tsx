@@ -13,6 +13,7 @@ enum TipoMaterial {
   MDP = "MDP",
   PEDRA = "PEDRA",
   ESTOFADO = "ESTOFADO",
+  DIVERSOS = "DIVERSOS"
 }
 
 interface Inputs {
