@@ -19,6 +19,7 @@ enum TipoMaterial {
   MDP = "MDP",
   PEDRA = "PEDRA",
   ESTOFADO = "ESTOFADO",
+  DIVERSOS = "DIVERSOS"
   // AROMA = "AROMA",  // 
   // MANTA = "MANTA",
   // ESPELHO = "ESPELHO"

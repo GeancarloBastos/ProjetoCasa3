@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { useState, useEffect } from "react";
 import { TipoI } from "@/utils/types/tipos";
 import { CorI } from "@/utils/types/cores";
+import { ProdutoI } from "@/utils/types/produtos";
 
 type Inputs = {
   search: string;
@@ -13,7 +14,7 @@ type Inputs = {
 };
 
 type InputPesquisaProps = {
-  setMoveis: React.Dispatch<React.SetStateAction<MovelI[]>>;
+  setMoveis: React.Dispatch<React.SetStateAction<ProdutoI[]>>;
 };
 
 export function InputPesquisa({ setMoveis }: InputPesquisaProps) {

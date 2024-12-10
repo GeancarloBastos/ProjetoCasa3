@@ -1,12 +1,12 @@
 'use client';  
 import { useEffect, useState } from "react";  
 import { InputPesquisa } from "@/components/InputPesquisa";  
-import { ItemMoveis } from "@/components/ItemMoveis";  
-import { MovelI } from "@/utils/types/movel";  
+import { ItemMoveis } from "@/components/ItemMoveis";    
+import { ProdutoI } from "@/utils/types/produtos";
 
 
 export default function Catalogo() {  
-  const [moveis, setMoveis] = useState<MovelI[]>([]);  
+  const [moveis, setProdutos] = useState<ProdutoI[]>([]);  
   const [isLoading, setIsLoading] = useState(true);  
   const [error, setError] = useState<string | null>(null);  
 
@@ -21,7 +21,7 @@ export default function Catalogo() {
         }  
         
         const dados = await response.json();  
-        setMoveis(dados);  
+        setProdutos(dados);  
       } catch (error) {  
         console.error('Erro ao buscar dados:', error);  
         setError('Não foi possível carregar os produtos. Tente novamente mais tarde.');  
@@ -65,7 +65,7 @@ export default function Catalogo() {
   return (  
     <div className="mx-auto max-w-screen-xl p-4">  
       <div className="mt-10 mb-8">  
-        <InputPesquisa setMoveis={setMoveis} />  
+        <InputPesquisa setMoveis={setProdutos} />  
       </div>  
       
       {moveis.length === 0 ? (  
