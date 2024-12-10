@@ -37,7 +37,9 @@ export default function Principal() {
   const [dados, setDados] = useState<GeralDadosI>({} as GeralDadosI);
   const [carrinhos, setCarrinhos] = useState<CarrinhoData[] | null>(null);
   const [produtos, setProdutos] = useState<ProdutoData[] | null>(null);
-
+  const handleRedirect = (route: string) => {  
+    window.location.href = `http://localhost:3000${route}`;  
+  }; 
   useEffect(() => {
     async function getDadosGerais() {
       const response = await fetch(
@@ -139,12 +141,12 @@ export default function Principal() {
               </div>
             </div>
             <span className="bg-blue-50 text-blue-600 text-xs font-medium px-2.5 py-0.5 rounded-full">
-              Ativos
+              Cadastrados
             </span>
           </div>
           <div className="flex items-center text-sm text-gray-500">
             <UserPlus className="h-4 w-4 mr-1" />
-            <span>+12% desde o último mês</span>
+            <span>Clientes</span>
           </div>
         </div>
 
@@ -170,7 +172,7 @@ export default function Principal() {
           </div>
           <div className="flex items-center text-sm text-gray-500">
             <ShoppingBag className="h-4 w-4 mr-1" />
-            <span>5 produtos adicionados hoje</span>
+            <span>Produtos</span>
           </div>
         </div>
 
@@ -196,7 +198,7 @@ export default function Principal() {
           </div>
           <div className="flex items-center text-sm text-gray-500">
             <TrendingUp className="h-4 w-4 mr-1" />
-            <span>Taxa de conversão: 68%</span>
+            <span>Orçamentos</span>
           </div>
         </div>
       </div>
@@ -207,7 +209,10 @@ export default function Principal() {
           Ações Rápidas
         </h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <button className="flex items-center justify-center p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors">
+          <button 
+          className="flex items-center justify-center p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors"
+          onClick={() => handleRedirect('/cadastro')}
+          >
             <Users className="h-5 w-5 text-blue-600 mr-2" />
             <span className="text-blue-600 font-medium">Novo Cliente</span>
           </button>
@@ -218,13 +223,18 @@ export default function Principal() {
             <Package className="h-5 w-5 text-red-600 mr-2" />
             <span className="text-red-600 font-medium">Novo Produto</span>
           </button>
-          <button className="flex items-center justify-center p-4 bg-green-50 rounded-lg hover:bg-green-100 transition-colors">
+          <button
+           className="flex items-center justify-center p-4 bg-green-50 rounded-lg hover:bg-green-100 transition-colors"
+           onClick={() => handleRedirect('/orcamento')}>
             <FileText className="h-5 w-5 text-green-600 mr-2" />
             <span className="text-green-600 font-medium">Novo Orçamento</span>
           </button>
-          <button className="flex items-center justify-center p-4 bg-purple-50 rounded-lg hover:bg-purple-100 transition-colors">
+          <button
+           className="flex items-center justify-center p-4 bg-purple-50 rounded-lg hover:bg-purple-100 transition-colors"
+           onClick={() => router.push("/principal/orcamentos")}
+           >
             <TrendingUp className="h-5 w-5 text-purple-600 mr-2" />
-            <span className="text-purple-600 font-medium">Ver Relatórios</span>
+            <span className="text-purple-600 font-medium">Ver Orçamentos</span>
           </button>
         </div>
       </div>

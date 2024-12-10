@@ -19,7 +19,7 @@ export function Titulo() {
         <Link href="/principal" className="flex items-center space-x-3 rtl:space-x-reverse">
           <img src="/logo.webp" className="h-16" alt="Logo" />
           <span className="self-center text-3xl font-semibold whitespace-nowrap text-gray-50">
-            Casa 3: Admin
+            Admin: Casa 3
           </span>
         </Link>
       </div>

@@ -3,8 +3,9 @@ import Cookies from "js-cookie"
 import { useRouter } from "next/navigation"
 import { IoExitOutline } from "react-icons/io5"
 import { BiSolidDashboard } from "react-icons/bi"
-import { FaCarSide, FaUsers } from "react-icons/fa6"
-import { BsCashCoin } from "react-icons/bs"
+import { FiFileText } from "react-icons/fi";
+import { FaShoppingCart } from "react-icons/fa";
+import { LuPackageOpen } from "react-icons/lu";
 import Link from "next/link"
 
 export function MenuLateral() {
@@ -23,7 +24,7 @@ export function MenuLateral() {
     <aside id="default-sidebar" className="fixed mt-24 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
       <div className="h-full px-3 py-4 overflow-y-auto bg-zinc-900 text-gray-300">
         <ul className="space-y-2 font-medium">
-        <li>
+          <li>
             <Link href="/principal" className="flex items-center p-2">
               <span className="h-5 text-gray-50 text-2xl">
                 <BiSolidDashboard />
@@ -34,23 +35,23 @@ export function MenuLateral() {
           <li>
             <Link href="/principal/produtos" className="flex items-center p-2">
               <span className="h-5 text-gray-50 text-2xl">
-                <FaCarSide />
+                <LuPackageOpen />
               </span>
-              <span className="ms-2 mt-1">Cadastro de Produtos</span>
+              <span className="ms-2 mt-1">Controle de Produtos</span>
             </Link>
           </li>
           <li>
-          <Link href="/principal/carrinho" className="flex items-center p-2">
+            <Link href="/principal/carrinho" className="flex items-center p-2">
               <span className="h-5 text-gray-50 text-2xl">
-                <FaUsers />
+                <FaShoppingCart />
               </span>
-              <span className="ms-2 mt-1">Requisições Produtos / Carrinho</span>
+              <span className="ms-2 mt-1">Requisições Carrinho</span>
             </Link>
           </li>
           <li>
-          <Link href="/principal/orcamentos" className="flex items-center p-2 cursor-pointer">
+            <Link href="/principal/orcamentos" className="flex items-center p-2 cursor-pointer">
               <span className="h-5 text-gray-50 text-2xl">
-                <BsCashCoin />
+                <FiFileText />
               </span>
               <span className="ms-2 mt-1">Controle de Orçamentos</span>
             </Link>
